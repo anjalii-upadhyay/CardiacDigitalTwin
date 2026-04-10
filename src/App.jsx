@@ -1,5 +1,6 @@
   // src/App.jsx
 import React, { useEffect, useMemo, useState } from "react";
+import socket from "./websocket";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
