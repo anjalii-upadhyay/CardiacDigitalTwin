@@ -277,9 +277,12 @@ export default function App() {
   const [bpLatest, setBpLatest] = useState("120/80");
   const [timeString, setTimeString] = useState(new Date().toLocaleString());
 
+
   // regenerate ECG when bpm changes
   const ecgPoints = useMemo(() => synthesizeECG(600, bpm), [bpm]);
   const bpSeries = useMemo(() => synthesizeBP(120, 120, 80), []);
+
+
 
   // simulate small drift in vitals every few seconds
   useEffect(() => {
@@ -343,7 +346,7 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#111214] text-gray-100 p-8 font-inter">
       {/* centered title */}
       <header className="max-w-[1400px] mx-auto text-center mb-6">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">Digital Twin of Heart — Patient: John Doe</h1>
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">Digital Twin of Heart — Patient: Rajveer Patil</h1>
         <div className="text-sm text-gray-400 mt-1">{timeString}</div>
       </header>
 
@@ -356,7 +359,7 @@ export default function App() {
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Patient</div>
-                <div className="text-lg font-semibold">John Doe</div>
+                <div className="text-lg font-semibold">Rajveer Patil</div>
                 <div className="text-sm text-gray-400 mt-1">Age: 58</div>
                 <div className="text-sm text-gray-400">ID: 123456789</div>
               </div>
@@ -481,6 +484,130 @@ export default function App() {
             </div>
           </div>
         </aside>
+      </div>
+
+      {/* Screen 2 - 3 Column Layout */}
+      <div className="min-h-screen pt-20">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-10 gap-6 h-screen">
+            {/* Left Column - Input Parameters (30%) */}
+            <div className="col-span-3 space-y-6">
+              <div className="bg-[#0f1315] border border-gray-800 rounded-xl p-6 shadow-md">
+                <h3 className="text-lg font-semibold text-gray-200 mb-4">Heart Parameters</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm text-gray-400 mb-2 block">Heart Rate (BPM)</label>
+                    <input 
+                      type="range" 
+                      min="40" 
+                      max="180" 
+                      value={bpm} 
+                      onChange={e => setBpm(Number(e.target.value))} 
+                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <div className="text-right text-sm text-blue-400 font-semibold">{bpm}</div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm text-gray-400 mb-2 block">Blood Pressure</label>
+                    <input 
+                      type="text" 
+                      value={bpLatest} 
+                      onChange={e => setBpLatest(e.target.value)}
+                      className="w-full bg-gray-700 text-gray-100 px-3 py-2 rounded-lg"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm text-gray-400 mb-2 block">Temperature (°C)</label>
+                    <input 
+                      type="number" 
+                      value={temp} 
+                      onChange={e => setTemp(Number(e.target.value))}
+                      step="0.1"
+                      className="w-full bg-gray-700 text-gray-100 px-3 py-2 rounded-lg"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm text-gray-400 mb-2 block">SpO₂ (%)</label>
+                    <input 
+                      type="number" 
+                      value={Math.round(spo2)} 
+                      onChange={e => setSpo2(Number(e.target.value))}
+                      min="80"
+                      max="100"
+                      className="w-full bg-gray-700 text-gray-100 px-3 py-2 rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Column - Large 3D Heart (40%) */}
+            <div className="col-span-4 flex items-center justify-center">
+              <div className="w-full h-[80vh] bg-[#0f1315] border border-gray-800 rounded-xl p-6 shadow-md flex flex-col items-center justify-center">
+                <h2 className="text-2xl font-bold text-gray-200 mb-4">Digital Heart Twin</h2>
+                <div className="w-full h-full">
+                  <Heart3D bpm={bpm} size="large" />
+                </div>
+                <div className="text-lg text-gray-300 mt-4">Live Simulation - {bpm} BPM</div>
+              </div>
+            </div>
+
+            {/* Right Column - Analysis Data (30%) */}
+            <div className="col-span-3 space-y-6">
+              <div className="bg-[#0f1315] border border-gray-800 rounded-xl p-6 shadow-md">
+                <h3 className="text-lg font-semibold text-gray-200 mb-4">Cardiac Analysis</h3>
+                
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Stroke Volume:</span>
+                    <span className="text-emerald-400 font-semibold">{Math.round(70 + (bpm-72)*0.5)} mL</span>
+                  </div>
+                  
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Cardiac Output:</span>
+                    <span className="text-emerald-400 font-semibold">{((70 + (bpm-72)*0.5) * bpm / 1000).toFixed(1)} L/min</span>
+                  </div>
+                  
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Ejection Fraction:</span>
+                    <span className="text-emerald-400 font-semibold">{Math.max(50, Math.min(70, 60 + (72-bpm)*0.2)).toFixed(0)}%</span>
+                  </div>
+                  
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Mean Arterial Pressure:</span>
+                    <span className="text-emerald-400 font-semibold">{Math.round(80 + (bpm-72)*0.3)} mmHg</span>
+                  </div>
+                  
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Oxygen Saturation:</span>
+                    <span className={`font-semibold ${spo2 < 92 ? 'text-red-400' : 'text-emerald-400'}`}>{Math.round(spo2)}%</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-[#0f1315] border border-gray-800 rounded-xl p-6 shadow-md">
+                <h3 className="text-lg font-semibold text-gray-200 mb-4">Heart Status</h3>
+                <div className="space-y-3">
+                  <div className={`p-3 rounded-lg ${bpm > 100 ? 'bg-red-900/30 border border-red-700/50' : 'bg-green-900/30 border border-green-700/50'}`}>
+                    <div className={`text-sm font-semibold ${bpm > 100 ? 'text-red-300' : 'text-green-300'}`}>
+                      {bpm > 100 ? 'Tachycardia' : 'Normal Rhythm'}
+                    </div>
+                  </div>
+                  
+                  <div className={`p-3 rounded-lg ${spo2 < 92 ? 'bg-red-900/30 border border-red-700/50' : 'bg-green-900/30 border border-green-700/50'}`}>
+                    <div className={`text-sm font-semibold ${spo2 < 92 ? 'text-red-300' : 'text-green-300'}`}>
+                      {spo2 < 92 ? 'Low Oxygen' : 'Normal Oxygen'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
