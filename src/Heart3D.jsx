@@ -1,47 +1,48 @@
-import React, { useRef, useEffect } from 'react'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+// Heart3D.jsx — 3D heart twin (blood flow particles removed)
+import React, { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import HeartModel        from './HeartModel'
+import InternalHeartView from './InternalHeartView'
+import ElectricalPulse   from './ElectricalPulse'
 
-function HeartModel({ bpm, size = "normal" }) {
-  const meshRef = useRef()
-  // Use different paths for different sizes
-  const modelPath = size === "large" ? '/src/realistic_human_heart.glb' : './src/realistic_human_heart.glb'
-  const gltf = useLoader(GLTFLoader, modelPath)
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      // Heartbeat animation based on BPM
-      const time = state.clock.getElapsedTime()
-      const beatFreq = bpm / 60
-      const baseScale = size === "large" ? 15 : 2.59
-      const scale = baseScale + Math.sin(time * beatFreq * Math.PI * 2) * (baseScale * 0.1)
-      meshRef.current.scale.setScalar(scale)
-      
-      // Slow rotation
-      meshRef.current.rotation.y = time * 0.2
-    }
-  })
-
+function Lights({ rPeak }) {
   return (
-    <primitive 
-      ref={meshRef} 
-      object={gltf.scene} 
-      scale={size === "large" ? 15 : 2.59}
-      position={[0, 0, 0]}
-    />
+    <>
+      <ambientLight intensity={2.5} />
+      <hemisphereLight skyColor="#ffffff" groundColor="#ff2200" intensity={1.2} />
+      <directionalLight position={[5, 8, 5]}   intensity={3} castShadow />
+      <directionalLight position={[-5, -4, -5]} intensity={1.5} color="#ff6666" />
+      <pointLight position={[0, 0, 4]}  intensity={rPeak ? 4 : 2} color="#ffffff" distance={12} />
+      <pointLight position={[0, 3, 2]}  intensity={1.5} color="#ffcccc" distance={10} />
+    </>
   )
 }
 
-export default function Heart3D({ bpm = 72, size = "normal" }) {
+function FallbackHeart() {
   return (
-    <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 0, size === "large" ? 8 : 5], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ff0000" />
-        <HeartModel bpm={bpm} size={size} />
-        <OrbitControls enableZoom={size === "large"} enablePan={size === "large"} />
+    <mesh>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial color="#cc2222" roughness={0.5} />
+    </mesh>
+  )
+}
+
+export default function Heart3D({ bpm = 72, rPeak = false, sbp = 120, dbp = 80, abp = 100, size = 'normal' }) {
+  const isLarge = size === 'large'
+  return (
+    <div className="w-full h-[500px]">
+      <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: true }} style={{ background: 'transparent' }}>
+        <Lights rPeak={rPeak} />
+        <Suspense fallback={<FallbackHeart />}>
+          <HeartModel
+            rPeak={rPeak} sbp={sbp} dbp={dbp} abp={abp}
+            position={isLarge ? [-1.2, 0, 0] : [0, 0, 0]}
+          />
+          {isLarge && <InternalHeartView rPeak={rPeak} abp={abp} position={[1.2, 0, 0]} />}
+          <ElectricalPulse rPeak={rPeak} />
+        </Suspense>
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
       </Canvas>
     </div>
   )

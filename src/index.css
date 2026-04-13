@@ -4,41 +4,82 @@ html, body, #root {
   height: 100%;
 }
 
-/* Chart.js background fix */
-.chartjs-render-monitor {
-  background: transparent !important;
+/* ── Glassmorphism card ─────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(15, 19, 21, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* 3D Heart Animation */
+/* ── Glow borders ───────────────────────────────────────────────────────── */
+.glow-red    { box-shadow: 0 0 18px rgba(239, 68,  68,  0.35), inset 0 0 12px rgba(239, 68,  68,  0.05); }
+.glow-orange { box-shadow: 0 0 18px rgba(249, 115, 22,  0.35), inset 0 0 12px rgba(249, 115, 22,  0.05); }
+.glow-green  { box-shadow: 0 0 18px rgba(34,  197, 94,  0.30), inset 0 0 12px rgba(34,  197, 94,  0.05); }
+.glow-yellow { box-shadow: 0 0 18px rgba(234, 179, 8,   0.30), inset 0 0 12px rgba(234, 179, 8,   0.05); }
+.glow-cyan   { box-shadow: 0 0 18px rgba(6,   182, 212, 0.30), inset 0 0 12px rgba(6,   182, 212, 0.05); }
+
+/* ── ECG R-peak flash ring ──────────────────────────────────────────────── */
+@keyframes ecg-flash {
+  0%   { box-shadow: 0 0 0px  rgba(239, 68, 68, 0);    border-color: rgba(239, 68, 68, 0.7); }
+  40%  { box-shadow: 0 0 28px rgba(239, 68, 68, 0.55); border-color: rgba(239, 68, 68, 0.9); }
+  100% { box-shadow: 0 0 0px  rgba(239, 68, 68, 0);    border-color: rgba(75, 85, 99, 0.5);  }
+}
+.ecg-flash { animation: ecg-flash 0.18s ease-out forwards; }
+
+/* ── Pulse ring on R-peak dot ───────────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.pulse-ring {
+  animation: pulse-ring 0.5s ease-out forwards;
+}
+
+/* ── Turbulence shimmer ─────────────────────────────────────────────────── */
+@keyframes turbulence-shimmer {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+.turbulence-shimmer { animation: turbulence-shimmer 1.2s ease-in-out infinite; }
+
+/* ── Blockage gauge arc transition ─────────────────────────────────────── */
+.gauge-arc { transition: stroke-dasharray 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* ── Phase progress bar ─────────────────────────────────────────────────── */
+.phase-bar { transition: width 0.15s linear; }
+
+/* ── Metric row hover ───────────────────────────────────────────────────── */
+.metric-row:hover { background: rgba(255, 255, 255, 0.03); border-radius: 6px; }
+
+/* ── Condition button active glow ───────────────────────────────────────── */
+.sim-active-red    { box-shadow: 0 0 12px rgba(239, 68,  68,  0.5); }
+.sim-active-orange { box-shadow: 0 0 12px rgba(249, 115, 22,  0.5); }
+.sim-active-yellow { box-shadow: 0 0 12px rgba(234, 179, 8,   0.5); }
+.sim-active-purple { box-shadow: 0 0 12px rgba(168, 85,  247, 0.5); }
+.sim-active-pink   { box-shadow: 0 0 12px rgba(236, 72,  153, 0.5); }
+
+/* ── Heartbeat 3D ───────────────────────────────────────────────────────── */
 @keyframes heartbeat-3d {
-  0% { 
-    transform: scale(1) rotateY(0deg);
-    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
-  }
-  15% { 
-    transform: scale(1.1) rotateY(5deg);
-    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6));
-  }
-  30% { 
-    transform: scale(1.05) rotateY(-2deg);
-    filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.4));
-  }
-  45% { 
-    transform: scale(1.08) rotateY(3deg);
-    filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.5));
-  }
-  60% { 
-    transform: scale(1) rotateY(0deg);
-    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
-  }
-  100% { 
-    transform: scale(1) rotateY(0deg);
-    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
-  }
+  0%   { transform: scale(1)    rotateY(0deg);  filter: drop-shadow(0 0 10px rgba(239,68,68,0.3)); }
+  15%  { transform: scale(1.1)  rotateY(5deg);  filter: drop-shadow(0 0 20px rgba(239,68,68,0.6)); }
+  30%  { transform: scale(1.05) rotateY(-2deg); filter: drop-shadow(0 0 15px rgba(239,68,68,0.4)); }
+  45%  { transform: scale(1.08) rotateY(3deg);  filter: drop-shadow(0 0 18px rgba(239,68,68,0.5)); }
+  60%  { transform: scale(1)    rotateY(0deg);  filter: drop-shadow(0 0 10px rgba(239,68,68,0.3)); }
+  100% { transform: scale(1)    rotateY(0deg);  filter: drop-shadow(0 0 10px rgba(239,68,68,0.3)); }
 }
-
 .heart-3d {
   animation: heartbeat-3d 1s ease-in-out infinite;
   transform-style: preserve-3d;
   perspective: 1000px;
 }
+
+/* ── Prediction item slide-in ───────────────────────────────────────────── */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+.slide-in { animation: slide-in 0.25s ease-out forwards; }
+
+/* ── Chart.js background fix ────────────────────────────────────────────── */
+.chartjs-render-monitor { background: transparent !important; }
