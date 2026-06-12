@@ -28,10 +28,10 @@ function FallbackHeart() {
   )
 }
 
-export default function Heart3D({ bpm = 72, rPeak = false, sbp = 120, dbp = 80, abp = 100, size = 'normal' }) {
+export default function Heart3D({ bpm = 72, rPeak = false, sbp = 120, dbp = 80, abp = 100, size = 'normal', height }) {
   const isLarge = size === 'large'
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full" style={{ height: height ?? (isLarge ? '500px' : '100%') }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: true }} style={{ background: 'transparent' }}>
         <Lights rPeak={rPeak} />
         <Suspense fallback={<FallbackHeart />}>

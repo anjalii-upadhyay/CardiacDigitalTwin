@@ -64,6 +64,7 @@ export function useSmoothedMetrics() {
     ptt: 200, wallStress: 150, reynolds: 1200,
     blockage: 0, bloodVelocity: 0, bloodFlow: 0,
     riskLevel: 'Low', explanations: [],
+    _raw: {},   // per-metric { current, avg, trend, delta, spark } for MetricsPanel
   })
 
   // ── Push new raw values from websocket ────────────────────────────────────
@@ -90,16 +91,21 @@ export function useSmoothedMetrics() {
       bloodFlow:     raw.bloodFlow,
     }
 
+    const rawObjects = {}
+
     keys.forEach(key => {
       const sm  = s[key]
       const val = rawMap[key]
       if (val == null || isNaN(val)) return
 
       // Initialise on first value
-      if (sm.smoothed === null) { sm.smoothed = val; sm.display = val }
+      if (sm.smoothed === null) { sm.smoothed = val; sm.display = val; sm.spark = [] }
 
       // Stage 2: exponential smooth
       sm.smoothed = sm.smoothed * (1 - sm.alpha) + val * sm.alpha
+
+      // Accumulate spark history (last 20 smoothed values)
+      sm.spark = [...(sm.spark ?? []), parseFloat(sm.smoothed.toFixed(1))].slice(-20)
 
       // Stage 3: time-gated display interpolation
       if (now - sm.lastUpdate >= sm.interval) {
@@ -107,7 +113,27 @@ export function useSmoothedMetrics() {
         sm.lastUpdate = now
         updates[key]  = parseFloat(sm.display.toFixed(key === 'cardiacOutput' ? 2 : 1))
       }
+
+      // Build per-metric object for MetricsPanel sparklines/trends
+      const cur   = parseFloat(sm.display.toFixed(key === 'cardiacOutput' ? 2 : 1))
+      const spark = sm.spark
+      const avg   = spark.length
+        ? parseFloat((spark.reduce((a, x) => a + x, 0) / spark.length).toFixed(1))
+        : cur
+      const prev2 = spark.length >= 3
+        ? spark.slice(-3, -1).reduce((a, x) => a + x, 0) / 2
+        : avg
+      const delta = parseFloat((cur - prev2).toFixed(1))
+      rawObjects[key] = {
+        current: cur,
+        avg,
+        trend: Math.abs(delta) < 0.5 ? '→' : delta > 0 ? '↑' : '↓',
+        delta,
+        spark: [...spark],
+      }
     })
+
+    if (Object.keys(rawObjects).length > 0) updates._raw = rawObjects
 
     // ── Risk level debounce ──────────────────────────────────────────────────
     const rd = riskDebounce.current
