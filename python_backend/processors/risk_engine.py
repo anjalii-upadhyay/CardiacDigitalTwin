@@ -86,28 +86,32 @@ def _score_map(map_val: float) -> tuple[int, str]:
 
 def _score_wall_stress(ws: float) -> tuple[int, str]:
     """
-    Ventricular wall stress via Laplace's Law: σ = P·r / 2h.
+    Peak systolic wall stress via Laplace's Law, σ = P·r / 2h, now in kPa.
     Elevated wall stress increases myocardial O₂ demand and is associated
     with ventricular hypertrophy and heart failure progression.
-    Normal ABP≈100 → σ≈150. Elevated ABP≈120 → σ≈180. High ABP≈167 → σ≈250.
+    SBP≈100 → σ≈20 kPa. SBP≈133 → σ≈26.7 kPa (mild). SBP≈187 → σ≈37.3 kPa (high).
+    Thresholds are the former 200/280 mmHg-scale values converted (×0.1333) so
+    classifications are unchanged by the unit fix.
     """
-    if ws > 280:   return 2, "High ventricular wall stress — elevated myocardial O₂ demand"
-    if ws > 200:   return 1, "Mildly elevated wall stress"
+    if ws > 37.3:  return 2, "High ventricular wall stress — elevated myocardial O₂ demand"
+    if ws > 26.7:  return 1, "Mildly elevated wall stress"
     return 0, ""
 
 
 def _score_reynolds(re: float) -> tuple[int, str]:
     """
-    Reynolds number — indicator of turbulent flow risk.
-    Calibrated to this system's empirical velocity estimate (v = CO/5):
-      Healthy rest CO≈5 → Re≈6 600 (normal for this model)
-      Elevated CO≈8     → Re≈10 600 (borderline)
-      High CO≈12        → Re≈15 900 (significantly elevated)
+    Reynolds number of MEAN aortic flow — indicator of turbulent flow risk.
+    Velocity is now physical (v = Q/A), 5.89× lower than the former v = CO/5
+    scaling, and the thresholds are the former 9 000 / 14 000 divided by the same
+    factor so classifications are unchanged by the physics fix:
+      Healthy rest CO≈5 → Re≈1 125 (laminar)
+      Elevated CO≈8     → Re≈1 800 (approaching the ~2 300 laminar limit)
+      High CO≈12        → Re≈2 700 (transitional/turbulent)
     Re alone is a weak risk signal because it is model-derived; it contributes
     at most 2 points and cannot trigger High risk by itself.
     """
-    if re > 14_000:  return 2, "High Reynolds number — turbulent aortic flow likely"
-    if re > 9_000:   return 1, "Elevated Reynolds number — possible flow turbulence"
+    if re > 2_377:   return 2, "High Reynolds number — turbulent aortic flow likely"
+    if re > 1_528:   return 1, "Elevated Reynolds number — possible flow turbulence"
     return 0, ""
 
 

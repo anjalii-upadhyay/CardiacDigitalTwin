@@ -36,11 +36,12 @@ function Row({ label, m, unit, color = 'text-emerald-400', sparkColor = '#34d399
 }
 
 export default function MetricsPanel({
-  bpm = 72, sbp = 120, dbp = 80, spo2 = 98, riskLevel = 'Low',
+  bpm = 72, sbp = 120, dbp = 80, spo2 = null, riskLevel = 'Low',
   // smoothed metric objects from App
   mMap, mPP, mSV, mCO, mPTT, mWS, mRe, mBF, mBV,
 }) {
-  const ef = Math.max(50, Math.min(70, 60 + (72 - bpm) * 0.2)).toFixed(0)
+  // Ejection fraction needs an end-diastolic volume (echo/MRI); nothing in this stream measures it,
+  // so it is shown as unavailable rather than synthesised. (A former version derived it from heart rate.)
   const riskColor = riskLevel === 'High' ? 'text-red-400'
                   : riskLevel === 'Moderate' ? 'text-orange-400'
                   : 'text-emerald-400'
@@ -64,14 +65,14 @@ export default function MetricsPanel({
       </div>
       <div className="metric-row flex justify-between items-center px-1 py-1.5 border-b border-gray-800/60">
         <span className="text-gray-400 text-xs">SpO₂</span>
-        <span className={`font-bold text-sm ${spo2 < 92 ? 'text-red-400' : 'text-emerald-400'}`}>
-          {Math.round(spo2)} <span className="text-gray-600 text-[10px]">%</span>
+        <span className={`font-bold text-sm ${spo2 == null ? 'text-gray-600' : spo2 < 92 ? 'text-red-400' : 'text-emerald-400'}`}>
+          {spo2 == null ? '—' : Math.round(spo2)} <span className="text-gray-600 text-[10px]">{spo2 == null ? 'no sensor' : '%'}</span>
         </span>
       </div>
       <div className="metric-row flex justify-between items-center px-1 py-1.5 border-b border-gray-800/60">
         <span className="text-gray-400 text-xs">Ejection Fraction</span>
-        <span className="font-bold text-sm text-emerald-400">
-          {ef} <span className="text-gray-600 text-[10px]">%</span>
+        <span className="font-bold text-sm text-gray-600">
+          — <span className="text-gray-600 text-[10px]">requires echo</span>
         </span>
       </div>
       <div className="metric-row flex justify-between items-center px-1 py-1.5 border-b border-gray-800/60">
@@ -85,15 +86,15 @@ export default function MetricsPanel({
       <Row label="Stroke Volume"  m={mSV}   unit="mL"      sparkColor="#34d399" />
       <Row label="Cardiac Output" m={mCO}   unit="L/min"   color={mCO?.current < 4 ? 'text-orange-400' : 'text-emerald-400'} sparkColor={mCO?.current < 4 ? '#f97316' : '#34d399'} />
       <Row label="PTT"            m={mPTT}  unit="ms"      color="text-sky-400"    sparkColor="#38bdf8" />
-      <Row label="Wall Stress"    m={mWS}   unit="mmHg-eq" color={mWS?.current > 180 ? 'text-orange-400' : 'text-emerald-400'} sparkColor={mWS?.current > 180 ? '#f97316' : '#34d399'} />
-      <Row label="Reynolds No."   m={mRe}   unit=""        color={mRe?.current > 3500 ? 'text-orange-400' : 'text-emerald-400'} sparkColor={mRe?.current > 3500 ? '#f97316' : '#34d399'} />
+      <Row label="Wall Stress"    m={mWS}   unit="kPa"     color={mWS?.current > 26.7 ? 'text-orange-400' : 'text-emerald-400'} sparkColor={mWS?.current > 26.7 ? '#f97316' : '#34d399'} />
+      <Row label="Reynolds No."   m={mRe}   unit=""        color={mRe?.current > 1528 ? 'text-orange-400' : 'text-emerald-400'} sparkColor={mRe?.current > 1528 ? '#f97316' : '#34d399'} />
       <Row label="Blood Flow"     m={mBF}   unit="mL/s"    sparkColor="#34d399" />
       <Row label="Blood Velocity" m={mBV}   unit="m/s"     sparkColor="#34d399" />
 
       {sbp > 140 && (
         <div className="mt-2 p-2 rounded bg-orange-900/30 border border-orange-700/50">
           <div className="text-xs text-orange-300 font-semibold">⚠ Elevated Ventricular Stress</div>
-          <div className="text-xs text-gray-400">SBP {Math.round(sbp)} mmHg · Wall stress {mWS?.current}</div>
+          <div className="text-xs text-gray-400">SBP {Math.round(sbp)} mmHg · Wall stress {mWS?.current ?? '—'} kPa</div>
         </div>
       )}
     </div>

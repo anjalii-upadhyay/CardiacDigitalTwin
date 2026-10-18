@@ -189,21 +189,21 @@ export const PARAMETERS = [
     name: "Stroke Volume",
     unit: "mL",
     type: TYPE.MODEL,
-    source: "Windkessel Model",
-    formula: "SV = PP × C  (C = 1.5 mL/mmHg)",
+    source: "Pulse-pressure method (Windkessel)",
+    formula: "SV = PP × C  (C = 1.72 mL/mmHg, fitted)",
     formulaFn: p => {
       const pp = p.sbp - p.dbp
-      return parseFloat(Math.min(Math.max(pp * 1.5, 20), 200).toFixed(1))
+      return parseFloat(Math.min(Math.max(pp * 1.72, 5), 200).toFixed(1))
     },
     backendKey: "stroke_volume",
-    range: { lo: 20, hi: 200, warnLo: 55, warnHi: 100, label: "55–100 mL" },
+    range: { lo: 5, hi: 200, warnLo: 55, warnHi: 100, label: "55–100 mL" },
     tooltip: {
-      what: "Volume of blood ejected by the left ventricle per beat.",
-      why:  "2-element Windkessel: SV ≈ PP × arterial compliance. Compliance C = 1.5 mL/mmHg is a standard aortic estimate.",
-      note: "Normal resting SV: 60–100 mL.",
+      what: "ESTIMATED volume of blood ejected by the left ventricle per beat (not a measured volume).",
+      why:  "Windkessel steady state: SV ≈ PP × total arterial compliance. C = 1.72 mL/mmHg was fitted to this recording so that this estimate agrees with the Windkessel per-beat volume MAP·RR/(R+Zc) to within 1%.",
+      note: "Normal resting SV: 60–100 mL. Does not fall with heart rate as real SV does.",
     },
     expandable: true,
-    detail: "2-Element Windkessel Model: The aorta acts as an elastic reservoir (compliance C). During systole, SV is stored; during diastole it is released. SV ≈ PP × C where C = 1.5 mL/mmHg is the mean aortic compliance estimate from literature (Stergiopulos et al., 1999).",
+    detail: "Pulse-pressure method: the aorta acts as an elastic reservoir (compliance C); the pressure rise PP per beat corresponds to the stored volume SV ≈ PP × C. C = 1.72 mL/mmHg is fitted (tests/test_values.py): it reconciles this estimate with the 3-element Windkessel volume and gives a diastolic time constant R·C = 1.60 s against a measured 1.7–2.1 s. Literature total arterial compliance 1.0–2.0 mL/mmHg.",
   },
   {
     id: "cardiac_output",
@@ -214,15 +214,38 @@ export const PARAMETERS = [
     formula: "CO = SV × HR / 1000",
     formulaFn: p => {
       const pp = p.sbp - p.dbp
-      const sv = Math.min(Math.max(pp * 1.5, 20), 200)
-      return parseFloat(Math.min(Math.max((sv * p.bpm) / 1000, 1), 20).toFixed(2))
+      const sv = Math.min(Math.max(pp * 1.72, 5), 200)
+      return parseFloat(Math.min(Math.max((sv * p.bpm) / 1000, 0.3), 20).toFixed(2))
     },
     backendKey: "cardiac_output",
-    range: { lo: 1, hi: 20, warnLo: 4, warnHi: 8, label: "4–8 L/min" },
+    range: { lo: 0.3, hi: 20, warnLo: 4, warnHi: 8, label: "4–8 L/min" },
     tooltip: {
       what: "Total volume of blood pumped by the heart per minute.",
       why:  "CO = SV × HR is the fundamental cardiac output equation.",
       note: "CO < 4 L/min at rest may indicate heart failure.",
+    },
+    expandable: false,
+  },
+  {
+    id: "cardiac_index",
+    name: "Cardiac Index",
+    unit: "L/min/m²",
+    type: TYPE.CALC,
+    source: "CO / BSA  (static record + live flow)",
+    formula: "CI = CO / BSA,  BSA = √(height·weight / 3600)",
+    formulaFn: p => {
+      if (p.bsa == null) return null
+      const pp = p.sbp - p.dbp
+      const sv = Math.min(Math.max(pp * 1.72, 5), 200)
+      const co = Math.min(Math.max((sv * p.bpm) / 1000, 0.3), 20)
+      return parseFloat((co / p.bsa).toFixed(2))
+    },
+    backendKey: "cardiac_index",
+    range: { lo: 0.5, hi: 8, warnLo: 2.5, warnHi: 4.0, label: "2.5–4.0 L/min/m²" },
+    tooltip: {
+      what: "Cardiac output normalised to body size — the clinical measure of whether the heart is meeting this patient's demand.",
+      why:  "Fuses the static record (height, weight → Mosteller BSA) with the live flow. A small elderly patient has a lower normal CO; CI removes that bias.",
+      note: "Normal 2.5–4.0. CI < 2.2 L/min/m² is the haemodynamic definition of cardiogenic shock.",
     },
     expandable: false,
   },
@@ -235,7 +258,7 @@ export const PARAMETERS = [
     formula: "EF = (SV / EDV) × 100  (EDV ≈ SV + 50)",
     formulaFn: p => {
       const pp  = p.sbp - p.dbp
-      const sv  = Math.min(Math.max(pp * 1.5, 20), 200)
+      const sv  = Math.min(Math.max(pp * 1.72, 5), 200)
       const edv = sv + 50   // simplified: ESV assumed ~50 mL
       return parseFloat(((sv / edv) * 100).toFixed(1))
     },
@@ -254,83 +277,79 @@ export const PARAMETERS = [
     name: "Pulse Transit Time",
     unit: "ms",
     type: TYPE.MODEL,
-    source: "SBP-based estimation",
-    formula: "PTT = 250 − 0.5 × (SBP − 120)",
-    formulaFn: p => parseFloat(Math.min(Math.max(250 - 0.5 * (p.sbp - 120), 100), 300).toFixed(1)),
+    source: "Not measurable from this dataset",
+    formula: "PTT = t(PPG pulse arrival) − t(ECG R-peak)",
+    formulaFn: () => null,   // no honest value exists: see note
     backendKey: "ptt",
-    range: { lo: 100, hi: 300, warnLo: 150, warnHi: 250, label: "150–250 ms" },
+    range: { lo: 100, hi: 400, warnLo: 200, warnHi: 350, label: "200–350 ms (R → finger)" },
     tooltip: {
       what: "Time for the pressure pulse to travel from the heart to a peripheral site.",
-      why:  "Higher BP → stiffer arteries → faster pulse wave → shorter PTT. Estimated from SBP when PPG is unavailable.",
-      note: "True PTT requires simultaneous ECG R-peak and PPG arrival time.",
+      why:  "Requires the true timing between the ECG R-peak and the PPG pulse arrival. PulseDB time-aligns its PPG to the ECG, which removes exactly that delay, so it cannot be recovered here. A former formula derived PTT from SBP alone — that was a restatement of blood pressure, not a measurement, and has been removed.",
+      note: "Shown as — until a live ECG + MAX30102 PPG pair provides it.",
     },
     expandable: false,
   },
   {
     id: "wall_stress",
     name: "Ventricular Wall Stress",
-    unit: "mmHg-eq",
+    unit: "kPa",
     type: TYPE.MODEL,
-    source: "Laplace's Law",
-    formula: "σ = (P × r) / (2h)  r=3cm, h=1cm",
-    formulaFn: p => parseFloat(((p.abp * 3.0) / (2 * 1.0)).toFixed(1)),
+    source: "Laplace's Law (peak systolic)",
+    formula: "σ = SBP × 0.1333 × r / (2h)  r=3cm, h=1cm",
+    formulaFn: p => parseFloat((p.sbp * 0.133322 * 3.0 / (2 * 1.0)).toFixed(1)),
     backendKey: "wall_stress",
-    range: { lo: 0, hi: 400, warnLo: 0, warnHi: 250, label: "< 250 mmHg-eq" },
+    range: { lo: 0, hi: 60, warnLo: 0, warnHi: 26.7, label: "15–25 kPa" },
     tooltip: {
-      what: "Mechanical stress on the ventricular wall during contraction.",
-      why:  "Laplace's Law for a thick-walled sphere: σ = P·r / 2h. Elevated wall stress increases myocardial O₂ demand.",
-      note: "r = 3.0 cm (mean LV radius), h = 1.0 cm (wall thickness) — standard adult estimates.",
+      what: "Peak systolic mechanical stress on the left-ventricular wall.",
+      why:  "Laplace's Law for a thin-walled sphere: σ = P·r / 2h, with the per-beat systolic pressure. Elevated wall stress increases myocardial O₂ demand.",
+      note: "r = 3.0 cm and h = 1.0 cm are population constants, so this value is a fixed multiple of SBP (×0.2) — it carries no information independent of blood pressure and is shown for context, not as a separate finding.",
     },
     expandable: true,
-    detail: "Laplace's Law (thick-walled sphere): σ = (P × r) / (2h). P = transmural pressure (ABP used as surrogate). r = 3.0 cm mean LV end-diastolic radius. h = 1.0 cm mean wall thickness. These are population-mean values from cardiac MRI studies (Maceira et al., 2006).",
+    detail: "Laplace's Law (thin-walled sphere): σ = (P × r) / (2h), converted to kPa (1 mmHg = 0.1333 kPa). P = per-beat systolic pressure measured from the ABP waveform. r = 3.0 cm mean LV end-diastolic radius, h = 1.0 cm mean wall thickness — population-mean values from cardiac MRI studies (Maceira et al., 2006). Reference peak systolic wall stress 15–25 kPa (150–250 kdyn/cm²).",
   },
-  // {
-  //   id: "blood_flow",
-  //   name: "Blood Flow",
-  //   unit: "mL/s",
-  //   type: TYPE.MODEL,
-  //   source: "2-Element Windkessel",
-  //   formula: "Q = P/R + C·(dP/dt)  R=1, C=1.5",
-  //   formulaFn: p => {
-  //     // The backend sends dpdt (mmHg/s) in every packet — the exact value it
-  //     // used when computing blood_flow. Using it here makes the recomputation
-  //     // deterministic: frontend and backend run the identical arithmetic.
-  //     // No browser timing, no prevAbp estimation, no jitter.
-  //     const R    = 1.0   // mmHg·s/mL — peripheral vascular resistance
-  //     const C    = 1.5   // mL/mmHg  — aortic arterial compliance
-  //     const dpdt = p.dpdt ?? 0
-  //     const Q    = (p.abp / R) + (C * dpdt)
-  //     return parseFloat(Math.min(Math.max(Q, 0), 500).toFixed(2))
-  //   },
-  //   backendKey: "blood_flow",
-  //   range: { lo: 0, hi: 500, warnLo: 50, warnHi: 300, label: "50–300 mL/s" },
-  //   tooltip: {
-  //     what: "Instantaneous volumetric blood flow rate in the aorta.",
-  //     why:  "2-Element Windkessel: Q = P/R + C·dP/dt. The resistive term (P/R) models steady Poiseuille flow; the capacitive term (C·dP/dt) models aortic wall elasticity.",
-  //     note: "dP/dt is computed by the backend at 125 Hz (dt = 0.008 s) and sent in every packet as the 'dpdt' field, making frontend recomputation exact.",
-  //   },
-  //   expandable: true,
-  //   detail: "2-Element Windkessel: Q = P/R + C·(dP/dt). R = 1.0 mmHg·s/mL (peripheral vascular resistance). C = 1.5 mL/mmHg (arterial compliance). dP/dt = (ABPₙ − ABPₙ₋₁) / 0.008 s, computed by the backend and forwarded in the packet. The capacitive term dominates during rapid pressure changes (systolic upstroke/diastolic runoff).",
-  // },
+  {
+    id: "blood_flow",
+    name: "Aortic Blood Flow",
+    unit: "mL/s",
+    type: TYPE.MODEL,
+    source: "3-Element Windkessel (Westerhof)",
+    formula: "Q = (P − P_wk) / Zc   Zc = 0.07",
+    formulaFn: p => {
+      // The backend streams its Windkessel pressure P_wk every sample, so the frontend
+      // reproduces the backend's flow EXACTLY with one subtraction — no timing, no state.
+      const Zc = 0.07   // mmHg·s/mL — aortic characteristic impedance (R + Zc = 1.0 = MAP/CO)
+      if (p.windkessel_pressure == null) return null
+      return parseFloat(((p.abp - p.windkessel_pressure) / Zc).toFixed(2))
+    },
+    backendKey: "blood_flow",
+    range: { lo: -150, hi: 900, warnLo: 0, warnHi: 600, label: "peak 300–600 mL/s" },
+    tooltip: {
+      what: "Instantaneous volumetric blood flow into the aorta, recovered from the measured pressure.",
+      why:  "3-element Windkessel run in the inverse direction: Zc in series with the parallel R‖C. The characteristic impedance converts the pressure drop P − P_wk directly into flow — no dP/dt term, so sample noise is not amplified.",
+      note: "Brief negative flow at valve closure (the dicrotic notch) is physical backflow and is kept. Per-beat integral equals MAP·RR/(R+Zc) ≈ stroke volume.",
+    },
+    expandable: true,
+    detail: "3-element Windkessel: P = Zc·Q + P_wk and C·dP_wk/dt = Q − P_wk/R. The backend integrates P_wk exactly per 8 ms sample and streams it, so Q = (P − P_wk)/Zc here is bit-for-bit the backend's value. Zc = 0.07 mmHg·s/mL (~7% of total resistance, literature — an assumption, not identifiable from pressure alone), R = 0.93, C = 1.72. Median peak flow on this recording: 411 mL/s (physiological 300–600).",
+  },
   {
     id: "blood_velocity",
     name: "Blood Velocity",
     unit: "m/s",
     type: TYPE.MODEL,
-    source: "CO-based aortic scaling",
-    formula: "v = CO / 5  (empirical aortic scaling)",
+    source: "Continuity equation",
+    formula: "v = Q / A,  A = π(D/2)²,  D = 2.5 cm",
     formulaFn: p => {
       const pp = p.sbp - p.dbp
-      const sv = Math.min(Math.max(pp * 1.5, 20), 200)
-      const co = Math.min(Math.max((sv * p.bpm) / 1000, 1), 20)
-      return parseFloat(Math.min(Math.max(co / 5.0, 0), 5).toFixed(3))
+      const sv = Math.min(Math.max(pp * 1.72, 5), 200)
+      const co = Math.min(Math.max((sv * p.bpm) / 1000, 0.3), 20)
+      return parseFloat(Math.min(Math.max((co / 1000 / 60) / 4.9087e-4, 0), 5).toFixed(3))
     },
     backendKey: "blood_velocity",
-    range: { lo: 0, hi: 5, warnLo: 0.3, warnHi: 2.0, label: "0.3–2.0 m/s" },
+    range: { lo: 0, hi: 1, warnLo: 0.1, warnHi: 0.25, label: "0.1–0.2 m/s (mean)" },
     tooltip: {
-      what: "Mean aortic blood flow velocity.",
-      why:  "Empirical scaling: v ≈ CO / 5. Derived from typical aortic cross-section and CO relationship.",
-      note: "True velocity requires Doppler ultrasound. This is a model estimate.",
+      what: "MEAN aortic blood flow velocity over the cardiac cycle.",
+      why:  "Continuity: v = Q / A with A = π(D/2)², D = 2.5 cm aortic diameter. (A former empirical v ≈ CO/5 was ~6× too high — it coincided with PEAK systolic velocity, 1.0–1.7 m/s, not the mean.)",
+      note: "True velocity requires Doppler ultrasound. Peak systolic velocity is several times the mean.",
     },
     expandable: false,
   },
@@ -343,20 +362,20 @@ export const PARAMETERS = [
     formula: "Re = (ρ·v·D) / μ  ρ=1060, D=0.025m, μ=0.004",
     formulaFn: p => {
       const pp  = p.sbp - p.dbp
-      const sv  = Math.min(Math.max(pp * 1.5, 20), 200)
-      const co  = Math.min(Math.max((sv * p.bpm) / 1000, 1), 20)
-      const vel = Math.min(Math.max(co / 5.0, 0), 5)
+      const sv  = Math.min(Math.max(pp * 1.72, 5), 200)
+      const co  = Math.min(Math.max((sv * p.bpm) / 1000, 0.3), 20)
+      const vel = Math.min(Math.max((co / 1000 / 60) / 4.9087e-4, 0), 5)
       return parseFloat(((1060 * vel * 0.025) / 0.004).toFixed(1))
     },
     backendKey: "reynolds_number",
-    range: { lo: 0, hi: 20000, warnLo: 0, warnHi: 9000, label: "< 9 000 (laminar)" },
+    range: { lo: 0, hi: 5000, warnLo: 0, warnHi: 1528, label: "< 1 528 (laminar)" },
     tooltip: {
-      what: "Dimensionless ratio of inertial to viscous forces in aortic blood flow.",
-      why:  "Re > 4000 in a straight tube indicates turbulent flow. Calibrated thresholds used here account for the empirical velocity estimate.",
-      note: "ρ = 1060 kg/m³ (blood density), D = 0.025 m (aortic diameter), μ = 0.004 Pa·s (blood viscosity).",
+      what: "Dimensionless ratio of inertial to viscous forces in MEAN aortic blood flow.",
+      why:  "Computed from the physical mean velocity v = Q/A. Re < 2300 is laminar in a straight tube; the risk thresholds (1 528 / 2 377) are the former 9 000 / 14 000 divided by the exact 5.89× velocity correction, so classifications are unchanged.",
+      note: "ρ = 1060 kg/m³ (blood density), D = 0.025 m (aortic diameter), μ = 0.004 Pa·s (blood viscosity). Pulsatile flow is transiently turbulent at peak systole even when the mean Re is laminar.",
     },
     expandable: true,
-    detail: "Re = (ρ·v·D)/μ. Laminar flow Re < 2300 (straight tube theory). Turbulent onset Re > 4000. Thresholds in this system are recalibrated to the empirical CO/5 velocity estimate: Low < 9000, Moderate 9000–13000, High > 13000.",
+    detail: "Re = (ρ·v·D)/μ with v the mean aortic velocity. Healthy rest CO ≈ 5 L/min → Re ≈ 1 125 (laminar). Risk scoring: Low < 1 528, Moderate 1 528–2 377, High > 2 377.",
   },
   {
     id: "cardiac_phase",

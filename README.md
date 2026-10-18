@@ -108,6 +108,8 @@ Full guide: **[unity/README.md](unity/README.md)**.
 
 ### 2b. React dashboard
 
+Requires **Node.js 20.19+ or 22.12+** (Vite will refuse to start on older versions; with nvm: `nvm use 20`).
+
 ```bash
 npm install
 npm run dev
@@ -149,3 +151,21 @@ The backend was audited and corrected for clinical-grade rigour:
 - Dataset window splices are flagged (`segment_break`) so a splice isn't rendered as a pathological pause.
 - The stream labels its own provenance (`source: "replay p000003.mat"`) — consumers should never
   present it as live patient data.
+- **Arterial compliance is fitted, not guessed** (`C = 1.72 mL/mmHg`): it reconciles the pulse-pressure
+  stroke volume with the Windkessel volume `MAP·RR/R` to within 1%, gives `τ = R·C = 1.72 s` matching
+  the measured diastolic decay, and a cardiac index of 3.2 L/min/m² for this subject.
+- **Blood flow uses the 3-element (Westerhof) Windkessel** run in the inverse direction,
+  `Q = (P − P_wk)/Zc`, integrated exactly per sample. Total resistance `R + Zc = 1.0 mmHg·s/mL`
+  (= MAP/CO for this subject) is split into `Zc = 0.07` (literature ~7 %, an assumption — not
+  identifiable from a single pressure channel) and `R = 0.93`. Median peak flow is 411 mL/s
+  (physiological 300–600); the former 2-element inverse produced ±1300 mL/s derivative noise.
+  The Windkessel pressure `P_wk` is streamed so any consumer can recompute `Q` exactly.
+- **Blood velocity is physical** (`v = Q/A`, mean aortic, ~0.17 m/s at CO 5), replacing an empirical
+  `CO/5` scaling that was ~6× too high; Reynolds thresholds were rescaled by the exact same factor.
+- **Wall stress is in kPa** and documented as a fixed multiple of SBP (population `r/h`).
+- **`ptt` is `null`**: it cannot be measured from a time-aligned PPG, and the former formula was a
+  restatement of SBP.
+- **Dataset:** PulseDB (Wang et al. 2023, Frontiers in Digital Health), derived from MIMIC-III /
+  VitalDB — anonymised open data. Subject `p000003`: 75 y, F, 155.6 cm, 47 kg (BMI 19.4), 114 min.
+
+All of the above is asserted on the full recording by `python_backend/tests/test_values.py`.

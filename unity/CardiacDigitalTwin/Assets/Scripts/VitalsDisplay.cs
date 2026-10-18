@@ -52,7 +52,7 @@ public class VitalsDisplay : MonoBehaviour
         var p = live ? data.Latest : null;
         var cyc = CardiacCycle.Main;
 
-        GUILayout.BeginArea(new Rect(12, 12, 320, 340), GUI.skin.box);
+        GUILayout.BeginArea(new Rect(12, 12, 380, 340), GUI.skin.box);
 
         if (live)
         {
@@ -63,8 +63,8 @@ public class VitalsDisplay : MonoBehaviour
             GUILayout.Label($"<color=#4cff73>{(beatFlash ? "♥" : "♡")} {p.bpm:0} bpm</color>" +
                             $"   <color=#bbbbbb>RR {p.rr_interval:0.00} s</color>", big);
             GUILayout.Label($"ABP  <b>{p.sbp:0}/{p.dbp:0}</b> mmHg   MAP {p.map:0} mmHg", label);
-            GUILayout.Label($"SV*  <b>{p.stroke_volume:0}</b> mL     CO  <b>{p.cardiac_output:0.0}</b> L/min", label);
-            GUILayout.Label($"Wall stress {p.wall_stress:0}   Re {p.reynolds_number:0}", label);
+            GUILayout.Label($"SV*  <b>{p.stroke_volume:0}</b> mL     CO  <b>{p.cardiac_output:0.0}</b> L/min   CI  <b>{p.cardiac_index:0.0}</b> L/min/m²", label);
+            GUILayout.Label($"Wall stress {p.wall_stress:0.0} kPa   Re {p.reynolds_number:0}", label);
             string riskHex = p.risk_level == "High" ? "#ff4033" : p.risk_level == "Low" ? "#4cff73" : "#ffbf26";
             bool blink = p.risk_level == "High" && Mathf.PingPong(Time.time * 2f, 1f) > 0.5f;
             GUILayout.Label($"Risk  <color={riskHex}><b>{(blink ? " " : p.risk_level.ToUpper())}</b></color>", big);

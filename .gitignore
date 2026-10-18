@@ -38,8 +38,10 @@ dataset/*.zip
 # ── Large source art not needed to build/run ──────────────────────────────────
 # The Unity twin has its own copy at unity/CardiacDigitalTwin/Assets/Models/,
 # which IS tracked. These are the originals + React-only assets.
-models/
-images/
+# Anchored to the repo root: an unanchored "models/" would also ignore the
+# backend's python_backend/models/ package (it silently did, once).
+/models/
+/images/
 public/Heart.fbx
 public/beating-heart.glb
 image.png

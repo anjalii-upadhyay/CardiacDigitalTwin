@@ -19,12 +19,15 @@ import os
 import websockets
 
 from utils.constants          import DELAY
-from streams.dataset_stream   import DATASET_PATH, load_dataset, get_window_signals
+from collections import deque
+
+from streams.dataset_stream   import DATASET_PATH, load_dataset, get_window_signals, get_subject_info
 from processors.ecg_processor import calc_rr_interval, calc_cardiac_phase
 from processors.hemodynamics  import (
     calc_map, calc_pulse_pressure, calc_stroke_volume,
-    calc_cardiac_output, calc_ptt, calc_wall_stress,
-    calc_blood_flow, calc_blood_velocity,
+    calc_cardiac_output, calc_wall_stress,
+    Windkessel3, calc_blood_velocity,
+    calc_bsa, calc_cardiac_index,
 )
 from processors.risk_engine   import calc_reynolds, calc_risk_with_reasons
 from models.packet_model      import build_packet
@@ -33,7 +36,12 @@ from models.packet_model      import build_packet
 subj, sbp_all, dbp_all, n_windows = load_dataset()
 print(f"Total windows: {n_windows}  |  SBP range: {sbp_all.min():.1f}–{sbp_all.max():.1f}")
 
-SOURCE = "replay " + os.path.basename(DATASET_PATH)
+SOURCE  = "replay " + os.path.basename(DATASET_PATH)
+SUBJECT = get_subject_info(subj)
+SUBJECT["id"] = SUBJECT.pop("subject_id")   # compact key for the wire
+BSA     = round(calc_bsa(SUBJECT["height_cm"], SUBJECT["weight_kg"]), 3)
+print(f"Subject {SUBJECT['id']}: {SUBJECT['age']:.0f} y {SUBJECT['sex']}, "
+      f"{SUBJECT['height_cm']:.0f} cm, {SUBJECT['weight_kg']:.0f} kg, BMI {SUBJECT['bmi']:.1f}, BSA {BSA} m²")
 
 # Track active client count for debug logging
 _active_clients = 0
@@ -45,7 +53,7 @@ async def stream_data(websocket):
     _active_clients += 1
     print(f"Client connected  (active clients: {_active_clients})")
 
-    prev_abp      = 100.0
+    wk            = Windkessel3()   # per connection; its state is reset at every window splice
     packets_sent  = 0
     dropped       = 0
     log_timer     = asyncio.get_event_loop().time()
@@ -55,10 +63,15 @@ async def stream_data(websocket):
 
     while True:
         for win_idx in range(n_windows):
-            ecg, t_vals, _, abp_w, rpeak_indices, bpm = get_window_signals(subj, win_idx)
-            n_samples  = min(len(ecg), len(abp_w), len(t_vals))
+            ecg, t_vals, _, abp_w, rpeak_indices, bpm, ppg_w = get_window_signals(subj, win_idx)
+            n_samples  = min(len(ecg), len(abp_w), len(t_vals), len(ppg_w))
             peak_times = [float(t_vals[k]) for k in sorted(rpeak_indices) if k < n_samples]
             rr_mean    = calc_rr_interval(bpm)
+            wk.reset(float(abp_w[0]))
+            # Displayed/scored heart rate = mean of the last 5 true RR intervals (monitor-style
+            # averaging, so a single irregular beat doesn't flip the risk score). Seeded with the
+            # window mean until real beats arrive.
+            recent_rr  = deque([rr_mean], maxlen=5)
 
             # Measured per-beat pressures, seeded from the dataset's own per-window values
             # until the first full beat has been observed.
@@ -79,6 +92,7 @@ async def stream_data(websocket):
                 t       = float(t_vals[i])
                 ecg_val = round(float(ecg[i]), 4)
                 abp_val = round(float(abp_w[i]), 2)
+                ppg_val = round(float(ppg_w[i]), 4)
                 is_peak = i in rpeak_indices
 
                 # Accumulate the pressure waveform within the current beat.
@@ -86,6 +100,8 @@ async def stream_data(websocket):
                 beat_min = abp_val if beat_min is None else min(beat_min, abp_val)
 
                 if is_peak:
+                    if seen_peak:
+                        recent_rr.append(t - last_peak_t)   # a completed real-R-to-real-R interval
                     # Finalise the completed beat's measured SBP/DBP from the real waveform — but only for a
                     # FULL beat (R to R); the truncated partial beat at a window start keeps the dataset seed.
                     # Require a plausible pulse pressure so flat/artefact beats don't poison it.
@@ -103,31 +119,34 @@ async def stream_data(websocket):
                 rr = (next_peak_t - last_peak_t) if (next_peak_t is not None and next_peak_t > last_peak_t) else rr_mean
                 cardiac_phase = calc_cardiac_phase(t, last_peak_t, rr)
 
+                hr_bpm        = int(round(60.0 / (sum(recent_rr) / len(recent_rr))))
                 map_val       = round(calc_map(sbp, dbp), 1)
                 pp            = round(calc_pulse_pressure(sbp, dbp), 1)
                 sv            = round(calc_stroke_volume(pp), 1)
-                co            = round(calc_cardiac_output(sv, bpm), 2)
-                ptt           = round(calc_ptt(sbp), 1)
-                # Peak systolic wall stress (Laplace with per-beat SBP): stable within a beat, and on the
-                # pressure scale the 200/280 risk thresholds were tuned for.
+                co            = round(calc_cardiac_output(sv, hr_bpm), 2)
+                ci            = round(calc_cardiac_index(co, BSA), 2)
+                # PTT is NOT measurable from this dataset: PulseDB time-aligns PPG/ABP to the ECG, which
+                # removes the transit delay. Stays None until a live ECG + PPG pair provides it.
+                ptt           = None
+                # Peak systolic wall stress (Laplace with per-beat SBP), kPa: stable within a beat.
                 wall_stress   = round(calc_wall_stress(sbp), 1)
-                blood_flow, dpdt = calc_blood_flow(abp_val, prev_abp, DELAY)
+                blood_flow, dpdt, p_wk = wk.step(abp_val, DELAY)
                 blood_flow    = round(blood_flow, 2)
                 dpdt          = round(dpdt, 4)
+                p_wk          = round(p_wk, 2)
                 blood_vel     = round(calc_blood_velocity(co), 3)
                 reynolds      = calc_reynolds(blood_vel)
                 risk, reasons = calc_risk_with_reasons(
                     sbp, wall_stress, reynolds,
-                    bpm=bpm, map_val=map_val, co=co, pp=pp
+                    bpm=hr_bpm, map_val=map_val, co=co, pp=pp
                 )
 
-                prev_abp = abp_val
-
                 packet = build_packet(
-                    t, ecg_val, abp_val, is_peak or pending_peak, bpm,
+                    t, ecg_val, abp_val, ppg_val, is_peak or pending_peak, hr_bpm,
                     rr, cardiac_phase, sbp, dbp,
                     map_val, pp, sv, co, ptt,
-                    wall_stress, blood_flow, dpdt, blood_vel, reynolds, risk
+                    wall_stress, blood_flow, dpdt, blood_vel, reynolds, risk,
+                    ci, BSA, p_wk, SUBJECT,
                 )
                 packet["source"]        = SOURCE
                 packet["segment_break"] = pending_break
@@ -142,7 +161,7 @@ async def stream_data(websocket):
                 if now - log_timer >= 1.0:
                     reason_str = " | ".join(reasons) if reasons else "all normal"
                     drop_str   = f" | dropped={dropped}" if dropped else ""
-                    print(f"[DEBUG] {packets_sent} pkt/s | bpm={bpm} rr={rr:.2f} map={map_val:.1f} co={co:.2f} risk={risk}{drop_str} | {reason_str}")
+                    print(f"[DEBUG] {packets_sent} pkt/s | hr={hr_bpm} rr={rr:.2f} map={map_val:.1f} co={co:.2f} ci={ci:.2f} risk={risk}{drop_str} | {reason_str}")
                     packets_sent = 0
                     log_timer    = now
 

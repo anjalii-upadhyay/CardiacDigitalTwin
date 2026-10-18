@@ -9,25 +9,28 @@ const LEVEL = {
 
 function buildReasons(sbp, wallStress, reynolds, bpm, spo2) {
   const r = []
-  if (sbp > 160)        r.push({ icon: '🩸', msg: `SBP critically high: ${Math.round(sbp)} mmHg` })
-  else if (sbp > 140)   r.push({ icon: '⚠️', msg: `SBP elevated: ${Math.round(sbp)} mmHg` })
+  if (sbp != null && sbp > 160)        r.push({ icon: '🩸', msg: `SBP critically high: ${Math.round(sbp)} mmHg` })
+  else if (sbp != null && sbp > 140)   r.push({ icon: '⚠️', msg: `SBP elevated: ${Math.round(sbp)} mmHg` })
 
-  if (wallStress > 250) r.push({ icon: '💢', msg: `Wall stress critical: ${wallStress} mmHg-eq` })
-  else if (wallStress > 180) r.push({ icon: '⚠️', msg: `Wall stress elevated: ${wallStress} mmHg-eq` })
+  // Thresholds mirror the backend risk engine (kPa): > 37.3 high, > 26.7 mildly elevated.
+  if (wallStress != null && wallStress > 37.3) r.push({ icon: '💢', msg: `Wall stress high: ${Number(wallStress).toFixed(1)} kPa` })
+  else if (wallStress != null && wallStress > 26.7) r.push({ icon: '⚠️', msg: `Wall stress elevated: ${Number(wallStress).toFixed(1)} kPa` })
 
-  if (reynolds > 5000)  r.push({ icon: '🌀', msg: `Reynolds critical: ${reynolds} (turbulent)` })
-  else if (reynolds > 3500) r.push({ icon: '〰️', msg: `Reynolds elevated: ${reynolds}` })
+  // Mean-flow Reynolds (v = Q/A); thresholds mirror the backend: > 2377 turbulent, > 1528 elevated.
+  if (reynolds != null && reynolds > 2377)  r.push({ icon: '🌀', msg: `Reynolds high: ${Math.round(reynolds)} (turbulent)` })
+  else if (reynolds != null && reynolds > 1528) r.push({ icon: '〰️', msg: `Reynolds elevated: ${Math.round(reynolds)}` })
 
-  if (bpm > 110)        r.push({ icon: '💓', msg: `Tachycardia: ${bpm} BPM` })
-  else if (bpm < 50)    r.push({ icon: '💓', msg: `Bradycardia: ${bpm} BPM` })
+  if (bpm != null && bpm > 100)        r.push({ icon: '💓', msg: `Tachycardia: ${Math.round(bpm)} BPM` })
+  else if (bpm != null && bpm < 60)    r.push({ icon: '💓', msg: `Bradycardia: ${Math.round(bpm)} BPM` })
 
-  if (spo2 < 92)        r.push({ icon: '💨', msg: `Low SpO₂: ${Math.round(spo2)}%` })
+  if (spo2 != null && spo2 < 92)       r.push({ icon: '💨', msg: `Low SpO₂: ${Math.round(spo2)}%` })
 
   if (r.length === 0)   r.push({ icon: '✅', msg: 'All parameters within normal range' })
   return r
 }
 
-export default function RiskPanel({ riskLevel = 'Low', sbp = 120, wallStress = 150, reynolds = 1200, bpm = 72, spo2 = 98 }) {
+// No fabricated defaults: anything the stream hasn't provided is null and simply produces no reason.
+export default function RiskPanel({ riskLevel = 'Low', sbp = null, wallStress = null, reynolds = null, bpm = null, spo2 = null }) {
   const c = LEVEL[riskLevel] ?? LEVEL.Low
   const reasons = buildReasons(sbp, wallStress, reynolds, bpm, spo2)
 

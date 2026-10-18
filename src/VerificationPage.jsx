@@ -234,7 +234,7 @@ function SummaryBar({ packet, spo2 }) {
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
-export default function VerificationPage({ spo2 = 99 }) {
+export default function VerificationPage({ spo2 = null }) {
   const [packet,  setPacket]  = useState(null)
   const [filter,  setFilter]  = useState("All")
   const [search,  setSearch]  = useState("")

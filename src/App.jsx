@@ -32,11 +32,13 @@ export default function App() {
   const [wsStatus, setWsStatus] = useState("connecting");
 
   // ── Live data from WebSocket ──────────────────────────────────────────────
+  // No fabricated vitals: anything not carried by the stream is null and renders as "—".
   const [live, setLive] = useState({
-    bpm: 72, sbp: 120, dbp: 80, abp: 100, spo2: 99,
+    bpm: 72, sbp: 120, dbp: 80, abp: 100, spo2: null,
     rPeak: false, map: 93, pulsePressure: 40, strokeVolume: 70,
-    cardiacOutput: 5.0, ptt: 200, wallStress: 150, reynolds: 1200,
+    cardiacOutput: 5.0, ptt: null, wallStress: null, reynolds: null,
     riskLevel: "Low", cardiacPhase: 0, bloodFlow: 0, bloodVelocity: 0,
+    source: null, subject: null,
   });
 
   // ── UI state ──────────────────────────────────────────────────────────────
@@ -76,14 +78,15 @@ export default function App() {
   // ── WebSocket handler ─────────────────────────────────────────────────────
   useEffect(() => {
     const handleMessage = (p) => {
-      const spo2Live = live.spo2 ?? 99;
       setLive(prev => ({
-        bpm: p.bpm, sbp: p.sbp, dbp: p.dbp, abp: p.abp, spo2: prev.spo2,
+        bpm: p.bpm, sbp: p.sbp, dbp: p.dbp, abp: p.abp,
+        spo2: p.spo2 ?? null,                       // only ever a real sensor value
         rPeak: p.r_peak, map: p.map, pulsePressure: p.pulse_pressure,
         strokeVolume: p.stroke_volume, cardiacOutput: p.cardiac_output,
-        ptt: p.ptt, wallStress: p.wall_stress, reynolds: p.reynolds_number,
+        ptt: p.ptt ?? null, wallStress: p.wall_stress, reynolds: p.reynolds_number,
         riskLevel: p.risk_level, cardiacPhase: p.cardiac_phase,
         bloodFlow: p.blood_flow, bloodVelocity: p.blood_velocity,
+        source: p.source ?? prev.source, subject: p.subject ?? prev.subject,
       }));
 
       pushSmooth(
@@ -163,7 +166,7 @@ export default function App() {
       {/* Header */}
       <header className="max-w-[1400px] mx-auto text-center mb-4">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
-          Digital Twin of Heart — Patient: Rajveer Patil
+          Digital Twin of Heart — {live.subject ? `Subject ${live.subject.id} (anonymised)` : "awaiting patient stream"}
         </h1>
         <div className="flex items-center justify-center gap-3 mt-1">
           <div className="text-sm text-gray-400">{timeString}</div>
@@ -216,14 +219,21 @@ export default function App() {
           <div className="bg-[#0f1315] border border-gray-800 rounded-xl p-4 shadow-md">
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Patient</div>
-                <div className="text-lg font-semibold">Rajveer Patil</div>
-                <div className="text-sm text-gray-400">Age: 58 &nbsp;|&nbsp; ID: 123456789</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Patient (anonymised record)</div>
+                <div className="text-lg font-semibold">{live.subject ? `Subject ${live.subject.id}` : "Awaiting stream"}</div>
+                <div className="text-sm text-gray-400">
+                  {live.subject
+                    ? `Age ${Math.round(live.subject.age)} | ${live.subject.sex === "F" ? "Female" : live.subject.sex === "M" ? "Male" : live.subject.sex} | ${Math.round(live.subject.height_cm)} cm, ${Math.round(live.subject.weight_kg)} kg, BMI ${live.subject.bmi}`
+                    : "—"}
+                </div>
+                {live.source && <div className="text-xs text-amber-400 uppercase tracking-wider mt-1">{live.source}</div>}
               </div>
               <div>
-                <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Connected Devices</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Data streams</div>
                 <ul className="text-sm text-gray-300 space-y-0.5">
-                  <li>ECG Lead II — Active</li><li>PPG (SpO₂) — Active</li><li>Arterial Line (ABP) — Active</li>
+                  <li>ECG Lead II — {wsStatus === "connected" ? "streaming" : "no signal"}</li>
+                  <li>Arterial line (ABP) — {wsStatus === "connected" ? "streaming" : "no signal"}</li>
+                  <li>PPG — {live.spo2 != null ? "SpO₂ streaming" : "waveform only, no SpO₂"}</li>
                 </ul>
               </div>
             </div>
@@ -274,8 +284,8 @@ export default function App() {
               {[
                 [live.bpm,           "HEART RATE (BPM)", "text-red-400"],
                 [Math.round(d.sbp), "SYSTOLIC (mmHg)",  "text-emerald-400"],
-                [36.8,               "TEMPERATURE (°C)", "text-yellow-400"],
-                [Math.round(d.spo2), "SpO₂ (%)",         "text-sky-400"],
+                [Math.round(d.map), "MAP (mmHg)",       "text-yellow-400"],
+                [d.spo2 == null ? "—" : Math.round(d.spo2), d.spo2 == null ? "SpO₂ (no sensor)" : "SpO₂ (%)", d.spo2 == null ? "text-gray-600" : "text-sky-400"],
               ].map(([val, label, color]) => (
                 <div key={label}>
                   <div className={`text-4xl md:text-5xl font-extrabold ${color}`}>{val}</div>
@@ -339,7 +349,7 @@ export default function App() {
 
           {/* Right column */}
           <div className="col-span-3 space-y-4">
-            <RiskPanel riskLevel={d.riskLevel} sbp={d.sbp} wallStress={d.wallStress} reynolds={d.reynolds} />
+            <RiskPanel riskLevel={d.riskLevel} sbp={d.sbp} wallStress={d.wallStress} reynolds={d.reynolds} bpm={live.bpm} spo2={d.spo2} />
 
             {/* Derived Metrics */}
             <div className="bg-[#0f1315] border border-gray-800 rounded-xl p-4 shadow-md">
@@ -350,11 +360,11 @@ export default function App() {
                   ["Pulse Pressure", `${d.pulsePressure} mmHg`],
                   ["Stroke Volume",  `${d.strokeVolume} mL`],
                   ["Cardiac Output", `${d.cardiacOutput} L/min`],
-                  ["PTT",            `${d.ptt} ms`],
-                  ["Wall Stress",    `${d.wallStress} mmHg-eq`],
+                  ["PTT",            d.ptt == null ? "— (not measurable from this dataset)" : `${d.ptt} ms`],
+                  ["Wall Stress",    d.wallStress == null ? "—" : `${Number(d.wallStress).toFixed(1)} kPa`],
                   ["Blood Flow",     `${d.bloodFlow} mL/s`],
                   ["Blood Velocity", `${d.bloodVelocity} m/s`],
-                  ["Reynolds No.",   `${d.reynolds}`],
+                  ["Reynolds No.",   d.reynolds == null ? "—" : `${Math.round(d.reynolds)}`],
                 ].map(([label, val]) => (
                   <div key={label} className="flex justify-between items-center py-0.5 border-b border-gray-800/60">
                     <span className="text-gray-400 text-xs">{label}</span>

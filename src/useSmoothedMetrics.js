@@ -61,7 +61,7 @@ export function useSmoothedMetrics() {
   const [display, setDisplay] = useState({
     bpm: 72, sbp: 120, dbp: 80, map: 93,
     pulsePressure: 40, strokeVolume: 70, cardiacOutput: 5.0,
-    ptt: 200, wallStress: 150, reynolds: 1200,
+    ptt: null, wallStress: null, reynolds: null,   // null until the stream provides a real value
     blockage: 0, bloodVelocity: 0, bloodFlow: 0,
     riskLevel: 'Low', explanations: [],
     _raw: {},   // per-metric { current, avg, trend, delta, spark } for MetricsPanel

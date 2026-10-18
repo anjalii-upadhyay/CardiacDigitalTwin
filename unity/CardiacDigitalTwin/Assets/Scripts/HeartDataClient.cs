@@ -31,8 +31,10 @@ public class HeartDataClient : MonoBehaviour
         public float pulse_pressure;
         public float stroke_volume;   // mL
         public float cardiac_output;  // L/min
-        public float ptt;
-        public float wall_stress;
+        public float cardiac_index;   // L/min/m^2 (CO / body surface area)
+        public float bsa;             // m^2
+        // ptt is deliberately NOT declared: it is null in the stream until measured from live ECG + PPG.
+        public float wall_stress;     // kPa
         public float blood_flow;
         public float dpdt;
         public float blood_velocity;
@@ -44,8 +46,13 @@ public class HeartDataClient : MonoBehaviour
 
     public HeartPacket Latest { get; private set; }
     public bool Connected { get; private set; }
-    public bool HasData => Latest != null && Time.unscaledTime - lastPacketTime < 1.5f;
-    public float DataAge => Latest == null ? float.PositiveInfinity : Time.unscaledTime - lastPacketTime;
+    // Freshness is measured from data ARRIVAL on the receive thread, not from the main-thread drain:
+    // a frame hitch (shader compile, GC, domain reload) must not be reported as a lost signal.
+    public bool HasData => Latest != null && DataAge < 1.5f;
+    public float DataAge => Latest == null ? float.PositiveInfinity : unchecked(Environment.TickCount - lastRxTick) / 1000f;
+    public int LastBurst { get; private set; }      // packets drained in the most recent Update (diagnostic)
+    public int MaxBurst { get; private set; }       // largest burst seen; ~125 x stall seconds
+    volatile int lastRxTick = int.MinValue;
     public int BeatCount { get; private set; }
     public float LastBeatTime { get; private set; } = -10f;
     public int RejectedCount { get; private set; }
@@ -109,7 +116,7 @@ public class HeartDataClient : MonoBehaviour
                         var res = await sock.ReceiveAsync(new ArraySegment<byte>(buf), timeout.Token).ConfigureAwait(false);
                         if (res.MessageType == WebSocketMessageType.Close) break;
                         sb.Append(Encoding.UTF8.GetString(buf, 0, res.Count));
-                        if (res.EndOfMessage) { inbox.Enqueue(sb.ToString()); sb.Clear(); }
+                        if (res.EndOfMessage) { inbox.Enqueue(sb.ToString()); sb.Clear(); lastRxTick = Environment.TickCount; }
                     }
                 }
             }
@@ -139,8 +146,10 @@ public class HeartDataClient : MonoBehaviour
     {
         // Drain everything that arrived since last frame; keep the newest packet but count every R-peak on the way
         // so no beat is missed between frames.
+        int burst = 0;
         while (inbox.TryDequeue(out var json))
         {
+            burst++;
             HeartPacket p;
             try { p = JsonUtility.FromJson<HeartPacket>(json); }
             catch { RejectedCount++; lastRejectTime = Time.unscaledTime; continue; }
@@ -153,6 +162,8 @@ public class HeartDataClient : MonoBehaviour
             Latest = p;
             lastPacketTime = Time.unscaledTime;
         }
+        LastBurst = burst;
+        if (burst > MaxBurst) MaxBurst = burst;
     }
 
     // Boundary validation: a clinical display must never act on artifact. Packets with non-finite or
