@@ -1,0 +1,25 @@
+# Normalise line endings so Unity's YAML scenes/prefabs don't corrupt across OSes.
+* text=auto
+
+# Unity YAML assets are text and should diff/merge as text.
+*.unity      text eol=lf
+*.prefab     text eol=lf
+*.asset      text eol=lf
+*.meta       text eol=lf
+*.cs         text eol=lf diff=csharp
+# Unity materials are YAML text...
+*.mat        text eol=lf
+# ...but the dataset recording is binary HDF5 and MUST NOT be line-ending
+# converted (that would corrupt it). Path rule below overrides the one above.
+dataset/*.mat binary
+
+# Binary assets — never line-ending converted or diffed as text.
+*.glb        binary
+*.gltf       binary
+*.fbx        binary
+*.png        binary
+*.jpg        binary
+*.psd        binary
+*.wav        binary
+*.mp3        binary
+*.zip        binary

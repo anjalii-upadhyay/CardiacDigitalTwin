@@ -1,0 +1,47 @@
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Node / Vite (React frontend) ──────────────────────────────────────────────
+node_modules
+dist
+dist-ssr
+*.local
+
+# ── Editor directories and files ──────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Python backend ────────────────────────────────────────────────────────────
+python_backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ── Dataset ───────────────────────────────────────────────────────────────────
+# p000003.mat (57 MB) IS tracked so the project runs from a fresh clone.
+# The .zip is just a redundant copy of the same recording — not tracked.
+dataset/*.zip
+
+# ── Large source art not needed to build/run ──────────────────────────────────
+# The Unity twin has its own copy at unity/CardiacDigitalTwin/Assets/Models/,
+# which IS tracked. These are the originals + React-only assets.
+models/
+images/
+public/Heart.fbx
+public/beating-heart.glb
+image.png
+
+# Unity generated folders are ignored by unity/CardiacDigitalTwin/.gitignore

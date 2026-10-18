@@ -1,0 +1,6 @@
+# Cardiac Digital Twin — backend dependencies
+# Install:  python3 -m venv venv && venv/bin/pip install -r requirements.txt
+websockets==17.2
+mat73==0.65
+numpy==2.5.4
+h5py==3.16.0
