@@ -10,6 +10,8 @@
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 /[Aa]ssets/[Ss]creenshots/
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
 
 # Never commit the Asset Store cache
 /[Aa]ssets/AssetStoreTools*

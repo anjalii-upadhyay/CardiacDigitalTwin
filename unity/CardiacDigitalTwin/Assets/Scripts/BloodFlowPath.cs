@@ -32,6 +32,8 @@ public class BloodFlowPath : MonoBehaviour
     public Color color = Color.red;
     [Tooltip("Kept clear of walls on top of the droplet radius — the muscle moves ~1.5mm per beat")]
     public float wallMargin = 0.0015f;
+    [Tooltip("Seconds of motion each droplet is stretched over — streaks merge into a continuous jet when fast")]
+    public float stretch = 0.025f;
 
     [Header("Peak speeds, m/s (scaled by heart rate)")]
     public float venousSpeed = 0.03f;
@@ -39,11 +41,15 @@ public class BloodFlowPath : MonoBehaviour
     public float ejectSpeed = 0.6f;
     public float arterialCoast = 0.05f;
 
-    Transform[] droplets;
-    TrailRenderer[] trails;
+    const int MaxBalls = 128; // matches MAX_BALLS in Resources/BloodLiquid.shader
+
     float[] dist, spin, jitter, cum;
+    Vector3[] offsetDir, spinAxis, prevPos, vel;
     bool[] wasHidden;
-    Vector3[] offsetDir, spinAxis;
+    Vector4[] balls, tails; // head + radius, tail + speed: tapered streaks smooth-unioned into one liquid by the shader
+    Transform volume;
+    MeshRenderer volumeRenderer;
+    Material liquid;
 
     void Start()
     {
@@ -56,53 +62,42 @@ public class BloodFlowPath : MonoBehaviour
         cum = new float[bakedPath.Length];
         for (int i = 1; i < bakedPath.Length; i++) cum[i] = cum[i - 1] + Vector3.Distance(bakedPath[i - 1], bakedPath[i]);
 
-        var mat = new Material(Shader.Find("Standard"));
-        mat.SetFloat("_Glossiness", 0.5f);
-        mat.EnableKeyword("_EMISSION");
-        var trailMat = new Material(Shader.Find("Sprites/Default"));
-        var block = new MaterialPropertyBlock();
+        if (dropletCount > MaxBalls)
+        {
+            Debug.LogWarning(name + ": dropletCount capped at " + MaxBalls, this);
+            dropletCount = MaxBalls;
+        }
+        liquid = new Material(Shader.Find("CardiacTwin/BloodLiquid"));
+        liquid.SetColor("_Color", color);
+        balls = new Vector4[MaxBalls];
+        tails = new Vector4[MaxBalls];
+        liquid.SetVectorArray("_Balls", balls);
+        liquid.SetVectorArray("_Tails", tails);
 
-        droplets = new Transform[dropletCount];
-        trails = new TrailRenderer[dropletCount];
+        // Raymarch volume, refitted around the droplets every frame. Unparented so it stays an axis-aligned box.
+        var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        box.name = name + "_blood";
+        Destroy(box.GetComponent<Collider>());
+        volumeRenderer = box.GetComponent<MeshRenderer>();
+        volumeRenderer.sharedMaterial = liquid;
+        volumeRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        volume = box.transform;
+
         dist = new float[dropletCount];
         spin = new float[dropletCount];
         jitter = new float[dropletCount];
-        wasHidden = new bool[dropletCount];
         offsetDir = new Vector3[dropletCount];
         spinAxis = new Vector3[dropletCount];
+        prevPos = new Vector3[dropletCount];
+        vel = new Vector3[dropletCount];
+        wasHidden = new bool[dropletCount];
         float total = cum[cum.Length - 1];
         for (int i = 0; i < dropletCount; i++)
         {
-            var c = color * Random.Range(0.75f, 1.1f);
-            c.a = 1f;
-
-            var d = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            d.name = name + "_droplet" + i;
-            d.transform.SetParent(transform, false);
-            Destroy(d.GetComponent<Collider>());
-            var mr = d.GetComponent<MeshRenderer>();
-            mr.sharedMaterial = mat;
-            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            block.SetColor("_Color", c);
-            block.SetColor("_EmissionColor", c * 0.35f);
-            mr.SetPropertyBlock(block);
-
-            var tr = d.AddComponent<TrailRenderer>();
-            tr.time = 0.14f;
-            tr.minVertexDistance = 0.001f;
-            tr.widthMultiplier = dropletScale * 0.7f;
-            tr.widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
-            tr.sharedMaterial = trailMat;
-            tr.startColor = c;
-            tr.endColor = new Color(c.r, c.g, c.b, 0f);
-            tr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-
-            droplets[i] = d.transform;
-            trails[i] = tr;
             dist[i] = total * i / dropletCount;
             offsetDir[i] = Random.insideUnitSphere;
             spinAxis[i] = Random.onUnitSphere;
-            spin[i] = Random.Range(40f, 120f);
+            spin[i] = Random.Range(6f, 18f); // slow drift: droplets keep coherent lanes so the mass streams, not churns
             jitter[i] = Random.Range(0.8f, 1.2f);
         }
     }
@@ -121,6 +116,9 @@ public class BloodFlowPath : MonoBehaviour
         float scale = cyc ? cyc.SpeedScale : 1f;
 
         float total = cum[cum.Length - 1];
+        float worldScale = transform.lossyScale.x;
+        float smooth = 1f - Mathf.Exp(-dt * 14f);
+        Vector3 lo = Vector3.positiveInfinity, hi = Vector3.negativeInfinity;
         float dAtrium = cum[atriumPoint], dVentricle = cum[ventriclePoint], dValve = cum[valvePoint];
 
         for (int i = 0; i < dropletCount; i++)
@@ -142,10 +140,9 @@ public class BloodFlowPath : MonoBehaviour
             Vector3 p = Sample(Mathf.Max(d, 0f), out clearance, out seam);
             float spread = Mathf.Max(0f, clearance - dropletScale * 0.5f - wallMargin);
             var swirl = Quaternion.AngleAxis(Time.time * spin[i], spinAxis[i]);
-            droplets[i].position = root.TransformPoint(p + swirl * offsetDir[i] * spread);
+            Vector3 pos = root.TransformPoint(p + swirl * offsetDir[i] * spread);
 
-            // Hidden while upstream or passing a seam; reappearing at a vessel opening starts a fresh trail so no
-            // streak is ever drawn through a wall.
+            // Hidden while upstream or passing a seam, so the liquid never shows through a wall.
             bool hidden = d < 0f || seam;
             float fade = 1f;
             if (exitPoint >= 0 && d > cum[exitPoint]) fade = Mathf.Clamp01(1f - (d - cum[exitPoint]) / (total - cum[exitPoint]));
@@ -153,12 +150,39 @@ public class BloodFlowPath : MonoBehaviour
             // of bulging through the leaflets, then swells back out in the chamber.
             float fit = Mathf.Clamp(clearance * 1.8f / dropletScale, 0.5f, 1f);
             float size = dropletScale * fade * fit;
-            droplets[i].localScale = hidden ? Vector3.zero : Vector3.one * size;
-            trails[i].widthMultiplier = size * 0.7f;
-            trails[i].emitting = !hidden;
-            if (wrapped || (wasHidden[i] && !hidden)) trails[i].Clear();
+            float r = hidden ? 0f : size * 0.5f * worldScale;
+
+            // Smoothed velocity stretches the droplet into a streak; reset on (re)appearing so no streak spans a jump.
+            if (hidden || wasHidden[i] || wrapped) vel[i] = Vector3.zero;
+            else vel[i] = Vector3.Lerp(vel[i], (pos - prevPos[i]) / dt, smooth);
+            prevPos[i] = pos;
             wasHidden[i] = hidden;
+            Vector3 tail = pos - Vector3.ClampMagnitude(vel[i] * stretch, r * 8f);
+
+            balls[i] = new Vector4(pos.x, pos.y, pos.z, r);
+            tails[i] = new Vector4(tail.x, tail.y, tail.z, vel[i].magnitude);
+            if (r > 0f)
+            {
+                Vector3 pad = Vector3.one * r * 2.2f; // radius + the shader's merge distance
+                lo = Vector3.Min(lo, Vector3.Min(pos, tail) - pad);
+                hi = Vector3.Max(hi, Vector3.Max(pos, tail) + pad);
+            }
         }
+
+        bool any = lo.x <= hi.x;
+        volumeRenderer.enabled = any;
+        if (!any) return;
+        volume.position = (lo + hi) * 0.5f;
+        volume.localScale = hi - lo;
+        liquid.SetVectorArray("_Balls", balls);
+        liquid.SetVectorArray("_Tails", tails);
+        liquid.SetInteger("_Count", dropletCount);
+    }
+
+    void OnDestroy()
+    {
+        if (volume) Destroy(volume.gameObject);
+        if (liquid) Destroy(liquid);
     }
 
     Vector3 Sample(float d, out float clearance, out bool seam)
