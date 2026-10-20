@@ -3,7 +3,6 @@
 import React from 'react'
 import HeartCanvas from './HeartCanvas'
 import { fmt } from './format'
-import { Ev } from './ui'
 
 export default function HeartView({ patient, wedge, state, simulated = false, chance, lean }) {
   const heart = { patientId: patient.id, simulated, wedgeMmHg: wedge, state, chance, lean }
@@ -11,7 +10,7 @@ export default function HeartView({ patient, wedge, state, simulated = false, ch
     <div className="hv">
       <div className="hv-3d">
         <HeartCanvas {...heart} />
-        <div className="hv-tag">Beats on real patch R-peaks · {fmt(patient.features.hr_bpm, 0)} bpm <Ev k="R" /></div>
+        <div className="hv-tag">{fmt(patient.features.hr_bpm, 0)} bpm · real patch beats{simulated ? ' · simulated state' : ''}</div>
       </div>
     </div>
   )

@@ -1,30 +1,21 @@
 import React from 'react'
-import { EVIDENCE, CONGESTION, PERFUSION } from './format'
+import { CONGESTION, PERFUSION } from './format'
 
-export function Ev({ k }) {
-  return <span className={`ev ${k}`} data-tip={EVIDENCE[k]}>{k}</span>
-}
-
-// Small "i" that explains a number. Uses the shared tooltip (data-tip) and is reachable by keyboard.
+// Small "i" that explains a number. Uses the shared tooltip (data-tip); shows on hover and on keyboard focus.
 export function Info({ text }) {
   return <span className="info" tabIndex={0} role="img" aria-label={text} data-tip={text}>i</span>
 }
 
 export function StatePill({ state, kind = 'congestion' }) {
   const s = (kind === 'congestion' ? CONGESTION : PERFUSION)[state]
-  return (
-    <span className={`st ${s.key}`}>
-      <span className="ic" aria-hidden="true">{s.icon}</span>{s.label}
-    </span>
-  )
+  return <span className={`st ${s.key}`}><span className="dot" aria-hidden="true" />{s.label}</span>
 }
 
-export function Tile({ label, value, unit, note }) {
+export function Tile({ label, value, unit, info }) {
   return (
     <div className="tile">
-      <div className="t-l">{label}</div>
+      <div className="t-l">{label}{info && <Info text={info} />}</div>
       <div className="t-v">{value}{unit && <span>{unit}</span>}</div>
-      {note && <div className="t-n">{note}</div>}
     </div>
   )
 }

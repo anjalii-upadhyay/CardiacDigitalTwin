@@ -8,17 +8,32 @@ export const ROMAN = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV' }
 
 export const label = (p) => `${p.patient} · visit ${p.visit}`
 
-// Congestion states produced by hf_twin/recommendation/congestion_state.py
+// Congestion status keys ('uncertain' is shown as "Borderline"; the key stays because the stream server expects it)
 export const CONGESTION = {
-  congested:     { key: 'crit', label: 'Congested',     icon: '▲' },
-  uncertain:     { key: 'unc',  label: 'Uncertain',     icon: '◐' },
-  not_congested: { key: 'good', label: 'Not congested', icon: '●' },
+  congested:     { key: 'crit', label: 'Congested' },
+  uncertain:     { key: 'unc',  label: 'Borderline' },
+  not_congested: { key: 'good', label: 'Not congested' },
 }
 export const PERFUSION = {
-  low:     { key: 'crit', label: 'Low perfusion',    icon: '▼' },
-  normal:  { key: 'good', label: 'Normal perfusion', icon: '●' },
-  unknown: { key: 'unc',  label: 'Perfusion unknown', icon: '?' },
+  low:     { key: 'crit', label: 'Low perfusion' },
+  normal:  { key: 'good', label: 'Normal perfusion' },
+  unknown: { key: 'unc',  label: 'Perfusion unknown' },
 }
+
+// The one status the doctor sees: the same rule the recommendation step uses (hf_twin/recommendation/actions.py,
+// congestion_status), with its thresholds read from recommendations.json _meta.rules.
+export function bandState(chance, range, rules) {
+  const [lo, hi] = range
+  if (lo > rules.wedge_congestion_mmHg || chance >= rules.congested_chance) return 'congested'
+  if (chance <= rules.not_congested_chance || hi <= rules.wedge_congestion_mmHg) return 'not_congested'
+  return 'uncertain'
+}
+
+export const STATUS_INFO = (rules) => rules
+  ? `Congested: chance ≥ ${Math.round(rules.congested_chance * 100)}% or the whole 80% range above ${rules.wedge_congestion_mmHg} mmHg. `
+    + `Not congested: chance ≤ ${Math.round(rules.not_congested_chance * 100)}% or the whole range at or below ${rules.wedge_congestion_mmHg}. `
+    + 'Otherwise borderline. Same rule the recommendation uses.'
+  : 'Congested only when the whole 80% range of the estimate is above the cut-off.'
 
 // Same rule as congestion_state.py, applied to a simulated value with the patient's own exported range offsets.
 export function classify(estimate, offsets, cutoff) {
@@ -32,11 +47,6 @@ export const chanceAt = (curve, wedge) => 1 / (1 + Math.exp(-(curve.slope * wedg
 
 export const offsetsOf = (c) => ({ lower: c.range_mmHg[0] - c.estimate_mmHg, upper: c.range_mmHg[1] - c.estimate_mmHg })
 
-export const EVIDENCE = {
-  R: 'Real: measured on real patients, or a model learned from them',
-  G: 'Guideline: a published clinical cut-off (source in Model & evidence)',
-  S: 'Simulation: an assumption, not a measurement of this patient',
-}
 
 // Inputs shown in "What went into this estimate" (selected; the model uses 20)
 export const PATCH_INPUTS = [

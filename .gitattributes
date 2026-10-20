@@ -7,11 +7,7 @@
 *.asset      text eol=lf
 *.meta       text eol=lf
 *.cs         text eol=lf diff=csharp
-# Unity materials are YAML text...
 *.mat        text eol=lf
-# ...but the dataset recording is binary HDF5 and MUST NOT be line-ending
-# converted (that would corrupt it). Path rule below overrides the one above.
-dataset/*.mat binary
 
 # Binary assets — never line-ending converted or diffed as text.
 *.glb        binary

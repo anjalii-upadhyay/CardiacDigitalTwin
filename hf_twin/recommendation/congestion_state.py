@@ -15,7 +15,6 @@ Cut-offs (journey D13, clinically accepted, cited):
 Body surface area: Mosteller formula, sqrt(height_cm * weight_kg / 3600).
 """
 
-import csv
 import math
 from dataclasses import dataclass
 
@@ -40,14 +39,6 @@ def band_from_errors(measured, predicted, coverage: float, source: str) -> Error
     err = np.asarray(measured, float) - np.asarray(predicted, float)
     q = (1.0 - coverage) / 2.0
     return ErrorBand(float(np.quantile(err, q)), float(np.quantile(err, 1 - q)), coverage, int(len(err)), source)
-
-
-def load_band(oof_csv: str, model_column: str, coverage: float) -> ErrorBand:
-    with open(oof_csv, newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
-    meas = [float(r["measured"]) for r in rows]
-    pred = [float(r[model_column]) for r in rows]
-    return band_from_errors(meas, pred, coverage, f"{oof_csv}:{model_column}")
 
 
 def congestion_state(wedge_estimate: float, band: ErrorBand) -> dict:

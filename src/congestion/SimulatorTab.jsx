@@ -1,44 +1,17 @@
 import React from 'react'
-import { Ev, StatePill, PressureScale } from './ui'
+import { Info, StatePill, PressureScale } from './ui'
 import HeartView from './HeartView'
-import { classify, offsetsOf, chanceAt, fmt, signed, label, rangeText } from './format'
+import RecommendationCard from './RecommendationCard'
+import { classify, bandState, offsetsOf, chanceAt, fmt, signed, label } from './format'
 
-function RecommendationCard({ p, rec }) {
-  if (rec) {
-    return (
-      <section className="panel suggest">
-        <div className="ph" style={{ margin: 0 }}><h3>Decision support</h3><Ev k="G" /></div>
-        <dl>
-          <div><dt>Result</dt><dd>{rec.status === 'recommend' ? rec.action_text : rec.status === 'abstain' ? 'No suggestion (the step abstained).' : 'Sent for clinician review.'}</dd></div>
-          {rec.rationale && <div><dt>Why</dt><dd>{rec.rationale}</dd></div>}
-          {rec.guideline_refs?.length > 0 && <div><dt>Guideline basis</dt><dd>{rec.guideline_refs.map((g) => `${g.source}, p. ${g.page}`).join('; ')}</dd></div>}
-          {rec.safety_flags?.length > 0 && <div><dt>Safety checks</dt><dd>{rec.safety_flags.join('; ')}</dd></div>}
-        </dl>
-        <div className="decide">The doctor decides. This is decision support, not a prescription.</div>
-      </section>
-    )
-  }
-  return (
-    <section className="panel suggest">
-      <div className="ph" style={{ margin: 0 }}><h3>Decision support</h3><Ev k="G" /></div>
-      <div className="pending" style={{ margin: 0 }}>Step 7 (guideline-grounded recommendation) is not connected yet. This card shows what it will receive.</div>
-      <dl>
-        <div><dt>Congestion</dt><dd><StatePill state={p.congestion.state} /> estimate {fmt(p.congestion.estimate_mmHg)} mmHg, range {rangeText(p.congestion.range_mmHg)}</dd></div>
-        <div><dt>Perfusion</dt><dd><StatePill state={p.perfusion.state} kind="perfusion" /> {p.perfusion.cardiac_index != null && `cardiac index ${fmt(p.perfusion.cardiac_index, 2)} L/min/m² (measured)`}</dd></div>
-        <div><dt>History</dt><dd>{p.record.history_tags.join(', ') || '–'}</dd></div>
-      </dl>
-      <div className="decide">The doctor decides. This will be decision support, not a prescription.</div>
-    </section>
-  )
-}
-
-export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
+export default function SimulatorTab({ p, meta, rules, resp, onResp, rec }) {
   const v = meta.vasodilator, cutoff = meta.cutoffs.wedge_congestion
   const est = p.estimate.wedge
   const after = Math.max(0, est + resp)
-  const sim = classify(after, offsetsOf(p.congestion), cutoff)
   const curve = p.congestion.curve
   const simChance = chanceAt(curve, Math.max(0, curve.estimate_unrounded + resp))
+  const simRange = classify(after, offsetsOf(p.congestion), cutoff).range
+  const simState = rules ? bandState(simChance, simRange, rules) : classify(after, offsetsOf(p.congestion), cutoff).state
   const simLean = simChance >= meta.chance.lean_threshold ? 'congested' : 'not_congested'
   const real = p.after_vasodilator
   const presets = [['smallest drop', v.smallest], ['average', v.mean], ['largest drop', v.largest]]
@@ -50,18 +23,19 @@ export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
 
   return (
     <div className="stack">
-      <div className="banner-s"><Ev k="S" /> <b>Simulation.</b> The change uses the responses of {v.n_pairs} real patients who got a vasodilator
-        during their catheter test (average {signed(v.mean)} mmHg, from {signed(v.smallest, 0)} to {signed(v.largest, 0)}). No model could predict one
-        patient's own response better than that average, so this is an assumption, not a forecast.</div>
+      <div className="banner-s">
+        <span><b>Simulation</b>, not a forecast: assumes this patient responds like the {v.n_pairs} real vasodilator patients.</span>
+        <Info text={`Those ${v.n_pairs} patients changed by ${signed(v.mean)} mmHg on average (from ${signed(v.smallest, 0)} to ${signed(v.largest, 0)}). No model could predict one patient's own response better than that average.`} />
+      </div>
       <div className="grid2">
         <section className="panel ctrl">
-          <div className="ph" style={{ margin: 0 }}><h3>Try a medicine change</h3><span className="sub">{label(p)}</span></div>
+          <div className="ph"><h3>Try a medicine change</h3><span className="sub">{label(p)}</span></div>
           <fieldset>
             <legend>Medicine</legend>
             <label className="opt"><input type="radio" name="med" id="med-vaso" defaultChecked />
-              <span><b>Vasodilator</b><small>Widens blood vessels. Nitroprusside or nitroglycerin, as given in the study.</small></span></label>
+              <span><b>Vasodilator</b><small>Nitroprusside or nitroglycerin, as in the study</small></span></label>
             <label className="opt dis"><input type="radio" name="med" id="med-diur" disabled />
-              <span><b>Diuretic (water tablet)</b><small>Not available: this dataset has no diuretic response data.</small></span></label>
+              <span><b>Diuretic</b><small>Not available: no diuretic response data in this dataset</small></span></label>
           </fieldset>
           <fieldset>
             <legend>Assume this patient responds like</legend>
@@ -70,43 +44,38 @@ export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
                 <button key={n} className={resp === d ? 'on' : ''} aria-pressed={resp === d} onClick={() => onResp(d)}>{n}<b>{signed(d)}</b></button>
               ))}
             </div>
-            <label htmlFor="resp" className="sub">Or set any change within the real range (mmHg)</label>
-            <input type="range" id="resp" min={v.largest} max={v.smallest} step="0.1" value={resp} onChange={(e) => onResp(Number(e.target.value))} />
+            <input type="range" id="resp" aria-label="Change in PCWP, mmHg" min={v.largest} max={v.smallest} step="0.1" value={resp} onChange={(e) => onResp(Number(e.target.value))} />
             <div className="range-row"><span>{signed(v.largest, 0)}</span><span>{signed(resp)} mmHg</span><span>{fmt(v.smallest, 0)}</span></div>
           </fieldset>
         </section>
 
         <section className="panel">
-          <div className="ph"><h3>Estimated wedge pressure</h3><span className="sub">mmHg</span></div>
+          <div className="ph"><h3>PCWP (lung back-pressure)</h3><span className="sub">mmHg</span></div>
           <div className="ba">
-            <div><div className="lbl">Now <Ev k="R" /></div><div className="bignum">{fmt(est)}</div><StatePill state={p.congestion.state} /></div>
+            <div><div className="lbl">Now</div><div className="bignum">{fmt(est)}</div><StatePill state={p.status} /></div>
             <div className="arrow" aria-hidden="true">→</div>
-            <div><div className="lbl">After change <Ev k="S" /></div><div className="bignum">{fmt(after)}</div><StatePill state={sim.state} />
-              <div className="sub">Chance after change: <b>{Math.round(simChance * 100)}%</b> <Ev k="S" /></div></div>
+            <div><div className="lbl">After change <Info text="Simulated value, using this patient's own chance curve." /></div><div className="bignum">{fmt(after)}</div><StatePill state={simState} />
+              <div className="sub">Chance of congestion: <b>{Math.round(simChance * 100)}%</b></div></div>
           </div>
           <PressureScale cutoff={cutoff} markers={markers}
             bands={[{ cls: 'range', lo: Math.max(0, est + v.largest), hi: est + v.smallest, tip: `Range of real responses: ${fmt(Math.max(0, est + v.largest))} to ${fmt(est + v.smallest)} mmHg` }]} />
           <div className="legend">
-            <span><i className="lg before" />Now</span><span><i className="lg est" />After (simulated)</span>
-            <span><i className="lg range" />Range of real responses</span>{real && <span><i className="lg real" />Real catheter after</span>}
+            <span><i className="lg before" />Now</span><span><i className="lg est" />After</span>
+            <span><i className="lg range" />Real responses</span>{real && <span><i className="lg real" />Real catheter after</span>}
           </div>
           <div className="realcheck">
-            {real ? <>
-              <div className="lbl">Real check for this patient <Ev k="R" /></div>
-              <div>The catheter wedge went from <b>{fmt(p.measured.wedge, 0)}</b> to <b>{fmt(real.wedge, 0)} mmHg</b> after {real.drug} (change {signed(real.wedge - p.measured.wedge, 0)}).</div>
-            </> : <>
-              <div className="lbl">Real check</div>
-              <div>This patient had no vasodilator test, so there is no real after-value to compare with.</div>
-            </>}
+            {real
+              ? <>Real check: catheter PCWP went from <b>{fmt(p.measured.wedge, 0)}</b> to <b>{fmt(real.wedge, 0)} mmHg</b> after {real.drug} ({signed(real.wedge - p.measured.wedge, 0)}).</>
+              : 'No vasodilator test for this patient, so there is no real after-value to compare.'}
           </div>
         </section>
       </div>
       <div className="grid2">
         <section className="panel">
-          <div className="ph"><h3>Heart and lungs after the change</h3><span className="sub">simulated</span></div>
-          <HeartView patient={p} wedge={after} state={sim.state} simulated chance={simChance} lean={simLean} />
+          <div className="ph"><h3>Heart twin after the change</h3><Info text="Same real beats; the red pulse follows the simulated chance (50% or more)." /></div>
+          <HeartView patient={p} wedge={after} state={simState} simulated chance={simChance} lean={simLean} />
         </section>
-        <RecommendationCard p={p} rec={rec} />
+        <RecommendationCard rec={rec} />
       </div>
     </div>
   )

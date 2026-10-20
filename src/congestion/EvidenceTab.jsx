@@ -1,6 +1,6 @@
 import React from 'react'
-import { Ev, Tile } from './ui'
-import { fmt, label } from './format'
+import { Tile } from './ui'
+import { STATUS_INFO, fmt, label } from './format'
 
 function Scatter({ patients, selected, cutoff }) {
   const W = 520, H = 400, L = 52, R = 16, T = 16, B = 50, D = 35
@@ -54,25 +54,26 @@ function ModelBars({ models, naive }) {
   )
 }
 
-export default function EvidenceTab({ patients, selected, meta }) {
+export default function EvidenceTab({ patients, selected, meta, rules }) {
   const m = meta.model, e = meta.errors, b = meta.congestion_band, c = meta.cutoffs, n = patients.length
   const cov = Math.round(b.coverage * 100)
+  const count = (s) => patients.filter((p) => p.status === s).length
   return (
     <div className="stack">
       <section className="panel">
-        <div className="ph"><h3>How good is the estimate?</h3><span className="sub">wedge pressure, {m.n_recordings} recordings from {m.n_patients} patients <Ev k="R" /></span></div>
+        <div className="ph"><h3>How good is the estimate?</h3><span className="sub">PCWP, {m.n_recordings} recordings from {m.n_patients} patients</span></div>
         <div className="grid-auto">
-          <Tile label="Typical error" value={fmt(m.mae, 2)} unit="mmHg" note={`always-average guess: ${fmt(m.naive_mae, 2)}`} />
-          <Tile label="Better than the average guess by" value={fmt(m.gain, 2)} unit="mmHg" note={`95% interval ${fmt(m.gain_ci95[0], 2)} to ${fmt(m.gain_ci95[1], 2)}; ${m.meets_success_rule ? 'passes' : 'fails'} the rule set before testing`} />
-          <Tile label="Separates decompensated recordings" value={fmt(m.auroc, 2)} unit="AUROC" note={`0.5 = coin flip; the catheter itself scores ${fmt(m.auroc_catheter, 2)}`} />
-          <Tile label="Testing" value="blind" unit="by patient" note="10 patient groups, 3 different splits averaged" />
+          <Tile label="Typical error" value={fmt(m.mae, 2)} unit="mmHg" info={`always-average guess: ${fmt(m.naive_mae, 2)}`} />
+          <Tile label="Better than the average guess by" value={fmt(m.gain, 2)} unit="mmHg" info={`95% interval ${fmt(m.gain_ci95[0], 2)} to ${fmt(m.gain_ci95[1], 2)}; ${m.meets_success_rule ? 'passes' : 'fails'} the rule set before testing`} />
+          <Tile label="Separates decompensated recordings" value={fmt(m.auroc, 2)} unit="AUROC" info={`0.5 = coin flip; the catheter itself scores ${fmt(m.auroc_catheter, 2)}`} />
+          <Tile label="Testing" value="blind" unit="by patient" info="10 patient groups, 3 different splits averaged" />
         </div>
         <div className="rr-h" style={{ marginTop: 18 }}>How far off, recording by recording</div>
         <div className="grid-auto">
-          <Tile label="Half are off by less than" value={fmt(e.median)} unit="mmHg" note={`middle half: ${fmt(e.p25)} to ${fmt(e.p75)}`} />
-          <Tile label="Within 2 mmHg" value={`${e.within['2']}/${n}`} note={`within 1 mmHg: ${e.within['1']}`} />
-          <Tile label="Within 5 mmHg" value={`${e.within['5']}/${n}`} note={`within 10 mmHg: ${e.within['10']}`} />
-          <Tile label="Worst" value={fmt(e.max)} unit="mmHg" note={`estimates span ${fmt(e.estimate_range[0])}–${fmt(e.estimate_range[1])}; catheter ${fmt(e.catheter_range[0], 0)}–${fmt(e.catheter_range[1], 0)}`} />
+          <Tile label="Half are off by less than" value={fmt(e.median)} unit="mmHg" info={`middle half: ${fmt(e.p25)} to ${fmt(e.p75)}`} />
+          <Tile label="Within 2 mmHg" value={`${e.within['2']}/${n}`} info={`within 1 mmHg: ${e.within['1']}`} />
+          <Tile label="Within 5 mmHg" value={`${e.within['5']}/${n}`} info={`within 10 mmHg: ${e.within['10']}`} />
+          <Tile label="Worst" value={fmt(e.max)} unit="mmHg" info={`estimates span ${fmt(e.estimate_range[0])}–${fmt(e.estimate_range[1])}; catheter ${fmt(e.catheter_range[0], 0)}–${fmt(e.catheter_range[1], 0)}`} />
         </div>
       </section>
 
@@ -90,7 +91,7 @@ export default function EvidenceTab({ patients, selected, meta }) {
       </div>
 
       <section className="panel">
-        <div className="ph"><h3>Does the percentage hold up?</h3><span className="sub">chance of congestion, tested blind <Ev k="R" /></span></div>
+        <div className="ph"><h3>Does the percentage hold up?</h3><span className="sub">chance of congestion, tested blind</span></div>
         <div className="grid2">
           <div className="tbl"><table>
             <thead><tr><th>Predicted chance</th><th>Recordings</th><th>Average predicted</th><th>Really congested</th></tr></thead>
@@ -110,12 +111,10 @@ export default function EvidenceTab({ patients, selected, meta }) {
       </section>
 
       <section className="panel prose">
-        <div className="ph"><h3>Why most recordings show "uncertain"</h3><span className="sub">decision P18 still open</span></div>
-        <p>The twin only calls a recording congested or not congested when the estimate's whole {cov}% error range sits on one side of {c.wedge_congestion} mmHg.
-          The range is built from the model's real errors on other patients: the estimate {fmt(b.lower)} to +{fmt(b.upper)} mmHg.
-          Because that range is wider than most gaps to the cut-off, <b>{b.counts.uncertain} of {n}</b> recordings are uncertain,
-          {' '}{b.counts.congested} congested and {b.counts.not_congested} not congested. The coverage ({cov}%) is not final. Going by the chance alone
-          (50% or more), {b.lean_counts.congested} would lean congested and {b.lean_counts.not_congested} not congested.</p>
+        <div className="ph"><h3>How the status is decided</h3><span className="sub">one rule for the status and the recommendation</span></div>
+        <p>{STATUS_INFO(rules)} The {cov}% range is the estimate {fmt(b.lower)} to +{fmt(b.upper)} mmHg, from the model's real errors on other patients.</p>
+        <p>Here: <b>{count('congested')}</b> congested, <b>{count('uncertain')}</b> borderline, <b>{count('not_congested')}</b> not congested of {n}.
+          The stricter range-only rule would give {b.counts.congested} / {b.counts.uncertain} / {b.counts.not_congested}.</p>
       </section>
 
       <div className="grid2">
@@ -129,13 +128,13 @@ export default function EvidenceTab({ patients, selected, meta }) {
           </ul>
         </section>
         <section className="panel">
-          <div className="ph"><h3>Cut-offs and sources</h3><Ev k="G" /></div>
+          <div className="ph"><h3>Cut-offs and sources</h3></div>
           <div className="tbl"><table>
             <thead><tr><th>Value</th><th>Meaning</th><th>Source</th></tr></thead>
             <tbody>
               <tr><td>&gt; {c.wedge_congestion} mmHg</td><td>Congestion (wedge pressure)</td><td>{c.source}</td></tr>
               <tr><td>&lt; {c.cardiac_index_low} L/min/m²</td><td>Low perfusion (cardiac index)</td><td>{c.source}</td></tr>
-              <tr><td>{cov}% range</td><td>Error range around each estimate</td><td>This model's real errors on other patients <Ev k="R" /></td></tr>
+              <tr><td>{cov}% range</td><td>Error range around each estimate</td><td>This model's real errors on other patients</td></tr>
             </tbody>
           </table></div>
           <p className="small">Data: <a href={meta.data_source.url} target="_blank" rel="noreferrer">{meta.data_source.name}</a> ({meta.data_source.licence}).

@@ -35,6 +35,10 @@ public static class DashboardWebGLBuild
             return;
         }
 
+        // Unity's demo page is not used: the dashboard loads Build/ itself (src/congestion/unityHeart.js).
+        File.Delete(Path.Combine(outDir, "index.html"));
+        if (Directory.Exists(Path.Combine(outDir, "TemplateData"))) Directory.Delete(Path.Combine(outDir, "TemplateData"), true);
+
         string buildDir = Path.Combine(outDir, "Build");
         string Find(string marker)
         {
