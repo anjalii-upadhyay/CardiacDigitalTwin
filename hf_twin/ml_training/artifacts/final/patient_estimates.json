@@ -1,0 +1,2414 @@
+{
+ "meta": {
+  "model": "wedge_svr_v1_2026-10-20",
+  "n": 63,
+  "ui_text": {
+   "percentage_info": "When it says 70%, about 7 in 10 such patients really were congested.",
+   "estimate_info": "Estimated by a model that never saw this patient. Typical error about 5 mmHg; the range shown contains 80% of past errors.",
+   "congestion_definition": "Congested = catheter wedge pressure above 18 mmHg (Cardiological Society of India, 2018).",
+   "perfusion_info": "Taken from catheter measurements in the patient record, never from the model."
+  },
+  "cutoffs": {
+   "congestion_wedge_mmHg": 18.0,
+   "low_perfusion_ci": 2.2,
+   "source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)"
+  },
+  "note": "Every estimate, range and chance comes from models that never saw that patient."
+ },
+ "patients": [
+  {
+   "id": "TRM245-RHC1",
+   "patient": "TRM245",
+   "age": 26,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 96.625,
+   "estimate": {
+    "wedge_mmHg": 28.3,
+    "range80_mmHg": [
+     20.5,
+     36.9
+    ],
+    "range90_mmHg": [
+     17.5,
+     40.4
+    ],
+    "chance_congested": 0.969,
+    "category_strict": "congested",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 32.0,
+    "right_atrial_mmHg": 15.0,
+    "pa_mean_mmHg": 36.0,
+    "stroke_volume_mL": 61.73076923076923,
+    "cardiac_output_l_min": 4.82
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.38,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM268-RHC1",
+   "patient": "TRM268",
+   "age": 30,
+   "sex": "Male",
+   "height_cm": 172.75,
+   "weight_kg": 102.125,
+   "estimate": {
+    "wedge_mmHg": 24.8,
+    "range80_mmHg": [
+     17.0,
+     33.4
+    ],
+    "range90_mmHg": [
+     14.0,
+     36.9
+    ],
+    "chance_congested": 0.9,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 24.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 37.0,
+    "stroke_volume_mL": 51.74698795180723,
+    "cardiac_output_l_min": 4.29
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.04,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM223-RHC1",
+   "patient": "TRM223",
+   "age": 37,
+   "sex": "Male",
+   "height_cm": 165.125,
+   "weight_kg": 92.625,
+   "estimate": {
+    "wedge_mmHg": 24.7,
+    "range80_mmHg": [
+     16.9,
+     33.3
+    ],
+    "range90_mmHg": [
+     13.9,
+     36.8
+    ],
+    "chance_congested": 0.896,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 29.0,
+    "right_atrial_mmHg": 22.0,
+    "pa_mean_mmHg": 39.0,
+    "stroke_volume_mL": 28.211382113821138,
+    "cardiac_output_l_min": 3.47
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.74,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM248-RHC1",
+   "patient": "TRM248",
+   "age": 56,
+   "sex": "Male",
+   "height_cm": 180.25,
+   "weight_kg": 84.125,
+   "estimate": {
+    "wedge_mmHg": 23.8,
+    "range80_mmHg": [
+     16.0,
+     32.4
+    ],
+    "range90_mmHg": [
+     13.0,
+     35.9
+    ],
+    "chance_congested": 0.862,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 24.0,
+    "right_atrial_mmHg": 13.0,
+    "pa_mean_mmHg": 34.0,
+    "stroke_volume_mL": 42.604166666666664,
+    "cardiac_output_l_min": 4.09
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.0,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM181-RHC1",
+   "patient": "TRM181",
+   "age": 54,
+   "sex": "Male",
+   "height_cm": 180.25,
+   "weight_kg": 119.125,
+   "estimate": {
+    "wedge_mmHg": 22.7,
+    "range80_mmHg": [
+     14.9,
+     31.3
+    ],
+    "range90_mmHg": [
+     11.9,
+     34.8
+    ],
+    "chance_congested": 0.809,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 22.0,
+    "right_atrial_mmHg": 7.0,
+    "pa_mean_mmHg": 33.0,
+    "stroke_volume_mL": 53.9344262295082,
+    "cardiac_output_l_min": 3.29
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.32,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM155-RHC1",
+   "patient": "TRM155",
+   "age": 63,
+   "sex": "Female",
+   "height_cm": 172.75,
+   "weight_kg": 123.375,
+   "estimate": {
+    "wedge_mmHg": 21.6,
+    "range80_mmHg": [
+     14.2,
+     30.2
+    ],
+    "range90_mmHg": [
+     10.9,
+     33.7
+    ],
+    "chance_congested": 0.796,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 20.0,
+    "stroke_volume_mL": 61.887755102040806,
+    "cardiac_output_l_min": 6.06
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.77,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM276-RHC1",
+   "patient": "TRM276",
+   "age": 53,
+   "sex": "Male",
+   "height_cm": 177.75,
+   "weight_kg": 131.25,
+   "estimate": {
+    "wedge_mmHg": 21.6,
+    "range80_mmHg": [
+     13.8,
+     30.2
+    ],
+    "range90_mmHg": [
+     10.8,
+     33.7
+    ],
+    "chance_congested": 0.744,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 21.0,
+    "right_atrial_mmHg": 9.0,
+    "pa_mean_mmHg": 33.0,
+    "stroke_volume_mL": 61.544117647058826,
+    "cardiac_output_l_min": 4.18
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.82,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM197-RHC1",
+   "patient": "TRM197",
+   "age": 49,
+   "sex": "Male",
+   "height_cm": 175.25,
+   "weight_kg": 75.8125,
+   "estimate": {
+    "wedge_mmHg": 21.0,
+    "range80_mmHg": [
+     13.2,
+     29.7
+    ],
+    "range90_mmHg": [
+     10.2,
+     33.2
+    ],
+    "chance_congested": 0.704,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 25.0,
+    "right_atrial_mmHg": 12.0,
+    "pa_mean_mmHg": 34.0,
+    "stroke_volume_mL": 58.611111111111114,
+    "cardiac_output_l_min": 4.22
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.2,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM233-RHC1",
+   "patient": "TRM233",
+   "age": 59,
+   "sex": "Male",
+   "height_cm": 172.75,
+   "weight_kg": 103.375,
+   "estimate": {
+    "wedge_mmHg": 20.9,
+    "range80_mmHg": [
+     13.1,
+     29.4
+    ],
+    "range90_mmHg": [
+     10.1,
+     33.0
+    ],
+    "chance_congested": 0.692,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 29.0,
+    "right_atrial_mmHg": 19.0,
+    "pa_mean_mmHg": 55.0,
+    "stroke_volume_mL": 67.4390243902439,
+    "cardiac_output_l_min": 5.53
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.69,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM158-RHC1",
+   "patient": "TRM158",
+   "age": 41,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 74,
+   "estimate": {
+    "wedge_mmHg": 20.4,
+    "range80_mmHg": [
+     12.6,
+     29.1
+    ],
+    "range90_mmHg": [
+     9.6,
+     32.5
+    ],
+    "chance_congested": 0.7,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 18.0,
+    "right_atrial_mmHg": 8.0,
+    "pa_mean_mmHg": 27.0,
+    "stroke_volume_mL": 38.06818181818182,
+    "cardiac_output_l_min": 3.35
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.81,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM254-RHC1",
+   "patient": "TRM254",
+   "age": 53,
+   "sex": "Male",
+   "height_cm": 182.875,
+   "weight_kg": 99.8125,
+   "estimate": {
+    "wedge_mmHg": 20.0,
+    "range80_mmHg": [
+     12.1,
+     28.6
+    ],
+    "range90_mmHg": [
+     9.2,
+     32.1
+    ],
+    "chance_congested": 0.621,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 26.0,
+    "right_atrial_mmHg": 27.0,
+    "pa_mean_mmHg": 35.0,
+    "stroke_volume_mL": 58.63636363636363,
+    "cardiac_output_l_min": 3.87
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.74,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM174-RHC1",
+   "patient": "TRM174",
+   "age": 69,
+   "sex": "Male",
+   "height_cm": 177.75,
+   "weight_kg": 91.1875,
+   "estimate": {
+    "wedge_mmHg": 19.9,
+    "range80_mmHg": [
+     12.4,
+     28.5
+    ],
+    "range90_mmHg": [
+     10.3,
+     32.0
+    ],
+    "chance_congested": 0.649,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 9.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 16.0,
+    "stroke_volume_mL": 111.0576923076923,
+    "cardiac_output_l_min": 5.78
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.69,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM235-RHC1",
+   "patient": "TRM235",
+   "age": 47,
+   "sex": "Male",
+   "height_cm": 188,
+   "weight_kg": 79.375,
+   "estimate": {
+    "wedge_mmHg": 19.9,
+    "range80_mmHg": [
+     12.1,
+     28.6
+    ],
+    "range90_mmHg": [
+     9.1,
+     32.0
+    ],
+    "chance_congested": 0.618,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 20.0,
+    "right_atrial_mmHg": 4.0,
+    "pa_mean_mmHg": 33.0,
+    "stroke_volume_mL": 36.39784946236559,
+    "cardiac_output_l_min": 3.38
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.69,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM152-RHC1",
+   "patient": "TRM152",
+   "age": 67,
+   "sex": "Male",
+   "height_cm": 180.25,
+   "weight_kg": 103.875,
+   "estimate": {
+    "wedge_mmHg": 19.8,
+    "range80_mmHg": [
+     12.0,
+     28.4
+    ],
+    "range90_mmHg": [
+     9.0,
+     31.9
+    ],
+    "chance_congested": 0.642,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 16.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 29.0,
+    "stroke_volume_mL": 45.42857142857142,
+    "cardiac_output_l_min": 3.18
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.39,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM279-RHC1",
+   "patient": "TRM279",
+   "age": 63,
+   "sex": "Male",
+   "height_cm": 167.625,
+   "weight_kg": 65.3125,
+   "estimate": {
+    "wedge_mmHg": 19.8,
+    "range80_mmHg": [
+     12.0,
+     27.9
+    ],
+    "range90_mmHg": [
+     9.0,
+     31.8
+    ],
+    "chance_congested": 0.609,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 31.0,
+    "right_atrial_mmHg": 10.0,
+    "pa_mean_mmHg": 49.0,
+    "stroke_volume_mL": 55.2112676056338,
+    "cardiac_output_l_min": 3.92
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.39,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM160-RHC1",
+   "patient": "TRM160",
+   "age": 57,
+   "sex": "Male",
+   "height_cm": 172.75,
+   "weight_kg": 79.375,
+   "estimate": {
+    "wedge_mmHg": 19.7,
+    "range80_mmHg": [
+     11.8,
+     28.3
+    ],
+    "range90_mmHg": [
+     8.9,
+     31.8
+    ],
+    "chance_congested": 0.597,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 24.0,
+    "right_atrial_mmHg": 17.0,
+    "pa_mean_mmHg": 36.0,
+    "stroke_volume_mL": 55.21978021978022,
+    "cardiac_output_l_min": 5.03
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.72,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM258-RHC1",
+   "patient": "TRM258",
+   "age": 31,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 40.8125,
+   "estimate": {
+    "wedge_mmHg": 19.5,
+    "range80_mmHg": [
+     11.8,
+     28.2
+    ],
+    "range90_mmHg": [
+     8.7,
+     31.6
+    ],
+    "chance_congested": 0.618,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 4.0,
+    "pa_mean_mmHg": 21.0,
+    "stroke_volume_mL": 39.76923076923077,
+    "cardiac_output_l_min": 2.58
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.06,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM178-RHC1",
+   "patient": "TRM178",
+   "age": 59,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 64.375,
+   "estimate": {
+    "wedge_mmHg": 19.4,
+    "range80_mmHg": [
+     11.6,
+     28.0
+    ],
+    "range90_mmHg": [
+     8.6,
+     31.5
+    ],
+    "chance_congested": 0.604,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 14.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 24.0,
+    "stroke_volume_mL": 68.98148148148148,
+    "cardiac_output_l_min": 3.73
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.09,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM172-RHC1",
+   "patient": "TRM172",
+   "age": 43,
+   "sex": "Male",
+   "height_cm": 175.25,
+   "weight_kg": 106.625,
+   "estimate": {
+    "wedge_mmHg": 19.3,
+    "range80_mmHg": [
+     11.5,
+     28.0
+    ],
+    "range90_mmHg": [
+     8.5,
+     31.4
+    ],
+    "chance_congested": 0.57,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 21.0,
+    "right_atrial_mmHg": 12.0,
+    "pa_mean_mmHg": 35.0,
+    "stroke_volume_mL": 106.58730158730158,
+    "cardiac_output_l_min": 6.71
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.2,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM179-RHC1",
+   "patient": "TRM179",
+   "age": 60,
+   "sex": "Male",
+   "height_cm": 185.375,
+   "weight_kg": 96.625,
+   "estimate": {
+    "wedge_mmHg": 19.2,
+    "range80_mmHg": [
+     11.4,
+     27.8
+    ],
+    "range90_mmHg": [
+     8.4,
+     31.3
+    ],
+    "chance_congested": 0.587,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 14.0,
+    "right_atrial_mmHg": 10.0,
+    "pa_mean_mmHg": 24.0,
+    "stroke_volume_mL": 60.8974358974359,
+    "cardiac_output_l_min": 4.75
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.93,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM128-RHC1",
+   "patient": "TRM128",
+   "age": 50,
+   "sex": "Male",
+   "height_cm": 188,
+   "weight_kg": 113.8125,
+   "estimate": {
+    "wedge_mmHg": 18.8,
+    "range80_mmHg": [
+     11.0,
+     27.4
+    ],
+    "range90_mmHg": [
+     8.0,
+     30.9
+    ],
+    "chance_congested": 0.55,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 15.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 19.0,
+    "stroke_volume_mL": 56.81159420289855,
+    "cardiac_output_l_min": 3.92
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.68,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM255-RHC1",
+   "patient": "TRM255",
+   "age": 64,
+   "sex": "Female",
+   "height_cm": 167.625,
+   "weight_kg": 59,
+   "estimate": {
+    "wedge_mmHg": 18.6,
+    "range80_mmHg": [
+     10.8,
+     27.2
+    ],
+    "range90_mmHg": [
+     7.8,
+     30.7
+    ],
+    "chance_congested": 0.53,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 18.0,
+    "right_atrial_mmHg": 9.0,
+    "pa_mean_mmHg": 32.0,
+    "stroke_volume_mL": 37.916666666666664,
+    "cardiac_output_l_min": 3.64
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.05,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM270-RHC1",
+   "patient": "TRM270",
+   "age": 49,
+   "sex": "Male",
+   "height_cm": 185.375,
+   "weight_kg": 107.375,
+   "estimate": {
+    "wedge_mmHg": 18.6,
+    "range80_mmHg": [
+     10.8,
+     27.3
+    ],
+    "range90_mmHg": [
+     7.9,
+     30.8
+    ],
+    "chance_congested": 0.511,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 24.0,
+    "right_atrial_mmHg": 8.0,
+    "pa_mean_mmHg": 48.0,
+    "stroke_volume_mL": 71.33333333333331,
+    "cardiac_output_l_min": 4.28
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.84,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM256-RHC1",
+   "patient": "TRM256",
+   "age": 63,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 63.5,
+   "estimate": {
+    "wedge_mmHg": 18.3,
+    "range80_mmHg": [
+     10.9,
+     26.9
+    ],
+    "range90_mmHg": [
+     8.7,
+     30.4
+    ],
+    "chance_congested": 0.505,
+    "category_strict": "uncertain",
+    "lean": "congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 5.0,
+    "right_atrial_mmHg": 3.0,
+    "pa_mean_mmHg": 12.0,
+    "stroke_volume_mL": 42.61363636363637,
+    "cardiac_output_l_min": 3.75
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.3,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM166-RHC2",
+   "patient": "TRM166",
+   "age": 65,
+   "sex": "Male",
+   "height_cm": 188,
+   "weight_kg": 90.6875,
+   "estimate": {
+    "wedge_mmHg": 18.2,
+    "range80_mmHg": [
+     10.3,
+     26.9
+    ],
+    "range90_mmHg": [
+     7.3,
+     30.3
+    ],
+    "chance_congested": 0.495,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 2.0,
+    "pa_mean_mmHg": 19.0,
+    "stroke_volume_mL": 85.36764705882354,
+    "cardiac_output_l_min": 5.8
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.58,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM195-RHC2",
+   "patient": "TRM195",
+   "age": 59,
+   "sex": "Female",
+   "height_cm": 165.125,
+   "weight_kg": 68,
+   "estimate": {
+    "wedge_mmHg": 18.0,
+    "range80_mmHg": [
+     10.2,
+     26.7
+    ],
+    "range90_mmHg": [
+     7.2,
+     30.2
+    ],
+    "chance_congested": 0.461,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 20.0,
+    "right_atrial_mmHg": 7.0,
+    "pa_mean_mmHg": 30.0,
+    "stroke_volume_mL": 65.3623188405797,
+    "cardiac_output_l_min": 4.51
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.23,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM170-RHC2",
+   "patient": "TRM170",
+   "age": 40,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 59.90625,
+   "estimate": {
+    "wedge_mmHg": 17.9,
+    "range80_mmHg": [
+     10.1,
+     26.0
+    ],
+    "range90_mmHg": [
+     7.1,
+     30.1
+    ],
+    "chance_congested": 0.455,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 16.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 23.0,
+    "stroke_volume_mL": 38.01886792452831,
+    "cardiac_output_l_min": 2.02
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.3,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM246-RHC1",
+   "patient": "TRM246",
+   "age": 57,
+   "sex": "Female",
+   "height_cm": 170.25,
+   "weight_kg": 55.8125,
+   "estimate": {
+    "wedge_mmHg": 17.9,
+    "range80_mmHg": [
+     10.1,
+     26.6
+    ],
+    "range90_mmHg": [
+     7.1,
+     30.0
+    ],
+    "chance_congested": 0.448,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 19.0,
+    "right_atrial_mmHg": 21.0,
+    "pa_mean_mmHg": 28.0,
+    "stroke_volume_mL": 112.64462809917354,
+    "cardiac_output_l_min": 13.63
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 10.72,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM274-RHC1",
+   "patient": "TRM274",
+   "age": 39,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 130.75,
+   "estimate": {
+    "wedge_mmHg": 17.3,
+    "range80_mmHg": [
+     9.5,
+     25.4
+    ],
+    "range90_mmHg": [
+     6.5,
+     29.4
+    ],
+    "chance_congested": 0.394,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 26.0,
+    "right_atrial_mmHg": 12.0,
+    "pa_mean_mmHg": 36.0,
+    "stroke_volume_mL": 46.568627450980394,
+    "cardiac_output_l_min": 4.75
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.97,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac output / body surface area (Mosteller)"
+   }
+  },
+  {
+   "id": "TRM215-RHC1",
+   "patient": "TRM215",
+   "age": 64,
+   "sex": "Male",
+   "height_cm": 182.875,
+   "weight_kg": 108.875,
+   "estimate": {
+    "wedge_mmHg": 17.0,
+    "range80_mmHg": [
+     9.2,
+     25.7
+    ],
+    "range90_mmHg": [
+     6.2,
+     29.2
+    ],
+    "chance_congested": 0.392,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 18.0,
+    "right_atrial_mmHg": 10.0,
+    "pa_mean_mmHg": 31.0,
+    "stroke_volume_mL": 89.8076923076923,
+    "cardiac_output_l_min": 4.67
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.9,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM187-RHC1",
+   "patient": "TRM187",
+   "age": 54,
+   "sex": "Male",
+   "height_cm": 175.25,
+   "weight_kg": 146,
+   "estimate": {
+    "wedge_mmHg": 16.9,
+    "range80_mmHg": [
+     9.1,
+     24.9
+    ],
+    "range90_mmHg": [
+     6.1,
+     27.9
+    ],
+    "chance_congested": 0.356,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 31.0,
+    "right_atrial_mmHg": 18.0,
+    "pa_mean_mmHg": 44.0,
+    "stroke_volume_mL": 90.52631578947368,
+    "cardiac_output_l_min": 5.16
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.97,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM186-RHC1",
+   "patient": "TRM186",
+   "age": 69,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 115.625,
+   "estimate": {
+    "wedge_mmHg": 16.8,
+    "range80_mmHg": [
+     9.0,
+     24.9
+    ],
+    "range90_mmHg": [
+     6.0,
+     27.9
+    ],
+    "chance_congested": 0.353,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 29.0,
+    "right_atrial_mmHg": 12.0,
+    "pa_mean_mmHg": 45.0,
+    "stroke_volume_mL": 58.145161290322584,
+    "cardiac_output_l_min": 3.6
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.69,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM259-RHC2",
+   "patient": "TRM259",
+   "age": 38,
+   "sex": "Female",
+   "height_cm": 175.25,
+   "weight_kg": 109.8125,
+   "estimate": {
+    "wedge_mmHg": 16.8,
+    "range80_mmHg": [
+     9.2,
+     25.4
+    ],
+    "range90_mmHg": [
+     7.1,
+     28.9
+    ],
+    "chance_congested": 0.373,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 4.0,
+    "right_atrial_mmHg": 1.0,
+    "pa_mean_mmHg": 10.0,
+    "stroke_volume_mL": 75.7258064516129,
+    "cardiac_output_l_min": 4.7
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.11,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM260-RHC1",
+   "patient": "TRM260",
+   "age": 71,
+   "sex": "Male",
+   "height_cm": 157.5,
+   "weight_kg": 48.5,
+   "estimate": {
+    "wedge_mmHg": 16.8,
+    "range80_mmHg": [
+     9.0,
+     25.4
+    ],
+    "range90_mmHg": [
+     6.0,
+     28.9
+    ],
+    "chance_congested": 0.373,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 10.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 27.0,
+    "stroke_volume_mL": 54.8051948051948,
+    "cardiac_output_l_min": 4.22
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.92,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM231-RHC1",
+   "patient": "TRM231",
+   "age": 59,
+   "sex": "Male",
+   "height_cm": 177.75,
+   "weight_kg": 95.3125,
+   "estimate": {
+    "wedge_mmHg": 16.6,
+    "range80_mmHg": [
+     8.8,
+     25.3
+    ],
+    "range90_mmHg": [
+     5.8,
+     28.7
+    ],
+    "chance_congested": 0.357,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 7.0,
+    "pa_mean_mmHg": 25.0,
+    "stroke_volume_mL": 90.46511627906976,
+    "cardiac_output_l_min": 3.89
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.47,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM170-RHC1",
+   "patient": "TRM170",
+   "age": 39,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 59,
+   "estimate": {
+    "wedge_mmHg": 16.2,
+    "range80_mmHg": [
+     8.4,
+     24.3
+    ],
+    "range90_mmHg": [
+     5.3,
+     28.4
+    ],
+    "chance_congested": 0.309,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 25.0,
+    "right_atrial_mmHg": 11.0,
+    "pa_mean_mmHg": 33.0,
+    "stroke_volume_mL": 48.72727272727272,
+    "cardiac_output_l_min": 2.68
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.73,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM164-RHC1",
+   "patient": "TRM164",
+   "age": 43,
+   "sex": "Male",
+   "height_cm": 167.625,
+   "weight_kg": 86.375,
+   "estimate": {
+    "wedge_mmHg": 16.1,
+    "range80_mmHg": [
+     8.3,
+     24.2
+    ],
+    "range90_mmHg": [
+     5.3,
+     27.2
+    ],
+    "chance_congested": 0.294,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 31.0,
+    "right_atrial_mmHg": 15.0,
+    "pa_mean_mmHg": 50.0,
+    "stroke_volume_mL": 35.9,
+    "cardiac_output_l_min": 3.59
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.81,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM273-RHC1",
+   "patient": "TRM273",
+   "age": 26,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 107.625,
+   "estimate": {
+    "wedge_mmHg": 16.1,
+    "range80_mmHg": [
+     8.3,
+     24.7
+    ],
+    "range90_mmHg": [
+     5.3,
+     28.2
+    ],
+    "chance_congested": 0.29,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 21.0,
+    "right_atrial_mmHg": 16.0,
+    "pa_mean_mmHg": 38.0,
+    "stroke_volume_mL": 28.839285714285715,
+    "cardiac_output_l_min": 3.23
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.58,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM220-RHC1",
+   "patient": "TRM220",
+   "age": 40,
+   "sex": "Female",
+   "height_cm": 165.125,
+   "weight_kg": 85.6875,
+   "estimate": {
+    "wedge_mmHg": 15.9,
+    "range80_mmHg": [
+     8.0,
+     24.5
+    ],
+    "range90_mmHg": [
+     5.1,
+     28.0
+    ],
+    "chance_congested": 0.298,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 4.0,
+    "pa_mean_mmHg": 45.0,
+    "stroke_volume_mL": 80.80459770114942,
+    "cardiac_output_l_min": 7.03
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.9,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM127-RHC1",
+   "patient": "TRM127",
+   "age": 47,
+   "sex": "Female",
+   "height_cm": 170,
+   "weight_kg": 102.6875,
+   "estimate": {
+    "wedge_mmHg": 15.7,
+    "range80_mmHg": [
+     7.9,
+     24.3
+    ],
+    "range90_mmHg": [
+     4.9,
+     27.8
+    ],
+    "chance_congested": 0.288,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 10.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 17.0,
+    "stroke_volume_mL": 80.33333333333333,
+    "cardiac_output_l_min": 7.23
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.4,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM176-RHC1",
+   "patient": "TRM176",
+   "age": 71,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 88,
+   "estimate": {
+    "wedge_mmHg": 15.6,
+    "range80_mmHg": [
+     7.8,
+     24.2
+    ],
+    "range90_mmHg": [
+     4.8,
+     27.7
+    ],
+    "chance_congested": 0.28,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 12.0,
+    "right_atrial_mmHg": 7.0,
+    "pa_mean_mmHg": 20.0,
+    "stroke_volume_mL": 79.71830985915493,
+    "cardiac_output_l_min": 5.66
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.77,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac output / body surface area (Mosteller)"
+   }
+  },
+  {
+   "id": "TRM195-RHC1",
+   "patient": "TRM195",
+   "age": 58,
+   "sex": "Female",
+   "height_cm": 165.125,
+   "weight_kg": 66.6875,
+   "estimate": {
+    "wedge_mmHg": 15.6,
+    "range80_mmHg": [
+     7.8,
+     24.3
+    ],
+    "range90_mmHg": [
+     4.7,
+     27.8
+    ],
+    "chance_congested": 0.272,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 13.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 25.0,
+    "stroke_volume_mL": 62.357142857142854,
+    "cardiac_output_l_min": 4.37
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.42,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM243-RHC1",
+   "patient": "TRM243",
+   "age": 63,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 55.8125,
+   "estimate": {
+    "wedge_mmHg": 15.5,
+    "range80_mmHg": [
+     7.7,
+     24.2
+    ],
+    "range90_mmHg": [
+     4.7,
+     27.6
+    ],
+    "chance_congested": 0.249,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 22.0,
+    "right_atrial_mmHg": 9.0,
+    "pa_mean_mmHg": 39.0,
+    "stroke_volume_mL": 37.30337078651686,
+    "cardiac_output_l_min": 3.32
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.0,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM272-RHC1",
+   "patient": "TRM272",
+   "age": 64,
+   "sex": "Male",
+   "height_cm": 167.625,
+   "weight_kg": 90.6875,
+   "estimate": {
+    "wedge_mmHg": 15.3,
+    "range80_mmHg": [
+     7.5,
+     23.3
+    ],
+    "range90_mmHg": [
+     4.5,
+     26.4
+    ],
+    "chance_congested": 0.231,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 28.0,
+    "right_atrial_mmHg": 14.0,
+    "pa_mean_mmHg": 32.0,
+    "stroke_volume_mL": 68.14516129032258,
+    "cardiac_output_l_min": 4.22
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.86,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM278-RHC1",
+   "patient": "TRM278",
+   "age": 79,
+   "sex": "Female",
+   "height_cm": 175.25,
+   "weight_kg": 56.6875,
+   "estimate": {
+    "wedge_mmHg": 15.1,
+    "range80_mmHg": [
+     7.3,
+     23.8
+    ],
+    "range90_mmHg": [
+     4.4,
+     27.3
+    ],
+    "chance_congested": 0.221,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 20.0,
+    "right_atrial_mmHg": 10.0,
+    "pa_mean_mmHg": 37.0,
+    "stroke_volume_mL": 45.666666666666664,
+    "cardiac_output_l_min": 2.74
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.62,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM259-RHC1",
+   "patient": "TRM259",
+   "age": 37,
+   "sex": "Female",
+   "height_cm": 175.25,
+   "weight_kg": 114.3125,
+   "estimate": {
+    "wedge_mmHg": 14.7,
+    "range80_mmHg": [
+     7.1,
+     23.3
+    ],
+    "range90_mmHg": [
+     5.0,
+     26.8
+    ],
+    "chance_congested": 0.226,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 9.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 15.0,
+    "stroke_volume_mL": 91.01562499999999,
+    "cardiac_output_l_min": 5.82
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.39,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM275-RHC1",
+   "patient": "TRM275",
+   "age": 41,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 70.3125,
+   "estimate": {
+    "wedge_mmHg": 14.6,
+    "range80_mmHg": [
+     6.8,
+     23.2
+    ],
+    "range90_mmHg": [
+     3.8,
+     26.7
+    ],
+    "chance_congested": 0.186,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 22.0,
+    "right_atrial_mmHg": 12.0,
+    "pa_mean_mmHg": 47.0,
+    "stroke_volume_mL": 41.73684210526316,
+    "cardiac_output_l_min": 3.96
+   },
+   "congested_by_catheter": true,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.5,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM281-RHC1",
+   "patient": "TRM281",
+   "age": 57,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 81.375,
+   "estimate": {
+    "wedge_mmHg": 14.6,
+    "range80_mmHg": [
+     6.8,
+     23.2
+    ],
+    "range90_mmHg": [
+     3.8,
+     26.7
+    ],
+    "chance_congested": 0.214,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 8.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 19.0,
+    "stroke_volume_mL": 50.77669902912621,
+    "cardiac_output_l_min": 5.23
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.87,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM201-RHC1",
+   "patient": "TRM201",
+   "age": 67,
+   "sex": "Male",
+   "height_cm": 185.375,
+   "weight_kg": 91.625,
+   "estimate": {
+    "wedge_mmHg": 14.2,
+    "range80_mmHg": [
+     6.7,
+     22.8
+    ],
+    "range90_mmHg": [
+     4.6,
+     26.3
+    ],
+    "chance_congested": 0.191,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 2.0,
+    "right_atrial_mmHg": 3.0,
+    "pa_mean_mmHg": 9.0,
+    "stroke_volume_mL": 100.54794520547945,
+    "cardiac_output_l_min": 7.34
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.16,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM282-RHC1",
+   "patient": "TRM282",
+   "age": 34,
+   "sex": "Male",
+   "height_cm": 170.25,
+   "weight_kg": 62.40625,
+   "estimate": {
+    "wedge_mmHg": 13.9,
+    "range80_mmHg": [
+     6.1,
+     22.6
+    ],
+    "range90_mmHg": [
+     3.1,
+     26.0
+    ],
+    "chance_congested": 0.179,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 17.0,
+    "right_atrial_mmHg": 8.0,
+    "pa_mean_mmHg": 29.0,
+    "stroke_volume_mL": 85.51546391752578,
+    "cardiac_output_l_min": 8.29
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 5.26,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM203-RHC1",
+   "patient": "TRM203",
+   "age": 57,
+   "sex": "Female",
+   "height_cm": 154.875,
+   "weight_kg": 83,
+   "estimate": {
+    "wedge_mmHg": 13.7,
+    "range80_mmHg": [
+     5.9,
+     22.3
+    ],
+    "range90_mmHg": [
+     2.9,
+     25.8
+    ],
+    "chance_congested": 0.165,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 13.0,
+    "right_atrial_mmHg": 7.0,
+    "pa_mean_mmHg": 46.0,
+    "stroke_volume_mL": 50.27027027027027,
+    "cardiac_output_l_min": 3.72
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 2.02,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM234-RHC1",
+   "patient": "TRM234",
+   "age": 80,
+   "sex": "Male",
+   "height_cm": 180.25,
+   "weight_kg": 87.125,
+   "estimate": {
+    "wedge_mmHg": 13.6,
+    "range80_mmHg": [
+     5.7,
+     22.2
+    ],
+    "range90_mmHg": [
+     2.8,
+     25.7
+    ],
+    "chance_congested": 0.16,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 18.0,
+    "right_atrial_mmHg": 9.0,
+    "pa_mean_mmHg": 26.0,
+    "stroke_volume_mL": 101.81159420289855,
+    "cardiac_output_l_min": 7.03
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.37,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM252-RHC1",
+   "patient": "TRM252",
+   "age": 36,
+   "sex": "Male",
+   "height_cm": 165.125,
+   "weight_kg": 96.625,
+   "estimate": {
+    "wedge_mmHg": 13.4,
+    "range80_mmHg": [
+     5.6,
+     22.0
+    ],
+    "range90_mmHg": [
+     2.6,
+     25.5
+    ],
+    "chance_congested": 0.151,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 9.0,
+    "right_atrial_mmHg": 2.0,
+    "pa_mean_mmHg": 17.0,
+    "stroke_volume_mL": 90.33898305084746,
+    "cardiac_output_l_min": 5.33
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.61,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM253-RHC1",
+   "patient": "TRM253",
+   "age": 84,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 43.5,
+   "estimate": {
+    "wedge_mmHg": 13.3,
+    "range80_mmHg": [
+     5.5,
+     21.9
+    ],
+    "range90_mmHg": [
+     2.5,
+     25.4
+    ],
+    "chance_congested": 0.147,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 10.0,
+    "right_atrial_mmHg": 3.0,
+    "pa_mean_mmHg": 30.0,
+    "stroke_volume_mL": 69.3859649122807,
+    "cardiac_output_l_min": 3.96
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.07,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM251-RHC1",
+   "patient": "TRM251",
+   "age": 67,
+   "sex": "Male",
+   "height_cm": 185.375,
+   "weight_kg": 99.3125,
+   "estimate": {
+    "wedge_mmHg": 13.1,
+    "range80_mmHg": [
+     5.3,
+     21.8
+    ],
+    "range90_mmHg": [
+     2.3,
+     25.2
+    ],
+    "chance_congested": 0.141,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 7.0,
+    "right_atrial_mmHg": 3.0,
+    "pa_mean_mmHg": 17.0,
+    "stroke_volume_mL": 54.4,
+    "cardiac_output_l_min": 4.08
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.87,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM222-RHC1",
+   "patient": "TRM222",
+   "age": 68,
+   "sex": "Male",
+   "height_cm": 180.25,
+   "weight_kg": 84,
+   "estimate": {
+    "wedge_mmHg": 12.9,
+    "range80_mmHg": [
+     5.5,
+     21.5
+    ],
+    "range90_mmHg": [
+     2.1,
+     25.0
+    ],
+    "chance_congested": 0.132,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 4.0,
+    "right_atrial_mmHg": 2.0,
+    "pa_mean_mmHg": 11.0,
+    "stroke_volume_mL": 57.583333333333336,
+    "cardiac_output_l_min": 3.46
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.7,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM229-RHC1",
+   "patient": "TRM229",
+   "age": 27,
+   "sex": "Female",
+   "height_cm": 170.25,
+   "weight_kg": 105.1875,
+   "estimate": {
+    "wedge_mmHg": 12.9,
+    "range80_mmHg": [
+     5.4,
+     21.5
+    ],
+    "range90_mmHg": [
+     2.1,
+     25.0
+    ],
+    "chance_congested": 0.129,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 5.0,
+    "right_atrial_mmHg": 3.0,
+    "pa_mean_mmHg": 17.0,
+    "stroke_volume_mL": 66.875,
+    "cardiac_output_l_min": 6.42
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 3.08,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM198-RHC1",
+   "patient": "TRM198",
+   "age": 66,
+   "sex": "Female",
+   "height_cm": 162.625,
+   "weight_kg": 73.125,
+   "estimate": {
+    "wedge_mmHg": 12.8,
+    "range80_mmHg": [
+     5.0,
+     21.4
+    ],
+    "range90_mmHg": [
+     2.0,
+     24.9
+    ],
+    "chance_congested": 0.127,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 18.0,
+    "right_atrial_mmHg": 2.0,
+    "pa_mean_mmHg": 36.0,
+    "stroke_volume_mL": 42.08333333333334,
+    "cardiac_output_l_min": 3.03
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.77,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM208-RHC1",
+   "patient": "TRM208",
+   "age": 54,
+   "sex": "Female",
+   "height_cm": 177.75,
+   "weight_kg": 70.3125,
+   "estimate": {
+    "wedge_mmHg": 12.7,
+    "range80_mmHg": [
+     4.9,
+     21.4
+    ],
+    "range90_mmHg": [
+     1.9,
+     24.8
+    ],
+    "chance_congested": 0.124,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 13.0,
+    "right_atrial_mmHg": 10.0,
+    "pa_mean_mmHg": 20.0,
+    "stroke_volume_mL": 72.10144927536231,
+    "cardiac_output_l_min": 4.97
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.76,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM145-RHC1",
+   "patient": "TRM145",
+   "age": 50,
+   "sex": "Female",
+   "height_cm": 157.5,
+   "weight_kg": 74.5,
+   "estimate": {
+    "wedge_mmHg": 11.5,
+    "range80_mmHg": [
+     3.7,
+     20.2
+    ],
+    "range90_mmHg": [
+     0.8,
+     23.7
+    ],
+    "chance_congested": 0.086,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 11.0,
+    "right_atrial_mmHg": 6.0,
+    "pa_mean_mmHg": 20.0,
+    "stroke_volume_mL": 76.52173913043477,
+    "cardiac_output_l_min": 5.28
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.57,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM166-RHC1",
+   "patient": "TRM166",
+   "age": 64,
+   "sex": "Male",
+   "height_cm": 188,
+   "weight_kg": 93,
+   "estimate": {
+    "wedge_mmHg": 11.3,
+    "range80_mmHg": [
+     3.5,
+     20.0
+    ],
+    "range90_mmHg": [
+     0.5,
+     23.5
+    ],
+    "chance_congested": 0.081,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 14.0,
+    "right_atrial_mmHg": 5.0,
+    "pa_mean_mmHg": 26.0,
+    "stroke_volume_mL": 71.25,
+    "cardiac_output_l_min": 4.28
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "low",
+    "cardiac_index": 1.94,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM244-RHC1",
+   "patient": "TRM244",
+   "age": 53,
+   "sex": "Female",
+   "height_cm": 160,
+   "weight_kg": 66.6875,
+   "estimate": {
+    "wedge_mmHg": 10.9,
+    "range80_mmHg": [
+     3.1,
+     19.5
+    ],
+    "range90_mmHg": [
+     0.1,
+     23.0
+    ],
+    "chance_congested": 0.069,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 11.0,
+    "right_atrial_mmHg": 4.0,
+    "pa_mean_mmHg": 24.0,
+    "stroke_volume_mL": 77.25490196078432,
+    "cardiac_output_l_min": 3.94
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.65,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  },
+  {
+   "id": "TRM219-RHC1",
+   "patient": "TRM219",
+   "age": 57,
+   "sex": "Female",
+   "height_cm": 149.875,
+   "weight_kg": 78.5,
+   "estimate": {
+    "wedge_mmHg": 9.7,
+    "range80_mmHg": [
+     1.8,
+     18.3
+    ],
+    "range90_mmHg": [
+     -1.1,
+     21.8
+    ],
+    "chance_congested": 0.046,
+    "category_strict": "uncertain",
+    "lean": "not_congested",
+    "blind": true
+   },
+   "measured": {
+    "wedge_mmHg": 11.0,
+    "right_atrial_mmHg": 8.0,
+    "pa_mean_mmHg": 21.0,
+    "stroke_volume_mL": 66.66666666666667,
+    "cardiac_output_l_min": 4.0
+   },
+   "congested_by_catheter": false,
+   "perfusion": {
+    "state": "normal",
+    "cardiac_index": 2.36,
+    "cutoff": 2.2,
+    "cutoff_source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)",
+    "source": "measured cardiac index (thermodilution)"
+   }
+  }
+ ]
+}

@@ -57,8 +57,15 @@ waiting for approval (section 8).
 | D21 | 2026-10-19 | Large datasets are stored on the **D: drive, outside the git repo**. | Keeps gigabytes out of GitHub and off the C: drive. | ✅ `D:\CardiacDigitalTwin_data\` |
 | D22 | 2026-10-20 | **Improve the model before moving on**; the dashboard is built by a teammate. Every variant is fixed before running and every result is logged (section 12). | The model is the problem-solving core; logging all variants avoids fooling ourselves. | ✅ |
 | D23 | 2026-10-20 | **Compare other model types** against SVR with the same honest testing. | Your request: find the most accurate model, not just tune one. | ✅ Running (R3) |
-| D25 | 2026-10-20 | **Download the full recordings of the 63 clean recordings (3.37 GB)**, after first fetching their artery and right-atrium slices for V4. | Your request: more signal per patient. The full files take about 12-16 h at PhysioNet's speed, so they finish after the submission deadline but remain useful for the jury round. Runs as a detached process (PID logged in the session). | ✅ Running |
+| D25 | 2026-10-20 | **Download the full recordings of the 63 clean recordings (3.37 GB)**, after first fetching their artery and right-atrium slices for V4. | Your request: more signal per patient. The full files take about 12-16 h at PhysioNet's speed, so they finish after the submission deadline but remain useful for the jury round. Runs as a detached process (PID logged in the session). | ⏹ Artery and right-atrium slices done (56/56 and 58/60); **full-file download stopped at your request on 2026-10-20 10:56** after 11 of 28,299 pieces. Can be resumed later with `download_windows.py 16 FULL`. |
 | D24 | 2026-10-20 | **TimesFM is not used for the wedge-pressure model.** | It forecasts a series forward; our task estimates a hidden number from one recording. A possible use for steps 5/9 on MIMIC demo daily series is P17. | ✅ |
+| D26 | 2026-10-20 | **Remove step 5 ("serious in N days") from the workflow.** No simulated trend line and no placeholder panel on the dashboard. It may be added back later. | The data has one snapshot per patient, so no open data supports a time horizon, and a simulated trend would be the weakest part of the demo. | ✅ Resolves P3 |
+| D28 | 2026-10-20 | **Perfusion comes only from measured values in the record, never from the model.** Cardiac index = measured cardiac output / body surface area; below 2.2 L/min/m2 = low perfusion (CSI 2018 Fig. 7). If measured values are missing, perfusion is "unknown" and any action that depends on it goes to clinician review. | The model's stroke-volume and cardiac-output estimates do not beat the naive guess (R1), so they must not drive treatment suggestions. | ✅ |
+| D29 | 2026-10-20 | **Recommendation = Jev two-step**: "choice" picks one action from a guideline-derived menu (with an abstain option), then "score" rates whether that action is supported by the guideline excerpts; act only if both pass, plus code-enforced safety rules. Gemini (structured output, same menu and checks) is the fallback if Jev fails. Knowledge base: `hf_twin/recommendation/knowledge/guideline_excerpts.json` (verbatim, page-checked; AHA 2022 + CSI 2018; ESC 2026 pending). | The 7Targets project showed Jev's choice confidence alone did not separate good from bad answers; a rubric score did. | ✅ Design approved; action menu not yet approved |
+| D30 | 2026-10-20 | **The dashboard shows both the predicted wedge pressure (with its error range) and the chance of congestion as a percentage.** An info icon beside the percentage shows: "When it says 70%, about 7 in 10 such patients really were congested." The final model is frozen (R7). | Your decision: "no percentage" was reversed to display both. | ✅ |
+| D27 | 2026-10-20 | **Dashboard layout: patient list + detail view.** The list holds the clean-set patients, sorted by estimated wedge pressure. Every estimate shown comes from a model that never saw that patient (out-of-fold). | Showing many real patients predicted blind is more convincing than one hand-picked case. | ✅ Partly resolves P2 |
+| D30 | 2026-10-20 | **Claude builds the dashboard; the teammate does not.** | Your decision. | ✅ Replaces the "built by a teammate" part of D22 |
+| D31 | 2026-10-20 | **Dashboard build plan approved:** existing stack (Vite + React 19 + three.js); data from a static `public/data/patients.json` made by `hf_twin/dashboard/export_data.py`, which calls `congestion_state.py` so cut-offs live in one place; new code in `src/congestion/`; the old blood-pressure dashboard stays at `#legacy` (D15); the heart view is one swappable slot (three.js heart now, Unity later via a stream server on a new port). The recommendation card shows a placeholder until step 7's output format is agreed. | A static file keeps the demo working with no backend running. One slot for the heart keeps the Unity integration a drop-in. | ✅ |
 
 ### 2c. Suggestions and open questions from 2026-10-18
 
@@ -93,7 +100,7 @@ Evidence label key: **R** = model learned from real patients, **G** = taken from
 | 2 | Real signals drive the heart | Chest-patch dataset (ECG, 3-axis motion, temperature) | R | Data ready |
 | 3 | Model learns what signal patterns mean for congestion | Chest-patch signals plus catheter pressures | R | Model type decided (SVR); not trained |
 | 4 | Severity and where | Severity from predicted pressure. Left side (wedge) versus right side (right atrial pressure). | R | Partly: "where" is coarse, "how much" is a pressure, not litres |
-| 5 | "Serious in N days" | none found | S or R-elsewhere | **Not supported by open data.** See P3. |
+| 5 | ~~"Serious in N days"~~ | none found | n/a | **Removed from the workflow** (D26). Can be added back later. |
 | 6 | Alert to the doctor | App logic | n/a | Easy |
 | 7 | Doctor view: heart plus full-body visual of fluid | Outputs of steps 3 and 4 | R and S | Visualisation only |
 | 8 | Medicine / dose recommendation | Guidelines (an LLM call) | G | Independent of the dataset |
@@ -203,7 +210,7 @@ within-patient change, so expect modest results.
 |---|---|---|
 | P1 | ~~Commit to this problem?~~ | **Resolved by D17.** |
 | P2 | Which "patient" do we show? | (a) A real single-person twin from a chest-patch patient. (b) A real MIMIC demo patient with records and fetched ECGs. (c) A matched composite persona, which is a **virtual patient**, not a twin. I lean toward (a) or (b). |
-| P3 | What does step 5 become? | "Current congestion level plus risk over time from patient records" (UCI), a clearly labelled "if untreated" simulation, or retrospective timing checks on the 24 MIMIC demo patients. "Serious in N days" cannot be learned from open data. |
+| P3 | ~~What does step 5 become?~~ | **Resolved by D26:** step 5 is removed from the workflow for now. |
 | P4 | ~~Which model?~~ | **Resolved by D18 (SVR).** Open sub-choices are P14. |
 | P5 | Chest impedance: drop it or show a simulated, labelled one? | Dropping is safer. No open real data. |
 | P6 | Step 8: an LLM call grounded in cited guidelines. Which model, which guideline, how to word dose suggestions safely? | Suggest "for the doctor to decide", cite sources, avoid specific doses without review. |
@@ -216,6 +223,8 @@ within-patient change, so expect modest results.
 | P13 | Update `pipeline_architecture.md` and `troubleshooting.md` to the fluid plan (D4) | Not yet reviewed against this plan. |
 | P14 | Training choices (section 8): targets, label, exclusions, "show it only if" rule | Proposed in section 8, awaiting approval. |
 | P15 | Approve installing scikit-learn and scipy into the project's venv, the `hf_twin` code folder, and starting the signal check and feature extraction | Awaiting approval. Packages were dry-run checked and install on Python 3.14. |
+| P18 | **Congestion uncertainty band (OPEN until model training finishes).** "Congested" only if the estimate's error range lies fully above 18 mmHg, "not congested" only if fully at or below 18, otherwise "uncertain / abstain". The range comes from the chosen model's real out-of-fold errors. Open: which final model, and the coverage level of the range (80% vs 90%). | Mechanism built (`hf_twin/recommendation/congestion_state.py`); verdict waits for V4/R5. |
+| P19 | Approve the draft action menu (6 actions) for the recommendation step. | Proposed 2026-10-20, awaiting approval. |
 | P17 | Use TimesFM-3 (your demo in `OpsRabbit\TimesFM-Demo`) to forecast a MIMIC demo patient's weight or fluid trend for steps 5/9, labelled exploratory? | Possible (about 2-3 h); weights are non-commercial licence. Not decided. |
 | P16 | Re-apply the main-branch edits kept in the stash (rename of "majorproject" to "CardiacDigitalTwin", dataset-path fixes) onto `wip`? | Three of those files also differ on `wip`, so merging them needs care. |
 
@@ -376,11 +385,67 @@ patient out (models use mid-grid settings; too few rows to tune). Naive (average
 step 9 the honest evidence is that average real response and its range, not a learned per-patient prediction.
 Details: `artifacts/change_model.json`, `artifacts/change_model_oof.csv`.
 
-### R5. V4 more signal per patient (pre-registered 2026-10-20 about 09:35, results pending)
+### R5. V4 more signal per patient (pre-registered 2026-10-20 about 09:35, run about 11:00)
 `hf_twin.ml_training.scripts.run_v4_multi_slice`. Same as V0 (signals v1 + record), but each recording's signal
 features are averaged over all its baseline slices (wedge, artery, right-atrium positions) that pass the signal check.
-Tested with SVR and extra trees (tied best in R3), compared side by side with the one-slice V0, same testing and
-success rule. Needs the artery and right-atrium slices of the 63 clean recordings (downloading, about 240 MB).
+Slices per recording: 3 for 49 recordings, 2 for 11, 1 for 3. Same testing (3 splits averaged). Naive 6.61.
+
+| Variant | Model | Typical error (per split) | r | R² | Gain vs naive [95% CI] | Rule | AUROC |
+|---|---|---|---|---|---|---|---|
+| V0 one slice | SVR | **5.30** (5.50, 5.31, 5.15) | +0.52 | +0.27 | +1.31 [+0.56, +2.08] | yes | 0.79 |
+| V0 one slice | extra trees | 5.31 (5.52, 5.21, 5.21) | +0.57 | +0.31 | +1.30 [+0.59, +2.04] | yes | 0.77 |
+| V4 averaged slices | SVR | 5.45 (5.46, 5.63, 5.41) | +0.50 | +0.24 | +1.16 [+0.53, +1.83] | yes | 0.78 |
+| V4 averaged slices | extra trees | 5.44 (5.63, 5.32, 5.36) | +0.55 | +0.28 | +1.17 [+0.54, +1.84] | yes | 0.77 |
+
+**Reading:** more signal per patient did not help. V0 stays the best. Details: `artifacts/v4_multi_slice.json`.
+
+### R7. Frozen model, chance of congestion and dashboard file (2026-10-20, about 12:00)
+`hf_twin.ml_training.scripts.freeze_model` (code: `calibration.py`, `hf_twin/inference/predict.py`).
+- **Frozen model:** SVR (RBF, C=10, epsilon 0.768, gamma "scale") on signals v1 + record (20 inputs), trained on all 63 clean
+  recordings from 59 patients. Saved with its calibration in `artifacts/final/wedge_svr_v1.joblib` (version
+  `wedge_svr_v1_2026-10-20`). Blind estimates reproduce V0 exactly: typical error **5.30 mmHg**, r 0.52.
+- **Error range (80%):** estimate -7.8 to +8.6 mmHg (90%: -10.7 to +12.1), from the blind errors.
+- **Chance of congestion** (decided 2026-10-20: the dashboard shows both the estimate and a percentage): one-variable
+  logistic curve (Platt scaling) of "catheter wedge > 18 mmHg" on the blind estimate, built for each patient **without
+  that patient** (leave one patient out). AUROC **0.75**; Brier score 0.201 versus 0.242 for always predicting the base
+  rate (26 of 63 congested). Reliability (n small, each band has a standard error of roughly 10 percentage points):
+
+| Predicted chance | Patients | Average predicted | Really congested |
+|---|---|---|---|
+| 0-25% | 21 | 15% | 19% |
+| 25-50% | 18 | 36% | 44% |
+| 50-75% | 18 | 61% | 50% |
+| 75-100% | 6 | 87% | 83% |
+
+  So "when it says 70%, about 7 in 10 were congested" holds roughly at the ends and is optimistic in the middle band
+  (61% predicted, 50% observed). The dashboard info text uses the decided wording; the numbers above are the evidence.
+- **Categories:** strict (80% range fully above or below 18 mmHg): 1 congested, 0 not congested, 62 uncertain
+  (journey P18 stays open). "Lean" (chance at least 50%): 24 congested / 39 not; agrees with the catheter in 41 of 63.
+- **Perfusion** (measured, never modelled): from the measured thermodilution cardiac index (else measured cardiac output /
+  body surface area): 33 low (< 2.2), 30 normal, 0 unknown.
+- **Files for the dashboard:** `artifacts/final/patient_estimates.json` (per patient: blind estimate and ranges, chance,
+  categories, catheter values, perfusion; plus `meta.ui_text` with the info-icon wording), `artifacts/final/model_card.json`.
+- **`predict_wedge(signals, channel_names, record)`** in `hf_twin/inference/predict.py` scores a new recording the same way
+  (returns estimate, ranges, chance, categories, or `ok=False` with reasons when the signal fails the sanity check).
+  `hf_twin.inference.check_predict`: all checks pass.
+
+### R6. Personal anchor test (pre-registered 2026-10-20 about 11:00)
+`hf_twin.ml_training.scripts.test_anchor`. The 16 patients with a clean slice before and after the vasodilator. Target:
+the after-medicine wedge pressure. Every model trained without the patient being predicted (leave one patient out).
+SVR on signals v1 + record. Congestion call = above 18 mmHg (CSI 2018).
+
+| Method | Typical error | 80% error range | Congestion calls right |
+|---|---|---|---|
+| M0 population model only (no anchor) | 7.14 | -12.7 to +2.3 | 7/16 |
+| **M1 known before-reading + average change of other patients (no patch)** | **4.18** | **-6.0 to +4.7** | **14/16** |
+| M2 known before-reading + change seen by the patch model | 8.36 | -12.9 to -2.4 | 6/16 |
+| M3 as M2, model also trained on other patients' after rows | 7.98 | -14.5 to -2.7 | 7/16 |
+
+Does the patch track the change? Correlation between the model's change and the real change: M2 -0.20, M3 -0.37
+(real change mean -7.4 mmHg, range -19 to 0). **Reading:** anchoring to a known reading cuts the error a lot
+(7.1 to 4.2 mmHg, 14 of 16 calls right), but the gain comes from the anchor plus the typical medicine effect, not from
+the patch: the patch does not follow the within-patient change (it moves the wrong way). Small sample (16), acute
+change in a catheter lab. Details: `artifacts/anchor_test.json`, `artifacts/anchor_test.csv`.
 
 ## 11. Sources
 

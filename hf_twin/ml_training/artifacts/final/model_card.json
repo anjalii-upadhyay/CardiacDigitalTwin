@@ -1,0 +1,91 @@
+{
+ "version": "wedge_svr_v1_2026-10-20",
+ "created": "2026-10-20T11:22:04",
+ "model": "Support vector regression (RBF) on 15 patch-signal features + 5 record facts",
+ "trained_on": "63 recordings from 59 patients (SCG-RHC, clean set)",
+ "inputs": [
+  "hr_bpm",
+  "rmssd_ms",
+  "sdnn_ms",
+  "pnn50",
+  "irregular_share",
+  "scg_amp_mg",
+  "scg_energy_mg",
+  "scg_t1_ms",
+  "scg_t2_ms",
+  "scg_t2_minus_t1_ms",
+  "scg_amp_cv",
+  "breath_rate_per_min",
+  "breath_depth_mg",
+  "tilt_deg",
+  "skin_temp_c",
+  "age",
+  "male",
+  "bmi",
+  "sbp_mmHg",
+  "dbp_mmHg"
+ ],
+ "settings": {
+  "model__C": 10.0,
+  "model__epsilon": 0.768,
+  "model__gamma": "scale"
+ },
+ "blind_test": {
+  "typical_error_mmHg": 5.300784965174023,
+  "pearson_r": 0.5167226953210551,
+  "r2": 0.2651250091578372,
+  "naive_guess_error_mmHg": 6.52557319223986,
+  "error_range_80_mmHg": [
+   -7.784057522666771,
+   8.576190719330786
+  ],
+  "error_range_90_mmHg": [
+   -10.733511370927445,
+   12.062472754368175
+  ],
+  "how": "10 patient groups, settings tuned inside, 3 splits averaged"
+ },
+ "chance_of_congestion": {
+  "how": "one-variable logistic curve (Platt) of (wedge > 18) on the blind estimate, built without the patient it is shown for",
+  "auroc": 0.7505197505197505,
+  "brier": 0.20071617914709486,
+  "brier_if_always_base_rate": 0.24237843285462332,
+  "base_rate_congested": 0.4126984126984127,
+  "reliability": [
+   {
+    "band": "0-25%",
+    "n": 21,
+    "mean_predicted": 0.15494300535106661,
+    "share_really_congested": 0.19047619047619047
+   },
+   {
+    "band": "25-50%",
+    "n": 18,
+    "mean_predicted": 0.3604130180672207,
+    "share_really_congested": 0.4444444444444444
+   },
+   {
+    "band": "50-75%",
+    "n": 18,
+    "mean_predicted": 0.613927999246787,
+    "share_really_congested": 0.5
+   },
+   {
+    "band": "75-100%",
+    "n": 6,
+    "mean_predicted": 0.8720894781954467,
+    "share_really_congested": 0.8333333333333334
+   }
+  ]
+ },
+ "cutoffs": {
+  "congestion_wedge_mmHg": 18.0,
+  "low_perfusion_ci": 2.2,
+  "source": "CSI position statement on management of heart failure in India, Indian Heart J 2018;70:S1-S72, Fig. 7 (p. S20)"
+ },
+ "limits": [
+  "59 patients, one measurement each, lying down in a catheter lab",
+  "not precise for a single patient (80% range about -8 to +9 mmHg)",
+  "stroke volume, cardiac output and right/lung-artery pressure are NOT predicted (no better than guessing)"
+ ]
+}

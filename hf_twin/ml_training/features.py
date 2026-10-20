@@ -190,7 +190,15 @@ def extract(rec: data_io.Recording) -> dict:
     ecg = sig[:, data_io.channel_index(channels, config.PATCH_ECG)]
     acc = np.column_stack([sig[:, data_io.channel_index(channels, n)] for n in config.PATCH_ACC])
     temp = sig[:, data_io.channel_index(channels, config.PATCH_TEMP)]
+    return extract_from_arrays(ecg, acc, temp, rec.label)
 
+
+def extract_from_arrays(ecg, acc, temp, label) -> dict:
+    """
+    Same features from raw arrays at 500 Hz, in physical units: ecg (n,), acc (n, 3) in the order side-to-side,
+    head-to-foot, front-to-back, temp (n,), and the record facts (age, gender, height, weight, sbp, dbp).
+    Used by the frozen model's predict() so a backend can score a new recording the same way.
+    """
     peaks = detect_r_peaks(ecg)
     rr = clean_rr(peaks)
     scg_dv = bandpass(acc[:, 2], 1.0, 40.0)
@@ -204,6 +212,6 @@ def extract(rec: data_io.Recording) -> dict:
     t = float(np.median(temp))
     t = (t - 32.0) * 5.0 / 9.0 if t > 45.0 else t                      # some patches log Fahrenheit
     feats["skin_temp_c"] = t if 25.0 <= t <= 43.0 else np.nan           # outside skin range = sensor fault
-    feats.update(record_features(rec.label))
+    feats.update(record_features(label))
     feats["n_beats"] = int(len(peaks))
     return feats

@@ -47,3 +47,8 @@ public/beating-heart.glb
 image.png
 
 # Unity generated folders are ignored by unity/CardiacDigitalTwin/.gitignore
+
+# Secrets (API keys) - never commit
+.env
+.env.*
+!.env.example
