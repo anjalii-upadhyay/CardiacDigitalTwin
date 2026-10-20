@@ -113,8 +113,8 @@ In plain words: when we compare one congested patient with one patient who is no
 
 ## Architecture diagram and presentation
 
-- Architecture diagram (PDF): [ADD LINK]
-- Presentation (PDF): [ADD LINK]
+- Architecture diagram (PDF): HF Congestion Twin Architecture.pdf
+- Presentation (PDF): A-Patient-Specific-Digital-Twin-for-Early-Cardiac-Congestion-Prediction.pdf
 
 ## Open-source licence
 
