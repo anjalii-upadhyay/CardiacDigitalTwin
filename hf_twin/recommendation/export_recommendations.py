@@ -57,8 +57,12 @@ def facts_of(p: dict, diuretic: str = "unknown") -> A.PatientFacts:
 
 
 def facts_sentence(f: A.PatientFacts) -> str:
-    s = (f"Chest-patch estimate: {round(100 * f.chance_congested)}% chance of congestion "
-         f"(wedge pressure about {f.wedge_estimate:.0f} mmHg; congestion cut-off 18 mmHg).")
+    if f.chance_congested is None:
+        s = "No chest-patch estimate is available."
+    else:
+        s = f"Chest-patch estimate: {round(100 * f.chance_congested)}% chance of congestion"
+        s += (f" (wedge pressure about {f.wedge_estimate:.0f} mmHg; congestion cut-off 18 mmHg)." if f.wedge_estimate is not None
+              else " (congestion cut-off: wedge pressure above 18 mmHg).")
     s += (f" Measured cardiac index {f.cardiac_index:.2f} L/min/m² (low below 2.2)." if f.cardiac_index is not None
           else " Perfusion not measured.")
     return s + ("" if f.sbp is None else f" Systolic blood pressure {f.sbp:.0f} mmHg.")

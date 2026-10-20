@@ -229,6 +229,7 @@ within-patient change, so expect modest results.
 | P15 | Approve installing scikit-learn and scipy into the project's venv, the `hf_twin` code folder, and starting the signal check and feature extraction | Awaiting approval. Packages were dry-run checked and install on Python 3.14. |
 | P18 | **Congestion uncertainty band (OPEN until model training finishes).** "Congested" only if the estimate's error range lies fully above 18 mmHg, "not congested" only if fully at or below 18, otherwise "uncertain / abstain". The range comes from the chosen model's real out-of-fold errors. Open: which final model, and the coverage level of the range (80% vs 90%). | Mechanism built (`hf_twin/recommendation/congestion_state.py`); verdict waits for V4/R5. |
 | P19 | ~~Approve the draft action menu (6 actions)~~ | **Resolved by D35:** approved on 2026-10-20; built and tested in R8. |
+| P20 | **Should "urgent clinical review" come straight from the code rule (low measured perfusion or SBP below 90) instead of passing the AI gate?** | Found in R8 checks: 6 of 63 real recordings flip between urgent review and abstain between runs. My view: yes, because the rule is deterministic, conservative and already measured-data-only; the AI then adds the guideline wording. Needs your approval (it is a design change made after seeing results; it would be logged as such). |
 | P17 | Use TimesFM-3 (your demo in `OpsRabbit\TimesFM-Demo`) to forecast a MIMIC demo patient's weight or fluid trend for steps 5/9, labelled exploratory? | Possible (about 2-3 h); weights are non-commercial licence. Not decided. |
 | P16 | Re-apply the main-branch edits kept in the stash (rename of "majorproject" to "CardiacDigitalTwin", dataset-path fixes) onto `wip`? | Three of those files also differ on `wip`, so merging them needs care. |
 
@@ -487,6 +488,19 @@ Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `
   cohort; for those 2 a labelled simulated input (high-dose loop diuretic) is also precomputed under `scenarios`.
 - **Limits:** 31 hand-made test cases; the knowledge base is two guidelines (ESC 2026 pending); no clinician review yet;
   the middle congestion zone is unreliable, so most recordings abstain or show a safety flag.
+- **Checks before pushing (2026-10-20, about 15:30):** (a) The rules, run with no AI on all 31 cases: no unsafe action is
+  ever allowed and at least one acceptable action is always reachable. (b) The file matches the dashboard card's format for
+  all 63 recordings; no dose-like text. (c) The dashboard builds and the card renders in headless Chrome for 5 sampled
+  recordings (the "not connected yet" placeholder is gone). (d) A deliberately invalid key gives abstain with
+  "recommendation service unavailable (HTTP 401)", not a crash; a missing estimate no longer crashes the export (bug fixed).
+  (e) **Repeatability on real patients is weaker than on the test cases:** two full runs over the 63 recordings gave the
+  same decision for 57 and different decisions for 6, all flips between "urgent review" and "abstain" (support scores sit
+  near the 2.0 gate, because the excerpts for urgent review are thin). No flip involved "continue therapy" or "diuretic
+  review", and the safety flags (made in code) never change. The committed file is the first run. Open: P20.
+  (f) **Inconsistency found:** the dashboard's congestion pill uses the strict rule (80% range fully on one side of 18 mmHg:
+  62 "uncertain"), while the recommendation uses the outer reliability bands (chance at most 25% or at least 75%), so a
+  recording can show "Uncertain" and "No congestion: continue" together (for example TRM219: estimate 9.7, 5% chance).
+  This is the open P18 question; it needs one agreed rule or an explanation on screen.
 
 ## 11. Sources
 
