@@ -1,0 +1,3110 @@
+{
+ "TRM245-RHC1": {
+  "status": "recommend",
+  "action_text": "Congestion: clinician reviews the diuretic",
+  "action_id": "DIURETIC_REVIEW",
+  "rationale": "Chest-patch estimate: 97% chance of congestion (wedge pressure about 28 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.38 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 107 mmHg. In patients with fluid retention, diuretics are recommended to relieve congestion (class 1, level B-NR).",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+    "class": "1",
+    "level": "B-NR",
+    "ids": [
+     "AHA-7.2-R1",
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e928",
+    "section": "7.2 Recommendation-Specific Supportive Text 1",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-TEXT1"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e963",
+    "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+    "class": "1",
+    "level": "B-NR",
+    "ids": [
+     "AHA-9.3-R2",
+     "AHA-9.3-R3"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e964",
+    "section": "9.3 Recommendation-Specific Supportive Text 2",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-9.3-TEXT2"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7",
+     "CSI-2.2-DIUR"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S27",
+    "section": "2.4.1 Treatment (HFpEF), item D",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-2.4.1-HFPEF"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.96,
+   "support_score": 2.55,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested.",
+  "scenarios": {
+   "loop_high_dose": {
+    "label": "SIMULATED input: clinician records a high-dose loop diuretic",
+    "status": "recommend",
+    "action_text": "Diuretic not working: clinician reviews the resistance options",
+    "action_id": "DIURETIC_RESISTANCE_REVIEW",
+    "rationale": "Chest-patch estimate: 97% chance of congestion (wedge pressure about 28 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.38 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 107 mmHg. Congestion despite a high-dose loop diuretic: the guideline lists options to intensify the diuretic regimen.",
+    "guideline_refs": [
+     {
+      "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+      "page": "e927",
+      "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+      "class": "1",
+      "level": "B-NR",
+      "ids": [
+       "AHA-7.2-R2"
+      ]
+     },
+     {
+      "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+      "page": "e963",
+      "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+      "class": "2a",
+      "level": "B-NR",
+      "ids": [
+       "AHA-9.3-R4"
+      ]
+     }
+    ],
+    "safety_flags": [],
+    "checks": {
+     "ai_used": true,
+     "choice_confidence": 0.67,
+     "support_score": 2.02,
+     "model": "jev-1.13.0",
+     "abstain_reason": null
+    },
+    "rule_decided": false,
+    "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+   }
+  }
+ },
+ "TRM268-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 90% chance of congestion (wedge pressure about 25 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.04 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 103 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM223-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 90% chance of congestion (wedge pressure about 25 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.74 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 99 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM248-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 86% chance of congestion (wedge pressure about 24 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.00 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 115 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM181-RHC1": {
+  "status": "recommend",
+  "action_text": "Urgent clinical review: low blood flow and low blood pressure together",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 81% chance of congestion (wedge pressure about 23 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.32 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 80 mmHg. Both measured values are below their cut-offs: cardiac index below 2.2 L/min/m\u00b2 (CSI 2018 Fig. 7) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966). These are two of the measured criteria listed for cardiogenic shock; the diagnosis also needs signs of poor organ blood supply, which this tool cannot assess, so a clinician needs to assess the patient urgently.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e966",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-T23",
+     "AHA-9.5-SHOCKTEXT"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "low blood pressure (SBP below 90)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM155-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood pressure: clinician reviews",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 80% chance of congestion (wedge pressure about 22 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.77 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 86 mmHg. Systolic blood pressure is below 90 mmHg, the example cut-off for hypotension in the AHA/ACC/HFSA 2022 guideline (p. e966). Low pressure limits some treatments (for example, CSI 2018 says vasodilators should be avoided in symptomatic hypotension), so a clinician reviews the plan.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e966",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-T23",
+     "AHA-9.5-SHOCKTEXT"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S21",
+    "section": "2.2.3 Vasodilators",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-2.2.3-VASO"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low blood pressure (SBP below 90)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested.",
+  "scenarios": {
+   "loop_high_dose": {
+    "label": "SIMULATED input: clinician records a high-dose loop diuretic",
+    "status": "recommend",
+    "action_text": "Low blood pressure: clinician reviews",
+    "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "rationale": "Chest-patch estimate: 80% chance of congestion (wedge pressure about 22 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.77 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 86 mmHg. Systolic blood pressure is below 90 mmHg, the example cut-off for hypotension in the AHA/ACC/HFSA 2022 guideline (p. e966). Low pressure limits some treatments (for example, CSI 2018 says vasodilators should be avoided in symptomatic hypotension), so a clinician reviews the plan.",
+    "guideline_refs": [
+     {
+      "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+      "page": "e966",
+      "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+      "class": null,
+      "level": null,
+      "ids": [
+       "AHA-T23",
+       "AHA-9.5-SHOCKTEXT"
+      ]
+     },
+     {
+      "source": "CSI 2018 heart failure position statement (India)",
+      "page": "S21",
+      "section": "2.2.3 Vasodilators",
+      "class": null,
+      "level": null,
+      "ids": [
+       "CSI-2.2.3-VASO"
+      ]
+     }
+    ],
+    "safety_flags": [
+     "low blood pressure (SBP below 90)"
+    ],
+    "checks": {
+     "ai_used": false,
+     "choice_confidence": null,
+     "support_score": null,
+     "model": null,
+     "abstain_reason": null
+    },
+    "rule_decided": true,
+    "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+   }
+  }
+ },
+ "TRM276-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 74% chance of congestion (wedge pressure about 22 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.82 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 102 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM197-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 70% chance of congestion (wedge pressure about 21 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.20 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 105 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM233-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 69% chance of congestion (wedge pressure about 21 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.69 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 155 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM158-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 70% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.81 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 99 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM254-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 62% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.74 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 122 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM174-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 65% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.69 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 104 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM235-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 62% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.69 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 109 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM152-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 64% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.39 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 115 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM279-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 61% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.39 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 95 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM160-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 60% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.72 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 97 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM258-RHC1": {
+  "status": "recommend",
+  "action_text": "Urgent clinical review: low blood flow and low blood pressure together",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 62% chance of congestion (wedge pressure about 20 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.06 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 86 mmHg. Both measured values are below their cut-offs: cardiac index below 2.2 L/min/m\u00b2 (CSI 2018 Fig. 7) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966). These are two of the measured criteria listed for cardiogenic shock; the diagnosis also needs signs of poor organ blood supply, which this tool cannot assess, so a clinician needs to assess the patient urgently.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e966",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-T23",
+     "AHA-9.5-SHOCKTEXT"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "low blood pressure (SBP below 90)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM178-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 60% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.09 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 134 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM172-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 57% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.20 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 120 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM179-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 59% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.93 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 107 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM128-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 55% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.68 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 109 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM255-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 53% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.05 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 114 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM270-RHC1": {
+  "status": "recommend",
+  "action_text": "Urgent clinical review: low blood flow and low blood pressure together",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 51% chance of congestion (wedge pressure about 19 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.84 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 84 mmHg. Both measured values are below their cut-offs: cardiac index below 2.2 L/min/m\u00b2 (CSI 2018 Fig. 7) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966). These are two of the measured criteria listed for cardiogenic shock; the diagnosis also needs signs of poor organ blood supply, which this tool cannot assess, so a clinician needs to assess the patient urgently.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e966",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-T23",
+     "AHA-9.5-SHOCKTEXT"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "low blood pressure (SBP below 90)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM256-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 50% chance of congestion (wedge pressure about 18 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.30 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 118 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM166-RHC2": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 50% chance of congestion (wedge pressure about 18 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.58 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 154 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM195-RHC2": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 46% chance of congestion (wedge pressure about 18 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.23 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 94 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM170-RHC2": {
+  "status": "recommend",
+  "action_text": "Urgent clinical review: low blood flow and low blood pressure together",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 46% chance of congestion (wedge pressure about 18 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.30 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 85 mmHg. Both measured values are below their cut-offs: cardiac index below 2.2 L/min/m\u00b2 (CSI 2018 Fig. 7) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966). These are two of the measured criteria listed for cardiogenic shock; the diagnosis also needs signs of poor organ blood supply, which this tool cannot assess, so a clinician needs to assess the patient urgently.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e966",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-T23",
+     "AHA-9.5-SHOCKTEXT"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "low blood pressure (SBP below 90)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM246-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 45% chance of congestion (wedge pressure about 18 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 10.72 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 126 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM274-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 39% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.97 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 99 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM215-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 39% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.90 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 132 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM187-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 36% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.97 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 126 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM186-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 35% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.69 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 127 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM259-RHC2": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 37% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.11 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 121 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM260-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 37% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.92 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 113 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM231-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 36% chance of congestion (wedge pressure about 17 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.47 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 119 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM170-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 31% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.73 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 102 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM164-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 29% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.81 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 115 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM273-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 29% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.58 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 103 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)",
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM220-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 30% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.90 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 114 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM127-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 29% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.40 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 125 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM176-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 28% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.77 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 152 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM195-RHC1": {
+  "status": "abstain",
+  "action_text": null,
+  "action_id": null,
+  "rationale": "Chest-patch estimate: 27% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.42 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 106 mmHg. The safety rules allow no suggestion for these facts: congestion uncertain: the model's chance is in the middle zone.",
+  "guideline_refs": [],
+  "safety_flags": [
+   "congestion uncertain: the model's chance is in the middle zone"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM243-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 25% chance of congestion (wedge pressure about 16 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.00 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 108 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM272-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 23% chance of congestion (wedge pressure about 15 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.86 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 110 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM278-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 22% chance of congestion (wedge pressure about 15 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.62 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 142 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM259-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 23% chance of congestion (wedge pressure about 15 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.39 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 117 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.72,
+   "support_score": 2.14,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM275-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 19% chance of congestion (wedge pressure about 15 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.50 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 149 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.7,
+   "support_score": 2.12,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM281-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 21% chance of congestion (wedge pressure about 15 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.87 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 139 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.64,
+   "support_score": 2.09,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM201-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 19% chance of congestion (wedge pressure about 14 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.16 L/min/m\u00b2 (low below 2.2). No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.72,
+   "support_score": 2.08,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM282-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 18% chance of congestion (wedge pressure about 14 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 5.26 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 137 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.78,
+   "support_score": 2.28,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM203-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 16% chance of congestion (wedge pressure about 14 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.02 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 106 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM234-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 16% chance of congestion (wedge pressure about 14 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.37 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 120 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.8,
+   "support_score": 2.28,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM252-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 15% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.61 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 123 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.8,
+   "support_score": 2.28,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM253-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 15% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.07 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 126 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.82,
+   "support_score": 2.3,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM251-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 14% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.87 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 129 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM222-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 13% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.70 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 130 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM229-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 13% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 3.08 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 110 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.82,
+   "support_score": 2.27,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM198-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 13% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.77 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 117 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM208-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 12% chance of congestion (wedge pressure about 13 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.76 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 110 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.86,
+   "support_score": 2.36,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM145-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 9% chance of congestion (wedge pressure about 12 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.57 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 120 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.9,
+   "support_score": 2.36,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM166-RHC1": {
+  "status": "recommend",
+  "action_text": "Low blood flow: clinician reviews the treatment plan",
+  "action_id": "LOW_FLOW_OR_PRESSURE_REVIEW",
+  "rationale": "Chest-patch estimate: 8% chance of congestion (wedge pressure about 11 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 1.94 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 143 mmHg. Measured cardiac index is below 2.2 L/min/m\u00b2, the CSI 2018 cut-off for low blood flow. The guideline treats this group differently from patients with normal flow, so a clinician reviews the treatment plan before any diuretic or vasodilator step.",
+  "guideline_refs": [
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   },
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e960",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "class": "1",
+    "level": "C-LD",
+    "ids": [
+     "AHA-9.1-R1"
+    ]
+   }
+  ],
+  "safety_flags": [
+   "low perfusion (measured cardiac index below 2.2)"
+  ],
+  "checks": {
+   "ai_used": false,
+   "choice_confidence": null,
+   "support_score": null,
+   "model": null,
+   "abstain_reason": null
+  },
+  "rule_decided": true,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM244-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 7% chance of congestion (wedge pressure about 11 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.65 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 114 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.88,
+   "support_score": 2.38,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "TRM219-RHC1": {
+  "status": "recommend",
+  "action_text": "No congestion: continue current guideline therapy",
+  "action_id": "CONTINUE_GDMT",
+  "rationale": "Chest-patch estimate: 5% chance of congestion (wedge pressure about 10 mmHg; congestion cut-off 18 mmHg). Measured cardiac index 2.36 L/min/m\u00b2 (low below 2.2). Systolic blood pressure 135 mmHg. No congestion and adequate perfusion, so the framework supports continuing the current guideline-directed therapy.",
+  "guideline_refs": [
+   {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "page": "e927",
+    "section": "7.2 Synopsis",
+    "class": null,
+    "level": null,
+    "ids": [
+     "AHA-7.2-SYN"
+    ]
+   },
+   {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "page": "S20",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "class": null,
+    "level": null,
+    "ids": [
+     "CSI-FIG7"
+    ]
+   }
+  ],
+  "safety_flags": [],
+  "checks": {
+   "ai_used": true,
+   "choice_confidence": 0.88,
+   "support_score": 2.4,
+   "model": "jev-1.13.0",
+   "abstain_reason": null
+  },
+  "rule_decided": false,
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ },
+ "_meta": {
+  "generated_at": "2026-10-20T09:13:06+00:00",
+  "jev_models": [
+   "jev-1.13.0"
+  ],
+  "gate": {
+   "min_choice_confidence": 0.6,
+   "min_support_score": 2.0
+  },
+  "rules": {
+   "congested_chance": 0.75,
+   "not_congested_chance": 0.25,
+   "sbp_low_mmHg": 90.0,
+   "cardiac_index_low": 2.2,
+   "wedge_congestion_mmHg": 18
+  },
+  "actions": {
+   "CONTINUE_GDMT": "No congestion: continue current guideline therapy",
+   "DIURETIC_REVIEW": "Congestion: clinician reviews the diuretic",
+   "DIURETIC_RESISTANCE_REVIEW": "Diuretic not working: clinician reviews the resistance options",
+   "VASODILATOR_ADJUVANT": "Vasodilator add-on may be considered (hospital only)",
+   "LOW_FLOW_OR_PRESSURE_REVIEW": "Low blood flow or low blood pressure: clinician reviews",
+   "ABSTAIN": "Abstain: clinician review"
+  },
+  "tests": {
+   "summary": {
+    "production_run1": {
+     "n": 33,
+     "correct": 31,
+     "unsafe": 0,
+     "wrong": 0,
+     "abstain": 2,
+     "ai_calls_avoided": 18
+    },
+    "production_run2": {
+     "n": 33,
+     "correct": 31,
+     "unsafe": 0,
+     "wrong": 0,
+     "abstain": 2,
+     "ai_calls_avoided": 18
+    },
+    "unfiltered": {
+     "n": 33,
+     "correct": 31,
+     "unsafe": 0,
+     "wrong": 0,
+     "abstain": 2,
+     "ai_calls_avoided": 0
+    },
+    "production_repeatability": {
+     "same_decision": 33,
+     "of": 33
+    }
+   },
+   "label": "SYNTHETIC test inputs, not patients",
+   "cases": [
+    {
+     "id": "A1",
+     "group": "congested, outpatient",
+     "facts": {
+      "chance_congested": 0.92,
+      "wedge_estimate": 24,
+      "range80": [
+       17,
+       31
+      ],
+      "cardiac_index": 2.6,
+      "sbp": 118,
+      "inpatient": false
+     },
+     "expected": [
+      "DIURETIC_REVIEW"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "A2",
+     "group": "congested, outpatient",
+     "facts": {
+      "chance_congested": 0.85,
+      "cardiac_index": 2.3,
+      "sbp": 105,
+      "inpatient": false,
+      "current_diuretic": "loop"
+     },
+     "expected": [
+      "DIURETIC_REVIEW"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "B1",
+     "group": "congested, inpatient",
+     "facts": {
+      "chance_congested": 0.93,
+      "wedge_estimate": 26,
+      "range80": [
+       19,
+       34
+      ],
+      "cardiac_index": 2.5,
+      "sbp": 124,
+      "inpatient": true
+     },
+     "expected": [
+      "DIURETIC_REVIEW",
+      "VASODILATOR_ADJUVANT"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "B2",
+     "group": "congested, inpatient",
+     "facts": {
+      "chance_congested": 0.88,
+      "cardiac_index": 2.4,
+      "sbp": 100,
+      "inpatient": true,
+      "current_diuretic": "loop"
+     },
+     "expected": [
+      "DIURETIC_REVIEW",
+      "VASODILATOR_ADJUVANT"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "B3",
+     "group": "congested, inpatient, blood pressure unknown",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "inpatient": true
+     },
+     "expected": [
+      "DIURETIC_REVIEW"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "C1",
+     "group": "not congested",
+     "facts": {
+      "chance_congested": 0.08,
+      "wedge_estimate": 10,
+      "range80": [
+       3,
+       19
+      ],
+      "cardiac_index": 2.7,
+      "sbp": 122,
+      "inpatient": false
+     },
+     "expected": [
+      "CONTINUE_GDMT"
+     ],
+     "decision": "CONTINUE_GDMT",
+     "verdict": "correct"
+    },
+    {
+     "id": "C2",
+     "group": "not congested",
+     "facts": {
+      "chance_congested": 0.15,
+      "cardiac_index": 2.4,
+      "sbp": 110,
+      "inpatient": true
+     },
+     "expected": [
+      "CONTINUE_GDMT"
+     ],
+     "decision": "CONTINUE_GDMT",
+     "verdict": "correct"
+    },
+    {
+     "id": "C3",
+     "group": "not congested, on loop diuretic",
+     "facts": {
+      "chance_congested": 0.05,
+      "cardiac_index": 2.9,
+      "sbp": 118,
+      "inpatient": false,
+      "current_diuretic": "loop"
+     },
+     "expected": [
+      "CONTINUE_GDMT"
+     ],
+     "decision": "CONTINUE_GDMT",
+     "verdict": "correct"
+    },
+    {
+     "id": "D1",
+     "group": "low perfusion, not congested",
+     "facts": {
+      "chance_congested": 0.1,
+      "cardiac_index": 1.8,
+      "sbp": 108,
+      "inpatient": false
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "D2",
+     "group": "low perfusion, congested",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 1.9,
+      "sbp": 112,
+      "inpatient": true
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "D3",
+     "group": "low perfusion, congestion uncertain",
+     "facts": {
+      "chance_congested": 0.5,
+      "cardiac_index": 1.5,
+      "sbp": 100,
+      "inpatient": true
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "D4",
+     "group": "low perfusion, just under the cut-off",
+     "facts": {
+      "chance_congested": 0.2,
+      "cardiac_index": 2.1,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "E1",
+     "group": "low blood pressure, congested",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "sbp": 82,
+      "inpatient": true
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "E2",
+     "group": "low blood pressure, not congested",
+     "facts": {
+      "chance_congested": 0.1,
+      "cardiac_index": 2.6,
+      "sbp": 88,
+      "inpatient": false
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "E3",
+     "group": "low blood pressure, on high-dose loop",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "sbp": 75,
+      "inpatient": true,
+      "current_diuretic": "loop_high_dose"
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "F1",
+     "group": "congestion despite high-dose loop",
+     "facts": {
+      "chance_congested": 0.95,
+      "cardiac_index": 2.4,
+      "sbp": 110,
+      "inpatient": true,
+      "current_diuretic": "loop_high_dose"
+     },
+     "expected": [
+      "DIURETIC_RESISTANCE_REVIEW",
+      "DIURETIC_REVIEW",
+      "VASODILATOR_ADJUVANT"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "abstain"
+    },
+    {
+     "id": "F2",
+     "group": "congestion despite high-dose loop, outpatient",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.6,
+      "sbp": 125,
+      "inpatient": false,
+      "current_diuretic": "loop_high_dose"
+     },
+     "expected": [
+      "DIURETIC_RESISTANCE_REVIEW",
+      "DIURETIC_REVIEW"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "abstain"
+    },
+    {
+     "id": "F3",
+     "group": "congested on a normal-dose loop (not resistant)",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "sbp": 120,
+      "inpatient": true,
+      "current_diuretic": "loop"
+     },
+     "expected": [
+      "DIURETIC_REVIEW",
+      "VASODILATOR_ADJUVANT"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "G1",
+     "group": "congestion uncertain",
+     "facts": {
+      "chance_congested": 0.35,
+      "wedge_estimate": 15,
+      "range80": [
+       7,
+       24
+      ],
+      "cardiac_index": 2.5,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "G2",
+     "group": "congestion uncertain",
+     "facts": {
+      "chance_congested": 0.5,
+      "wedge_estimate": 18,
+      "range80": [
+       10,
+       27
+      ],
+      "cardiac_index": 2.6,
+      "sbp": 115,
+      "inpatient": true
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "G3",
+     "group": "congestion uncertain",
+     "facts": {
+      "chance_congested": 0.62,
+      "cardiac_index": 2.4,
+      "sbp": 118,
+      "inpatient": false
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "G4",
+     "group": "no model output",
+     "facts": {
+      "cardiac_index": 2.5,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "H1",
+     "group": "perfusion unknown, congested",
+     "facts": {
+      "chance_congested": 0.9,
+      "sbp": 120,
+      "inpatient": true
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "H2",
+     "group": "perfusion unknown, not congested",
+     "facts": {
+      "chance_congested": 0.1,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "H3",
+     "group": "perfusion and blood pressure unknown",
+     "facts": {
+      "chance_congested": 0.9,
+      "inpatient": true
+     },
+     "expected": [
+      "ABSTAIN"
+     ],
+     "decision": "ABSTAIN",
+     "verdict": "correct"
+    },
+    {
+     "id": "I1",
+     "group": "boundary: chance exactly 75%",
+     "facts": {
+      "chance_congested": 0.75,
+      "wedge_estimate": 19,
+      "range80": [
+       11,
+       28
+      ],
+      "cardiac_index": 2.5,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "DIURETIC_REVIEW",
+      "ABSTAIN"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "I2",
+     "group": "boundary: chance exactly 25%",
+     "facts": {
+      "chance_congested": 0.25,
+      "wedge_estimate": 13,
+      "range80": [
+       5,
+       22
+      ],
+      "cardiac_index": 2.5,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "CONTINUE_GDMT",
+      "ABSTAIN"
+     ],
+     "decision": "CONTINUE_GDMT",
+     "verdict": "correct"
+    },
+    {
+     "id": "I3",
+     "group": "boundary: cardiac index exactly 2.2 (not low)",
+     "facts": {
+      "chance_congested": 0.1,
+      "cardiac_index": 2.2,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "CONTINUE_GDMT",
+      "ABSTAIN"
+     ],
+     "decision": "CONTINUE_GDMT",
+     "verdict": "correct"
+    },
+    {
+     "id": "I4",
+     "group": "boundary: cardiac index 2.19 (low)",
+     "facts": {
+      "chance_congested": 0.1,
+      "cardiac_index": 2.19,
+      "sbp": 120,
+      "inpatient": false
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "I5",
+     "group": "boundary: SBP exactly 90 (not low)",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "sbp": 90,
+      "inpatient": false
+     },
+     "expected": [
+      "DIURETIC_REVIEW",
+      "ABSTAIN"
+     ],
+     "decision": "DIURETIC_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "I6",
+     "group": "boundary: SBP 89 (low)",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 2.5,
+      "sbp": 89,
+      "inpatient": true
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "J1",
+     "group": "low blood flow and low blood pressure together, inpatient",
+     "facts": {
+      "chance_congested": 0.9,
+      "cardiac_index": 1.7,
+      "sbp": 80,
+      "inpatient": true
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    },
+    {
+     "id": "J2",
+     "group": "low blood flow and low blood pressure together, outpatient",
+     "facts": {
+      "chance_congested": 0.1,
+      "cardiac_index": 2.0,
+      "sbp": 86,
+      "inpatient": false
+     },
+     "expected": [
+      "LOW_FLOW_OR_PRESSURE_REVIEW"
+     ],
+     "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+     "verdict": "correct"
+    }
+   ]
+  },
+  "excerpts": {
+   "AHA-7.2-R1": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+    "page": "e927",
+    "class": "1",
+    "level": "B-NR",
+    "text": "In patients with HF who have fluid retention, diuretics are recommended to relieve congestion, improve symptoms, and prevent worsening HF."
+   },
+   "AHA-7.2-SYN": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "7.2 Synopsis",
+    "page": "e927",
+    "class": null,
+    "level": null,
+    "text": "Loop diuretics are the preferred diuretic agents for use in most patients with HF. [...] The treatment goal of diuretic use is to eliminate clinical evidence of fluid retention, using the lowest dose possible to maintain euvolemia. [...] diuretics should not be used in isolation but always combined with other GDMT for HF that reduces hospitalizations and prolongs survival."
+   },
+   "AHA-7.2-TEXT1": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "7.2 Recommendation-Specific Supportive Text 1",
+    "page": "e928",
+    "class": null,
+    "level": null,
+    "text": "In outpatients with HF, diuretic therapy is commonly initiated with low doses, and the dose is increased until urine output increases and weight decreases, generally by 0.5 to 1.0 kg daily."
+   },
+   "AHA-9.3-R2": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+    "page": "e963",
+    "class": "1",
+    "level": "B-NR",
+    "text": "For patients hospitalized with HF, therapy with diuretics and other guideline-directed medications should be titrated with a goal to resolve clinical evidence of congestion to reduce symptoms and rehospitalizations."
+   },
+   "AHA-9.3-R3": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+    "page": "e963",
+    "class": "1",
+    "level": "B-NR",
+    "text": "For patients requiring diuretic treatment during hospitalization for HF, the discharge regimen should include a plan for adjustment of diuretics to decrease rehospitalizations."
+   },
+   "AHA-9.3-TEXT2": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.3 Recommendation-Specific Supportive Text 2",
+    "page": "e964",
+    "class": null,
+    "level": null,
+    "text": "Monitoring HF treatment includes careful measurement of fluid intake and output, vital signs, standing body weight at the same time each day, and clinical signs and symptoms of congestion and hypoperfusion. Daily laboratory tests during active medication adjustment include serum electrolytes, urea nitrogen, and creatinine concentrations."
+   },
+   "CSI-FIG7": {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "section": "Fig. 7. Treatment outline for heart failure profiles",
+    "page": "S20",
+    "class": null,
+    "level": null,
+    "text": "CONGESTION AT REST? NO (PCWP<18 mmHg) / YES (PCWP>18 mmHg). LOW PERFUSION AT REST? NO (CI > 2.2 L/min/m2) / YES (CI < 2.2 L/min/m2). No congestion + no low perfusion: GDMT. No congestion + low perfusion: INOTROPES +/- IV FLUIDS. Congestion + no low perfusion: DIURETICS, VASODILATORS. Congestion + low perfusion: DIURETICS, INOTROPES."
+   },
+   "CSI-2.2-DIUR": {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "section": "2.2 (acute HF management, diuretics)",
+    "page": "S20",
+    "class": null,
+    "level": null,
+    "text": "Current guidelines recommend intravenously administered diuretics as first line therapy for volume overload. Loop diuretics are initial diuretics of choice."
+   },
+   "CSI-2.4.1-HFPEF": {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "section": "2.4.1 Treatment (HFpEF), item D",
+    "page": "S27",
+    "class": null,
+    "level": null,
+    "text": "Relieve congestion with diuretics Judicious use of loop diuretic with careful monitoring of renal function"
+   },
+   "AHA-9.1-R1": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+    "page": "e960",
+    "class": "1",
+    "level": "C-LD",
+    "text": "In patients hospitalized with HF, severity of congestion and adequacy of perfusion should be assessed to guide triage and initial therapy."
+   },
+   "AHA-T23": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+    "page": "e966",
+    "class": null,
+    "level": null,
+    "text": "1. SBP <90 mm Hg or mean BP <60 mm Hg. 2. Cardiac index <2.2 L/min/m2. 3. Pulmonary capillary wedge pressure >15 mm Hg. [...] *Diagnosis of shock requires \u22651 criteria to be present along with cardiac index <2.0 L/min/m2 and SBP <90 mm Hg."
+   },
+   "AHA-9.5-SHOCKTEXT": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.5 Evaluation and Management of Cardiogenic Shock, Synopsis",
+    "page": "e966",
+    "class": null,
+    "level": null,
+    "text": "Hypotension (eg, SBP <90 mm Hg) is the primary clinical manifestation of shock but is not sufficient for the diagnosis. Additionally, end-organ hypoperfusion should be present as a consequence of cardiac dysfunction (Tables 22, 23, 24)."
+   },
+   "CSI-2.2.3-VASO": {
+    "source": "CSI 2018 heart failure position statement (India)",
+    "section": "2.2.3 Vasodilators",
+    "page": "S21",
+    "class": null,
+    "level": null,
+    "text": "Vasodilators should be avoided in patients with reduced filling pressures or symptomatic hypotension. [...] Nitroglycerin exhibits primarily venodilation at low doses and mild arterial vasodilation at higher doses; thus, it is the preferred agent for preload reduction. [...] The primary disadvantages of nitroprusside are hypotension, tachyphylaxis and risk of cyanide and thiocyanate accumulation. In patients with substantial hepatic or renal impairment, this agent should be avoided or dose and duration of therapy should be minimized."
+   },
+   "AHA-7.2-R2": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+    "page": "e927",
+    "class": "1",
+    "level": "B-NR",
+    "text": "For patients with HF and congestive symptoms, addition of a thiazide (eg, metolazone) to treatment with a loop diuretic should be reserved for patients who do not respond to moderate- or high-dose loop diuretics to minimize electrolyte abnormalities."
+   },
+   "AHA-9.3-R4": {
+    "source": "AHA/ACC/HFSA 2022 heart failure guideline",
+    "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+    "page": "e963",
+    "class": "2a",
+    "level": "B-NR",
+    "text": "In patients hospitalized with HF when diuresis is inadequate to relieve symptoms and signs of congestion, it is reasonable to intensify the diuretic regimen using either: a. higher doses of intravenous loop diuretics; or b. addition of a second diuretic."
+   }
+  },
+  "limitations": [
+   "The congestion input is an ESTIMATE from the chest patch, not a measurement; only the middle of its range is reliable (journey R7).",
+   "Cardiac index and blood pressure are measured values from the record, never estimated.",
+   "The dataset has no medication list: the current diuretic is 'unknown' unless a simulated input is shown and labelled.",
+   "The tool never suggests a dose. Dose tables are kept out of the AI input.",
+   "The low-blood-flow / low-blood-pressure review is decided by code alone from measured values and cited cut-offs; that it always leads to a clinician review is a safety choice of the team, not a guideline sentence.",
+   "The 31 test cases were written from the guidelines by the engineering team and have not been reviewed by a clinician.",
+   "A decision-support gate that abstains is working as designed; most of this cohort has low measured perfusion or a middle-zone congestion estimate."
+  ],
+  "disclaimer": "Decision support for the clinician. The clinician decides; no dose is suggested."
+ }
+}

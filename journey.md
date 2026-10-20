@@ -6,7 +6,7 @@ the earlier one stays, with its status changed and a pointer to what replaced it
 
 Status: ✅ decided · 🟡 pending or suggested · ⏪ superseded (kept for the record) · ◐ partly superseded
 
-Last updated: 2026-10-20, about 14:30 IST (Unity wiring, D35-D39). **Deadline: 20 Oct 2026, 7:00 PM IST.**
+Last updated: 2026-10-20, about 15:00 IST (merged the `dashboard` branch: recommendation step D35-D37, R8, R8b; Unity wiring D38-D42). **Deadline: 20 Oct 2026, 7:00 PM IST.**
 Branch: **`wip`** (work continues here, not on `main`).
 
 ---
@@ -48,7 +48,7 @@ waiting for approval (section 8).
 | D12 | 2026-10-19 | Steps 7, 8 and 9 do not depend on the dataset (visualisation, an LLM call, a simulation). | They use the model's outputs, guidelines and literature. | ✅ |
 | D13 | 2026-10-19 | **Evidence principle:** no invented thresholds. Use values learned from real data, or clinically accepted values with citations. | You asked for evidence-backed numbers only. | ✅ |
 | D14 | 2026-10-19 | Synthetic data is allowed by the rules, but every synthetic or simulated piece is labelled. | Honest labelling protects us under expert questions. | ✅ |
-| D15 | 2026-10-19 | Keep the existing blood-pressure pipeline for now. | It still drives the demo, and removing it can wait. | ⏪ **Superseded by D35** (VitalDB pipeline removed) |
+| D15 | 2026-10-19 | Keep the existing blood-pressure pipeline for now. | It still drives the demo, and removing it can wait. | ⏪ **Superseded by D38** (VitalDB pipeline removed) |
 | D16 | 2026-10-19 | Working rules extended: **discuss first, get approval, then change code.** Plain language, minimal medical terms. | You want control over every change. | ✅ (extends D3) |
 | D17 | 2026-10-19 | **The problem is now heart-failure fluid accumulation (congestion).** The combined journey continues from this plan. | Your decision after comparing options. It offers a stronger story and a real-data backbone (catheter pressures). | ✅ Supersedes D5 |
 | D18 | 2026-10-19 | The prediction model is **Support Vector Regression (SVR)**. | Your decision. It suits a small dataset (63 to 83 recordings). Neural networks would overfit; foundation models such as TimesFM do not fit this task. | ✅ |
@@ -61,22 +61,29 @@ waiting for approval (section 8).
 | D24 | 2026-10-20 | **TimesFM is not used for the wedge-pressure model.** | It forecasts a series forward; our task estimates a hidden number from one recording. A possible use for steps 5/9 on MIMIC demo daily series is P17. | ✅ |
 | D26 | 2026-10-20 | **Remove step 5 ("serious in N days") from the workflow.** No simulated trend line and no placeholder panel on the dashboard. It may be added back later. | The data has one snapshot per patient, so no open data supports a time horizon, and a simulated trend would be the weakest part of the demo. | ✅ Resolves P3 |
 | D28 | 2026-10-20 | **Perfusion comes only from measured values in the record, never from the model.** Cardiac index = measured cardiac output / body surface area; below 2.2 L/min/m2 = low perfusion (CSI 2018 Fig. 7). If measured values are missing, perfusion is "unknown" and any action that depends on it goes to clinician review. | The model's stroke-volume and cardiac-output estimates do not beat the naive guess (R1), so they must not drive treatment suggestions. | ✅ |
-| D29 | 2026-10-20 | **Recommendation = Jev two-step**: "choice" picks one action from a guideline-derived menu (with an abstain option), then "score" rates whether that action is supported by the guideline excerpts; act only if both pass, plus code-enforced safety rules. Gemini (structured output, same menu and checks) is the fallback if Jev fails. Knowledge base: `hf_twin/recommendation/knowledge/guideline_excerpts.json` (verbatim, page-checked; AHA 2022 + CSI 2018; ESC 2026 pending). | The 7Targets project showed Jev's choice confidence alone did not separate good from bad answers; a rubric score did. | ✅ Design approved; action menu not yet approved |
+| D29 | 2026-10-20 | **Recommendation = Jev two-step**: "choice" picks one action from a guideline-derived menu (with an abstain option), then "score" rates whether that action is supported by the guideline excerpts; act only if both pass, plus code-enforced safety rules. Gemini (structured output, same menu and checks) is the fallback if Jev fails. Knowledge base: `hf_twin/recommendation/knowledge/guideline_excerpts.json` (verbatim, page-checked; AHA 2022 + CSI 2018; ESC 2026 pending). | The 7Targets project showed Jev's choice confidence alone did not separate good from bad answers; a rubric score did. | ✅ Design and action menu approved (D35); built in R8 |
 | D30 | 2026-10-20 | **The dashboard shows both the predicted wedge pressure (with its error range) and the chance of congestion as a percentage.** An info icon beside the percentage shows: "When it says 70%, about 7 in 10 such patients really were congested." The final model is frozen (R7). | Your decision: "no percentage" was reversed to display both. | ✅ |
 | D27 | 2026-10-20 | **Dashboard layout: patient list + detail view.** The list holds the clean-set patients, sorted by estimated wedge pressure. Every estimate shown comes from a model that never saw that patient (out-of-fold). | Showing many real patients predicted blind is more convincing than one hand-picked case. | ✅ Partly resolves P2 |
 | D32 | 2026-10-20 | **Claude builds the dashboard (everything except the 3D heart model loading, see D34).** | Your decision. | ✅ Replaces the "built by a teammate" part of D22 |
-| D33 | 2026-10-20 | **Dashboard build plan approved:** existing stack (Vite + React 19 + three.js / react-three-fiber); data from a static `public/data/patients.json` made by `hf_twin/dashboard/export_data.py`, which reads the frozen model's `artifacts/final/` files (R7) so estimates, chance, categories and cut-offs live in one place; new code in `src/congestion/`; the old blood-pressure dashboard stays at `#legacy` (D15); the heart view is one swappable slot (see D34). The recommendation card shows a placeholder until step 7's output format is agreed. | A static file keeps the demo working with no backend running. One slot for the heart keeps the Unity integration a drop-in. | ◐ **Partly superseded:** the `#legacy` dashboard is removed (D35); the heart slot now needs the stream server (D36) |
-| D34 | 2026-10-20 | **The teammate owns 3D heart model loading; the dashboard only leaves a slot.** `src/congestion/HeartCanvas.jsx` is a placeholder whose props are the contract (patient id, real beat times, slice length, heart rate, congestion state, wedge shown, measured right-atrial pressure, simulated flag). The earlier three.js loader written for it was removed. The 2D lung map and captions stay in the dashboard. | Your decision: the teammate works on model loading; the dashboard should use the right tech stack and leave space. | ✅ **Done by D36-D38** (the Unity twin now fills the slot) |
+| D33 | 2026-10-20 | **Dashboard build plan approved:** existing stack (Vite + React 19 + three.js / react-three-fiber); data from a static `public/data/patients.json` made by `hf_twin/dashboard/export_data.py`, which reads the frozen model's `artifacts/final/` files (R7) so estimates, chance, categories and cut-offs live in one place; new code in `src/congestion/`; the old blood-pressure dashboard stays at `#legacy` (D15); the heart view is one swappable slot (see D34). The recommendation card shows a placeholder until step 7's output format is agreed. | A static file keeps the demo working with no backend running. One slot for the heart keeps the Unity integration a drop-in. | ◐ **Partly superseded:** the `#legacy` dashboard is removed (D38); the heart slot now needs the stream server (D39) |
+| D34 | 2026-10-20 | **The teammate owns 3D heart model loading; the dashboard only leaves a slot.** `src/congestion/HeartCanvas.jsx` is a placeholder whose props are the contract (patient id, real beat times, slice length, heart rate, congestion state, wedge shown, measured right-atrial pressure, simulated flag). The earlier three.js loader written for it was removed. The 2D lung map and captions stay in the dashboard. | Your decision: the teammate works on model loading; the dashboard should use the right tech stack and leave space. | ✅ **Done by D39-D41** (the Unity twin now fills the slot) |
+| D35 | 2026-10-20 | **Six-action menu approved**: continue current therapy, clinician reviews the diuretic, clinician reviews diuretic resistance, vasodilator add-on may be considered (hospital only), urgent clinical review (renamed and reworded by D37 to: low blood flow or low blood pressure, clinician reviews), abstain. **No dose is ever produced.** Safety rules run in code first, so an unsafe action is never offered to the AI; the AI result is shown only if its choice confidence is at least 0.6 and its guideline-support score is at least 2.0 of 3 (both fixed before the first test run); any failure means abstain. | Judges are medical experts, so a wrong answer costs more than no answer. | ✅ Built and tested in R8 |
+| D36 | 2026-10-20 | **Licence stays Apache-2.0** (`LICENSE` already in the repo; no MIT added). The Jev key lives only in the git-ignored `.env`; the dashboard shows a file precomputed offline (`public/data/recommendations.json`), never a live call. | You approved. A static app cannot hold a key. | ✅ |
+| D37 | 2026-10-20 | **Low measured blood flow or low blood pressure always leads to the clinician-review action, decided by code alone (no AI call).** Cut-offs are clinical and cited: cardiac index below 2.2 L/min/m² (CSI 2018 Fig. 7, p. S20; also AHA/ACC/HFSA 2022 Table 23) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966, Tables 22-23, where it is an example value). **The rule "low flow or low pressure means clinician review" is a safety choice of the team; no guideline sentence says it.** Wording: "Urgent clinical review: low blood flow and low blood pressure together" only when both are low (the two measured shock criteria of Table 23; shock also needs signs of poor organ blood supply, which the tool cannot assess); otherwise "Low blood flow: clinician reviews the treatment plan" or "Low blood pressure: clinician reviews". Action id renamed `LOW_FLOW_OR_PRESSURE_REVIEW`. Jev is no longer called for this action. | Repeat runs on the 63 real recordings showed this action flipping between "review" and "abstain" (R8 checks). Stricter than CSI Fig. 7 in one place: Fig. 7 still lists diuretics for congestion with low flow, while our rules withhold the diuretic suggestion and ask for review (kept conservative, stated openly). | ✅ Approved by you 2026-10-20 ("do step 1"); a design change made after seeing results; resolves P20 |
 
 ### 2d. Decisions of 2026-10-20 afternoon (Unity twin wired to the dashboard)
 
 | ID | Date | Decision | Reason | Status |
 |----|------|----------|--------|--------|
-| D35 | 2026-10-20 | **Remove the VitalDB pipeline completely**: the old stream and its processors and tests (`python_backend/`), `dataset/p000003.mat` (and the local zip), the `#legacy` React dashboard and the npm packages only it used (three, @react-three/*, chart.js, react-chartjs-2). | Your decision: strictly the new dataset. Nothing dead left in the repo. | ✅ Supersedes D15 |
-| D36 | 2026-10-20 | **Data path: dashboard → stream server → Unity.** `python_backend/server.py` (rewritten, port 8765) reads `public/data/patients.json`. The dashboard sends the selection on `/control`; Unity gets 60 Hz packets on `/stream`. One global selection; nothing is streamed until a patient is selected. The patient's real R-peak times (80 s patch slice) loop; the last-to-first-beat gap (0.49-0.83 s for every patient) is a normal beat. Check: `python_backend/tests/test_stream.py`. | Your choices (WebSocket over the server, not a direct page-to-Unity call). Same file as the dashboard, so heart and dashboard never disagree. | ✅ Tested live with the Unity editor and the open dashboard |
-| D37 | 2026-10-20 | **What drives the heart:** beat timing = real R-peaks (R); squeeze depth = catheter-measured stroke volume (R); tint = **lean** (chance ≥ 50%): leans congested = pulsing red, otherwise none. With no data the heart **freezes** (no beat, blood still) and the panel says "Twin not connected". In the medicine simulator the tint follows the **simulated** lean, from each patient's own leave-one-patient-out chance curve, now exported (`calibration.chance_curves`, used by `export_data.py` and by `hf_twin/dashboard/add_chance_curve.py` which patched the current file); the simulator also shows "chance after change" (S). | 62 of 63 patients are "uncertain" under the strict rule, so a state tint would be nearly uniform; lean differs between patients. The curve is the same one behind the chance already shown, so "no change" matches it (unrounded estimate kept for that). | ✅ |
-| D38 | 2026-10-20 | **Unity side** (`unity/CardiacDigitalTwin`, scene edited through Unity MCP): `HeartDataClient` on NativeWebSocket (pinned to commit `ea014c9`, works in WebGL); new `CongestionTint`; `VitalsDisplay` overlay removed (the dashboard shows every number); camera reframed (same angle, field of view 26.6°, transparent background). WebGL build: **Tools > Cardiac Twin > Build WebGL for dashboard** → `public/unity/` (committed; Gzip + decompression fallback; `build.json` lists the files). The dashboard loads Unity once with its own small loader and moves the one canvas between the Patient and Simulator tabs. | Your choices. One persistent instance avoids a several-second reload on every tab switch. | ✅ Code done; build run by you in the editor |
-| D39 | 2026-10-20 | Teammate leftovers deleted: `unity/My Project/`, and the unattached `HeartCycleManager.cs` / `ValveManager.cs`. Only this file was updated among the docs: `README.md` and `unity/README.md` still describe the VitalDB pipeline. | Your decisions. | ✅ README update still open |
+| D38 | 2026-10-20 | **Remove the VitalDB pipeline completely**: the old stream and its processors and tests (`python_backend/`), `dataset/p000003.mat` (and the local zip), the `#legacy` React dashboard and the npm packages only it used (three, @react-three/*, chart.js, react-chartjs-2). | Your decision: strictly the new dataset. Nothing dead left in the repo. | ✅ Supersedes D15 |
+| D39 | 2026-10-20 | **Data path: dashboard → stream server → Unity.** `python_backend/server.py` (rewritten, port 8765) reads `public/data/patients.json`. The dashboard sends the selection on `/control`; Unity gets 60 Hz packets on `/stream`. One global selection; nothing is streamed until a patient is selected. The patient's real R-peak times (80 s patch slice) loop; the last-to-first-beat gap (0.49-0.83 s for every patient) is a normal beat. Check: `python_backend/tests/test_stream.py`. | Your choices (WebSocket over the server, not a direct page-to-Unity call). Same file as the dashboard, so heart and dashboard never disagree. | ✅ Tested live with the Unity editor and the open dashboard |
+| D40 | 2026-10-20 | **What drives the heart:** beat timing = real R-peaks (R); squeeze depth = catheter-measured stroke volume (R); tint = **lean** (chance ≥ 50%): leans congested = pulsing red, otherwise none. With no data the heart **freezes** (no beat, blood still) and the panel says "Twin not connected". In the medicine simulator the tint follows the **simulated** lean, from each patient's own leave-one-patient-out chance curve, now exported (`calibration.chance_curves`, used by `export_data.py` and by `hf_twin/dashboard/add_chance_curve.py` which patched the current file); the simulator also shows "chance after change" (S). | 62 of 63 patients are "uncertain" under the strict rule, so a state tint would be nearly uniform; lean differs between patients. The curve is the same one behind the chance already shown, so "no change" matches it (unrounded estimate kept for that). | ✅ |
+| D41 | 2026-10-20 | **Unity side** (`unity/CardiacDigitalTwin`, scene edited through Unity MCP): `HeartDataClient` on NativeWebSocket (pinned to commit `ea014c9`, works in WebGL); new `CongestionTint`; `VitalsDisplay` overlay removed (the dashboard shows every number); camera reframed (same angle, field of view 26.6°, transparent background). WebGL build: **Tools > Cardiac Twin > Build WebGL for dashboard** → `public/unity/` (committed; Gzip + decompression fallback; `build.json` lists the files). The dashboard loads Unity once with its own small loader and moves the one canvas between the Patient and Simulator tabs. | Your choices. One persistent instance avoids a several-second reload on every tab switch. | ✅ Code done; build run by you in the editor |
+| D42 | 2026-10-20 | Teammate leftovers deleted: `unity/My Project/`, and the unattached `HeartCycleManager.cs` / `ValveManager.cs`. Only this file was updated among the docs: `README.md` and `unity/README.md` still describe the VitalDB pipeline. | Your decisions. | ✅ README update still open |
+
+*D38-D42 were first written as D35-D39 (commit 72e50ec) and renumbered when merged with the `dashboard` branch, whose
+D35-D37 (recommendation step) came first.*
+
 
 Known, not changed: the export rounds the shown chance to 3 decimals before the dashboard rounds it to a whole percent, so one recording (TRM166-RHC2, true 49.46%) shows 50% on the Patient tab but 49% in the simulator at no change. Its lean (not congested) is right.
 
@@ -237,7 +244,8 @@ within-patient change, so expect modest results.
 | P14 | Training choices (section 8): targets, label, exclusions, "show it only if" rule | Proposed in section 8, awaiting approval. |
 | P15 | Approve installing scikit-learn and scipy into the project's venv, the `hf_twin` code folder, and starting the signal check and feature extraction | Awaiting approval. Packages were dry-run checked and install on Python 3.14. |
 | P18 | **Congestion uncertainty band (OPEN until model training finishes).** "Congested" only if the estimate's error range lies fully above 18 mmHg, "not congested" only if fully at or below 18, otherwise "uncertain / abstain". The range comes from the chosen model's real out-of-fold errors. Open: which final model, and the coverage level of the range (80% vs 90%). | Mechanism built (`hf_twin/recommendation/congestion_state.py`); verdict waits for V4/R5. |
-| P19 | Approve the draft action menu (6 actions) for the recommendation step. | Proposed 2026-10-20, awaiting approval. |
+| P19 | ~~Approve the draft action menu (6 actions)~~ | **Resolved by D35:** approved on 2026-10-20; built and tested in R8. |
+| P20 | ~~Should "urgent clinical review" come straight from the code rule instead of passing the AI gate?~~ | **Resolved by D37** (approved 2026-10-20, with softer wording); results in R8b. |
 | P17 | Use TimesFM-3 (your demo in `OpsRabbit\TimesFM-Demo`) to forecast a MIMIC demo patient's weight or fluid trend for steps 5/9, labelled exploratory? | Possible (about 2-3 h); weights are non-commercial licence. Not decided. |
 | P16 | Re-apply the main-branch edits kept in the stash (rename of "majorproject" to "CardiacDigitalTwin", dataset-path fixes) onto `wip`? | Three of those files also differ on `wip`, so merging them needs care. |
 
@@ -459,6 +467,78 @@ Does the patch track the change? Correlation between the model's change and the 
 (7.1 to 4.2 mmHg, 14 of 16 calls right), but the gain comes from the anchor plus the typical medicine effect, not from
 the patch: the patch does not follow the within-patient change (it moves the wrong way). Small sample (16), acute
 change in a catheter lab. Details: `artifacts/anchor_test.json`, `artifacts/anchor_test.csv`.
+
+### R8. Recommendation step (built and tested 2026-10-20, about 14:30)
+Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `recommend.py` pipeline,
+`evaluate_recommendations.py`, `export_recommendations.py`; tests in `test_cases.json`; results in
+`artifacts/recommendation_eval.json`). Jev model reported: jev-1.13.0.
+- **How it works:** (1) code derives congestion (model chance at least 75% = congested, at most 25% = not congested,
+  or the 80% range fully above 18 mmHg), perfusion (measured cardiac index below 2.2 = low) and low blood pressure
+  (SBP below 90) and lists the allowed actions; if only "abstain" is allowed, no AI call is made. (2) Jev "choice" picks one
+  allowed action from the patient's facts and verbatim guideline excerpts (dose tables excluded). (3) Jev "score" rates
+  how well those excerpts support that action (0 to 3). (4) Gate: choice confidence at least 0.6 and support at least 2.0,
+  else abstain. A Jev failure also gives abstain ("review").
+- **Parameters:** the 75% / 25% bands are the outer bands of the R7 reliability table (engineering choices, not clinical
+  values); SBP 90 was first taken from the CSI 2018 Table 11 dose caution, and is now sourced to AHA/ACC/HFSA 2022 p. e966
+  (D37; a weaker source was used first); 0.6 and 2.0 were fixed before the first scored run and were not changed.
+  *(R8 describes the first design, where "urgent review" passed through the AI gate; R8b below supersedes it for that action.)*
+- **31 test cases** (written from the guideline excerpts before the first scored run; synthetic inputs; authored by the
+  engineering team, not yet reviewed by a clinician, open item P11). Groups: congested outpatient / inpatient, not
+  congested, low perfusion, low blood pressure, high-dose loop diuretic, uncertain, missing data, and boundary values.
+
+| Run | Correct | Unsafe | Wrong | Abstain (safe) |
+|---|---|---|---|---|
+| Production, run 1 | 23 | 0 | 0 | 8 |
+| Production, run 2 | 23 | 0 | 0 | 8 |
+| Unfiltered (no code rules; diagnostic only) | 25 | 0 | 0 | 6 |
+
+  Repeat runs gave the same decision in 31 of 31 cases. The 8 production abstentions are 6 low-perfusion or low-blood-pressure
+  cases (support score below 2.0 or low confidence: the guideline excerpts for "urgent review" are thin, so the gate holds
+  back) and 2 high-dose-loop cases (confidence below 0.6). **Honest reading:** the AI plus the gate also behaved safely
+  without the code rules on these 31 cases, so this test does not show that the rules were needed; they stay as a guarantee
+  by construction. The safety flag (for example "low perfusion") is shown by the dashboard even when the AI abstains.
+- **On the 63 real recordings** (`public/data/recommendations.json`; diuretic therapy is not in the dataset, so it is
+  "unknown"): 32 get a suggestion, 31 abstain. Suggestions: 18 urgent review, 13 continue therapy, 1 diuretic review.
+  Against the catheter: all 18 urgent-review patients have a measured low cardiac index; the diuretic-review patient was
+  congested (32 mmHg); of the 13 "continue therapy" patients, 12 were not congested by catheter and **1 was congested
+  (wedge 22 mmHg)**, a missed case (about 1 in 13, in line with the 19% seen in the lowest band of R7). Abstain group: 13 of
+  31 congested. Only 2 recordings are model-congested with normal perfusion, so the diuretic path is rarely reached in this
+  cohort; for those 2 a labelled simulated input (high-dose loop diuretic) is also precomputed under `scenarios`.
+- **Limits:** 31 hand-made test cases; the knowledge base is two guidelines (ESC 2026 pending); no clinician review yet;
+  the middle congestion zone is unreliable, so most recordings abstain or show a safety flag.
+- **Checks before pushing (2026-10-20, about 15:30):** (a) The rules, run with no AI on all 31 cases: no unsafe action is
+  ever allowed and at least one acceptable action is always reachable. (b) The file matches the dashboard card's format for
+  all 63 recordings; no dose-like text. (c) The dashboard builds and the card renders in headless Chrome for 5 sampled
+  recordings (the "not connected yet" placeholder is gone). (d) A deliberately invalid key gives abstain with
+  "recommendation service unavailable (HTTP 401)", not a crash; a missing estimate no longer crashes the export (bug fixed).
+  (e) **Repeatability on real patients is weaker than on the test cases:** two full runs over the 63 recordings gave the
+  same decision for 57 and different decisions for 6, all flips between "urgent review" and "abstain" (support scores sit
+  near the 2.0 gate, because the excerpts for urgent review are thin). No flip involved "continue therapy" or "diuretic
+  review", and the safety flags (made in code) never change. The committed file is the first run. Resolved by D37 (R8b).
+  (f) **Inconsistency found:** the dashboard's congestion pill uses the strict rule (80% range fully on one side of 18 mmHg:
+  62 "uncertain"), while the recommendation uses the outer reliability bands (chance at most 25% or at least 75%), so a
+  recording can show "Uncertain" and "No congestion: continue" together (for example TRM219: estimate 9.7, 5% chance).
+  This is the open P18 question; it needs one agreed rule or an explanation on screen.
+
+### R8b. Low-flow / low-pressure review decided by the rule (D37, 2026-10-20, about 15:10)
+Code: `actions.py` (`review_kind`, `REVIEW`), `recommend.py`; two verbatim excerpts added to the knowledge base from page
+e966 (checked on the page image: Table 22/23 and the "Hypotension (eg, SBP <90 mm Hg)" sentence; an earlier message of mine
+said e965, which was wrong). New repeatable check with no AI: `python -m hf_twin.recommendation.check_recommendation_rules`
+(25 checks pass: no forbidden action allowed, cut-offs exactly at 2.2 / 90 / 75% / 25%, review made without any AI call,
+label says "urgent" only when both are low, citations exist, no dose or drug name in the fixed text).
+- **33 test cases** (the original 31 unchanged except the id rename, plus J1 and J2 for both values low). Production:
+  **31 correct, 0 unsafe, 0 wrong, 2 abstain** (F1 and F2, the high-dose-diuretic cases: AI confidence 0.45-0.49, below 0.6);
+  second run identical (33 of 33); unfiltered diagnostic also 31 / 0 / 0 / 2. The review cases now test the code rule, not the AI.
+  The unfiltered result improved over R8 (25 to 31 correct) because the new shock-criteria excerpts raise the AI's support score.
+- **63 real recordings** (file `public/data/recommendations.json`, first of two runs): 48 suggestions, 15 abstain.
+  Review 34 (29 low flow only, 4 both low, 1 low pressure only; 0 AI calls), continue therapy 13, diuretic review 1;
+  the 15 abstentions are all rule-decided (middle-zone congestion), none from the AI gate. **The two full runs agree on all
+  63 recordings** (before D37: 57 of 63). Against the catheter: continue therapy 12 of 13 not congested (**1 congested, wedge 22**,
+  unchanged); diuretic review 1 of 1 congested; review group 17 of 34 congested (they get review rather than a diuretic
+  suggestion by design); abstain group 7 of 15 congested.
+- **Still unstable:** the SIMULATED high-dose-diuretic scenario for TRM245 flipped between "resistance review" (run 1, kept in
+  the file) and "abstain" (run 2): that AI choice sits near the 0.6 confidence gate. It is labelled simulated.
+- **Limits:** unchanged from R8; additionally, the review wording is a team safety choice (D37), not a guideline sentence.
 
 ## 11. Sources
 

@@ -1,0 +1,1559 @@
+{
+ "gate": {
+  "min_choice_confidence": 0.6,
+  "min_support_score": 2.0
+ },
+ "summary": {
+  "production_run1": {
+   "n": 33,
+   "correct": 31,
+   "unsafe": 0,
+   "wrong": 0,
+   "abstain": 2,
+   "ai_calls_avoided": 18
+  },
+  "production_run2": {
+   "n": 33,
+   "correct": 31,
+   "unsafe": 0,
+   "wrong": 0,
+   "abstain": 2,
+   "ai_calls_avoided": 18
+  },
+  "unfiltered": {
+   "n": 33,
+   "correct": 31,
+   "unsafe": 0,
+   "wrong": 0,
+   "abstain": 2,
+   "ai_calls_avoided": 0
+  },
+  "production_repeatability": {
+   "same_decision": 33,
+   "of": 33
+  }
+ },
+ "runs": {
+  "production_run1": [
+   {
+    "id": "A1",
+    "group": "congested, outpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.96,
+    "support_score": 2.36,
+    "reason": null
+   },
+   {
+    "id": "A2",
+    "group": "congested, outpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.96,
+    "support_score": 2.47,
+    "reason": null
+   },
+   {
+    "id": "B1",
+    "group": "congested, inpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.92,
+    "support_score": 2.64,
+    "reason": null
+   },
+   {
+    "id": "B2",
+    "group": "congested, inpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.74,
+    "support_score": 2.58,
+    "reason": null
+   },
+   {
+    "id": "B3",
+    "group": "congested, inpatient, blood pressure unknown",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.94,
+    "support_score": 2.36,
+    "reason": null
+   },
+   {
+    "id": "C1",
+    "group": "not congested",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.88,
+    "support_score": 2.41,
+    "reason": null
+   },
+   {
+    "id": "C2",
+    "group": "not congested",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.84,
+    "support_score": 2.26,
+    "reason": null
+   },
+   {
+    "id": "C3",
+    "group": "not congested, on loop diuretic",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.94,
+    "support_score": 2.49,
+    "reason": null
+   },
+   {
+    "id": "D1",
+    "group": "low perfusion, not congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D2",
+    "group": "low perfusion, congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D3",
+    "group": "low perfusion, congestion uncertain",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D4",
+    "group": "low perfusion, just under the cut-off",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E1",
+    "group": "low blood pressure, congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E2",
+    "group": "low blood pressure, not congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E3",
+    "group": "low blood pressure, on high-dose loop",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "F1",
+    "group": "congestion despite high-dose loop",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_RESISTANCE_REVIEW",
+    "choice_confidence": 0.49,
+    "support_score": 2.17,
+    "reason": "AI confidence 0.49 is below 0.6"
+   },
+   {
+    "id": "F2",
+    "group": "congestion despite high-dose loop, outpatient",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_RESISTANCE_REVIEW",
+    "choice_confidence": 0.45,
+    "support_score": 1.67,
+    "reason": "AI confidence 0.45 is below 0.6"
+   },
+   {
+    "id": "F3",
+    "group": "congested on a normal-dose loop (not resistant)",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.7,
+    "support_score": 2.75,
+    "reason": null
+   },
+   {
+    "id": "G1",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G2",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G3",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G4",
+    "group": "no model output",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "H1",
+    "group": "perfusion unknown, congested",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "H2",
+    "group": "perfusion unknown, not congested",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "H3",
+    "group": "perfusion and blood pressure unknown",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "I1",
+    "group": "boundary: chance exactly 75%",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.92,
+    "support_score": 2.14,
+    "reason": null
+   },
+   {
+    "id": "I2",
+    "group": "boundary: chance exactly 25%",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.7,
+    "support_score": 2.2,
+    "reason": null
+   },
+   {
+    "id": "I3",
+    "group": "boundary: cardiac index exactly 2.2 (not low)",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.78,
+    "support_score": 2.11,
+    "reason": null
+   },
+   {
+    "id": "I4",
+    "group": "boundary: cardiac index 2.19 (low)",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "I5",
+    "group": "boundary: SBP exactly 90 (not low)",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.92,
+    "support_score": 2.21,
+    "reason": null
+   },
+   {
+    "id": "I6",
+    "group": "boundary: SBP 89 (low)",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "J1",
+    "group": "low blood flow and low blood pressure together, inpatient",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "J2",
+    "group": "low blood flow and low blood pressure together, outpatient",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   }
+  ],
+  "production_run2": [
+   {
+    "id": "A1",
+    "group": "congested, outpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.96,
+    "support_score": 2.27,
+    "reason": null
+   },
+   {
+    "id": "A2",
+    "group": "congested, outpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.96,
+    "support_score": 2.44,
+    "reason": null
+   },
+   {
+    "id": "B1",
+    "group": "congested, inpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.94,
+    "support_score": 2.59,
+    "reason": null
+   },
+   {
+    "id": "B2",
+    "group": "congested, inpatient",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.77,
+    "support_score": 2.57,
+    "reason": null
+   },
+   {
+    "id": "B3",
+    "group": "congested, inpatient, blood pressure unknown",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.94,
+    "support_score": 2.29,
+    "reason": null
+   },
+   {
+    "id": "C1",
+    "group": "not congested",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.88,
+    "support_score": 2.37,
+    "reason": null
+   },
+   {
+    "id": "C2",
+    "group": "not congested",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.88,
+    "support_score": 2.32,
+    "reason": null
+   },
+   {
+    "id": "C3",
+    "group": "not congested, on loop diuretic",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.96,
+    "support_score": 2.49,
+    "reason": null
+   },
+   {
+    "id": "D1",
+    "group": "low perfusion, not congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D2",
+    "group": "low perfusion, congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D3",
+    "group": "low perfusion, congestion uncertain",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "D4",
+    "group": "low perfusion, just under the cut-off",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E1",
+    "group": "low blood pressure, congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E2",
+    "group": "low blood pressure, not congested",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "E3",
+    "group": "low blood pressure, on high-dose loop",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "F1",
+    "group": "congestion despite high-dose loop",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_RESISTANCE_REVIEW",
+    "choice_confidence": 0.48,
+    "support_score": 2.28,
+    "reason": "AI confidence 0.48 is below 0.6"
+   },
+   {
+    "id": "F2",
+    "group": "congestion despite high-dose loop, outpatient",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_RESISTANCE_REVIEW",
+    "choice_confidence": 0.49,
+    "support_score": 1.7,
+    "reason": "AI confidence 0.49 is below 0.6"
+   },
+   {
+    "id": "F3",
+    "group": "congested on a normal-dose loop (not resistant)",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.77,
+    "support_score": 2.76,
+    "reason": null
+   },
+   {
+    "id": "G1",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G2",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G3",
+    "group": "congestion uncertain",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "G4",
+    "group": "no model output",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: congestion uncertain: the model's chance is in the middle zone"
+   },
+   {
+    "id": "H1",
+    "group": "perfusion unknown, congested",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "H2",
+    "group": "perfusion unknown, not congested",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "H3",
+    "group": "perfusion and blood pressure unknown",
+    "mode": "filtered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": "safety rules allow no action for these facts: perfusion unknown: actions that depend on it are not allowed"
+   },
+   {
+    "id": "I1",
+    "group": "boundary: chance exactly 75%",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.9,
+    "support_score": 2.14,
+    "reason": null
+   },
+   {
+    "id": "I2",
+    "group": "boundary: chance exactly 25%",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.72,
+    "support_score": 2.18,
+    "reason": null
+   },
+   {
+    "id": "I3",
+    "group": "boundary: cardiac index exactly 2.2 (not low)",
+    "mode": "filtered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.84,
+    "support_score": 2.12,
+    "reason": null
+   },
+   {
+    "id": "I4",
+    "group": "boundary: cardiac index 2.19 (low)",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "I5",
+    "group": "boundary: SBP exactly 90 (not low)",
+    "mode": "filtered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.9,
+    "support_score": 2.19,
+    "reason": null
+   },
+   {
+    "id": "I6",
+    "group": "boundary: SBP 89 (low)",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "J1",
+    "group": "low blood flow and low blood pressure together, inpatient",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   },
+   {
+    "id": "J2",
+    "group": "low blood flow and low blood pressure together, outpatient",
+    "mode": "filtered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": false,
+    "jev_choice": null,
+    "choice_confidence": null,
+    "support_score": null,
+    "reason": null
+   }
+  ],
+  "unfiltered": [
+   {
+    "id": "A1",
+    "group": "congested, outpatient",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.98,
+    "support_score": 2.28,
+    "reason": null
+   },
+   {
+    "id": "A2",
+    "group": "congested, outpatient",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.98,
+    "support_score": 2.37,
+    "reason": null
+   },
+   {
+    "id": "B1",
+    "group": "congested, inpatient",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.87,
+    "support_score": 2.63,
+    "reason": null
+   },
+   {
+    "id": "B2",
+    "group": "congested, inpatient",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.76,
+    "support_score": 2.68,
+    "reason": null
+   },
+   {
+    "id": "B3",
+    "group": "congested, inpatient, blood pressure unknown",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.92,
+    "support_score": 2.33,
+    "reason": null
+   },
+   {
+    "id": "C1",
+    "group": "not congested",
+    "mode": "unfiltered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.98,
+    "support_score": 2.33,
+    "reason": null
+   },
+   {
+    "id": "C2",
+    "group": "not congested",
+    "mode": "unfiltered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.92,
+    "support_score": 2.2,
+    "reason": null
+   },
+   {
+    "id": "C3",
+    "group": "not congested, on loop diuretic",
+    "mode": "unfiltered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.99,
+    "support_score": 2.43,
+    "reason": null
+   },
+   {
+    "id": "D1",
+    "group": "low perfusion, not congested",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.99,
+    "support_score": 2.2,
+    "reason": null
+   },
+   {
+    "id": "D2",
+    "group": "low perfusion, congested",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.99,
+    "support_score": 2.31,
+    "reason": null
+   },
+   {
+    "id": "D3",
+    "group": "low perfusion, congestion uncertain",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.95,
+    "support_score": 2.47,
+    "reason": null
+   },
+   {
+    "id": "D4",
+    "group": "low perfusion, just under the cut-off",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.99,
+    "support_score": 2.41,
+    "reason": null
+   },
+   {
+    "id": "E1",
+    "group": "low blood pressure, congested",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.86,
+    "support_score": 2.49,
+    "reason": null
+   },
+   {
+    "id": "E2",
+    "group": "low blood pressure, not congested",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.86,
+    "support_score": 2.54,
+    "reason": null
+   },
+   {
+    "id": "E3",
+    "group": "low blood pressure, on high-dose loop",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.92,
+    "support_score": 2.6,
+    "reason": null
+   },
+   {
+    "id": "F1",
+    "group": "congestion despite high-dose loop",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_RESISTANCE_REVIEW",
+    "choice_confidence": 0.36,
+    "support_score": 2.1,
+    "reason": "AI confidence 0.36 is below 0.6"
+   },
+   {
+    "id": "F2",
+    "group": "congestion despite high-dose loop, outpatient",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "abstain",
+    "acceptable": [
+     "DIURETIC_RESISTANCE_REVIEW",
+     "DIURETIC_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.41,
+    "support_score": 2.55,
+    "reason": "AI confidence 0.41 is below 0.6"
+   },
+   {
+    "id": "F3",
+    "group": "congested on a normal-dose loop (not resistant)",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "VASODILATOR_ADJUVANT"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.78,
+    "support_score": 2.77,
+    "reason": null
+   },
+   {
+    "id": "G1",
+    "group": "congestion uncertain",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "ABSTAIN",
+    "choice_confidence": 0.76,
+    "support_score": null,
+    "reason": "the AI judged the evidence insufficient"
+   },
+   {
+    "id": "G2",
+    "group": "congestion uncertain",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "ABSTAIN",
+    "choice_confidence": 0.6,
+    "support_score": null,
+    "reason": "the AI judged the evidence insufficient"
+   },
+   {
+    "id": "G3",
+    "group": "congestion uncertain",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.42,
+    "support_score": 1.88,
+    "reason": "AI confidence 0.42 is below 0.6"
+   },
+   {
+    "id": "G4",
+    "group": "no model output",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "ABSTAIN",
+    "choice_confidence": 0.89,
+    "support_score": null,
+    "reason": "the AI judged the evidence insufficient"
+   },
+   {
+    "id": "H1",
+    "group": "perfusion unknown, congested",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.39,
+    "support_score": 1.97,
+    "reason": "AI confidence 0.39 is below 0.6"
+   },
+   {
+    "id": "H2",
+    "group": "perfusion unknown, not congested",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "ABSTAIN",
+    "choice_confidence": 0.52,
+    "support_score": null,
+    "reason": "the AI judged the evidence insufficient"
+   },
+   {
+    "id": "H3",
+    "group": "perfusion and blood pressure unknown",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "ABSTAIN",
+    "choice_confidence": 0.52,
+    "support_score": null,
+    "reason": "the AI judged the evidence insufficient"
+   },
+   {
+    "id": "I1",
+    "group": "boundary: chance exactly 75%",
+    "mode": "unfiltered",
+    "decision": "DIURETIC_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "DIURETIC_REVIEW",
+    "choice_confidence": 0.98,
+    "support_score": 2.12,
+    "reason": null
+   },
+   {
+    "id": "I2",
+    "group": "boundary: chance exactly 25%",
+    "mode": "unfiltered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.9,
+    "support_score": 2.13,
+    "reason": null
+   },
+   {
+    "id": "I3",
+    "group": "boundary: cardiac index exactly 2.2 (not low)",
+    "mode": "unfiltered",
+    "decision": "CONTINUE_GDMT",
+    "verdict": "correct",
+    "acceptable": [
+     "CONTINUE_GDMT",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "CONTINUE_GDMT",
+    "choice_confidence": 0.94,
+    "support_score": 2.12,
+    "reason": null
+   },
+   {
+    "id": "I4",
+    "group": "boundary: cardiac index 2.19 (low)",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.99,
+    "support_score": 2.32,
+    "reason": null
+   },
+   {
+    "id": "I5",
+    "group": "boundary: SBP exactly 90 (not low)",
+    "mode": "unfiltered",
+    "decision": "ABSTAIN",
+    "verdict": "correct",
+    "acceptable": [
+     "DIURETIC_REVIEW",
+     "ABSTAIN"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.38,
+    "support_score": 1.34,
+    "reason": "AI confidence 0.38 is below 0.6"
+   },
+   {
+    "id": "I6",
+    "group": "boundary: SBP 89 (low)",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.83,
+    "support_score": 2.45,
+    "reason": null
+   },
+   {
+    "id": "J1",
+    "group": "low blood flow and low blood pressure together, inpatient",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 0.99,
+    "support_score": 2.7,
+    "reason": null
+   },
+   {
+    "id": "J2",
+    "group": "low blood flow and low blood pressure together, outpatient",
+    "mode": "unfiltered",
+    "decision": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "verdict": "correct",
+    "acceptable": [
+     "LOW_FLOW_OR_PRESSURE_REVIEW"
+    ],
+    "ai_used": true,
+    "jev_choice": "LOW_FLOW_OR_PRESSURE_REVIEW",
+    "choice_confidence": 1.0,
+    "support_score": 2.63,
+    "reason": null
+   }
+  ]
+ }
+}
