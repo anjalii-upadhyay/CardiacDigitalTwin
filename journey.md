@@ -61,12 +61,15 @@ waiting for approval (section 8).
 | D24 | 2026-10-20 | **TimesFM is not used for the wedge-pressure model.** | It forecasts a series forward; our task estimates a hidden number from one recording. A possible use for steps 5/9 on MIMIC demo daily series is P17. | ✅ |
 | D26 | 2026-10-20 | **Remove step 5 ("serious in N days") from the workflow.** No simulated trend line and no placeholder panel on the dashboard. It may be added back later. | The data has one snapshot per patient, so no open data supports a time horizon, and a simulated trend would be the weakest part of the demo. | ✅ Resolves P3 |
 | D28 | 2026-10-20 | **Perfusion comes only from measured values in the record, never from the model.** Cardiac index = measured cardiac output / body surface area; below 2.2 L/min/m2 = low perfusion (CSI 2018 Fig. 7). If measured values are missing, perfusion is "unknown" and any action that depends on it goes to clinician review. | The model's stroke-volume and cardiac-output estimates do not beat the naive guess (R1), so they must not drive treatment suggestions. | ✅ |
-| D29 | 2026-10-20 | **Recommendation = Jev two-step**: "choice" picks one action from a guideline-derived menu (with an abstain option), then "score" rates whether that action is supported by the guideline excerpts; act only if both pass, plus code-enforced safety rules. Gemini (structured output, same menu and checks) is the fallback if Jev fails. Knowledge base: `hf_twin/recommendation/knowledge/guideline_excerpts.json` (verbatim, page-checked; AHA 2022 + CSI 2018; ESC 2026 pending). | The 7Targets project showed Jev's choice confidence alone did not separate good from bad answers; a rubric score did. | ✅ Design approved; action menu not yet approved |
+| D29 | 2026-10-20 | **Recommendation = Jev two-step**: "choice" picks one action from a guideline-derived menu (with an abstain option), then "score" rates whether that action is supported by the guideline excerpts; act only if both pass, plus code-enforced safety rules. Gemini (structured output, same menu and checks) is the fallback if Jev fails. Knowledge base: `hf_twin/recommendation/knowledge/guideline_excerpts.json` (verbatim, page-checked; AHA 2022 + CSI 2018; ESC 2026 pending). | The 7Targets project showed Jev's choice confidence alone did not separate good from bad answers; a rubric score did. | ✅ Design and action menu approved (D35); built in R8 |
 | D30 | 2026-10-20 | **The dashboard shows both the predicted wedge pressure (with its error range) and the chance of congestion as a percentage.** An info icon beside the percentage shows: "When it says 70%, about 7 in 10 such patients really were congested." The final model is frozen (R7). | Your decision: "no percentage" was reversed to display both. | ✅ |
 | D27 | 2026-10-20 | **Dashboard layout: patient list + detail view.** The list holds the clean-set patients, sorted by estimated wedge pressure. Every estimate shown comes from a model that never saw that patient (out-of-fold). | Showing many real patients predicted blind is more convincing than one hand-picked case. | ✅ Partly resolves P2 |
 | D32 | 2026-10-20 | **Claude builds the dashboard (everything except the 3D heart model loading, see D34).** | Your decision. | ✅ Replaces the "built by a teammate" part of D22 |
 | D33 | 2026-10-20 | **Dashboard build plan approved:** existing stack (Vite + React 19 + three.js / react-three-fiber); data from a static `public/data/patients.json` made by `hf_twin/dashboard/export_data.py`, which reads the frozen model's `artifacts/final/` files (R7) so estimates, chance, categories and cut-offs live in one place; new code in `src/congestion/`; the old blood-pressure dashboard stays at `#legacy` (D15); the heart view is one swappable slot (see D34). The recommendation card shows a placeholder until step 7's output format is agreed. | A static file keeps the demo working with no backend running. One slot for the heart keeps the Unity integration a drop-in. | ✅ |
 | D34 | 2026-10-20 | **The teammate owns 3D heart model loading; the dashboard only leaves a slot.** `src/congestion/HeartCanvas.jsx` is a placeholder whose props are the contract (patient id, real beat times, slice length, heart rate, congestion state, wedge shown, measured right-atrial pressure, simulated flag). The earlier three.js loader written for it was removed. The 2D lung map and captions stay in the dashboard. | Your decision: the teammate works on model loading; the dashboard should use the right tech stack and leave space. | ✅ |
+
+| D35 | 2026-10-20 | **Six-action menu approved**: continue current therapy, clinician reviews the diuretic, clinician reviews diuretic resistance, vasodilator add-on may be considered (hospital only), urgent clinical review, abstain. **No dose is ever produced.** Safety rules run in code first, so an unsafe action is never offered to the AI; the AI result is shown only if its choice confidence is at least 0.6 and its guideline-support score is at least 2.0 of 3 (both fixed before the first test run); any failure means abstain. | Judges are medical experts, so a wrong answer costs more than no answer. | ✅ Built and tested in R8 |
+| D36 | 2026-10-20 | **Licence stays Apache-2.0** (`LICENSE` already in the repo; no MIT added). The Jev key lives only in the git-ignored `.env`; the dashboard shows a file precomputed offline (`public/data/recommendations.json`), never a live call. | You approved. A static app cannot hold a key. | ✅ |
 
 ### 2c. Suggestions and open questions from 2026-10-18
 
@@ -225,7 +228,7 @@ within-patient change, so expect modest results.
 | P14 | Training choices (section 8): targets, label, exclusions, "show it only if" rule | Proposed in section 8, awaiting approval. |
 | P15 | Approve installing scikit-learn and scipy into the project's venv, the `hf_twin` code folder, and starting the signal check and feature extraction | Awaiting approval. Packages were dry-run checked and install on Python 3.14. |
 | P18 | **Congestion uncertainty band (OPEN until model training finishes).** "Congested" only if the estimate's error range lies fully above 18 mmHg, "not congested" only if fully at or below 18, otherwise "uncertain / abstain". The range comes from the chosen model's real out-of-fold errors. Open: which final model, and the coverage level of the range (80% vs 90%). | Mechanism built (`hf_twin/recommendation/congestion_state.py`); verdict waits for V4/R5. |
-| P19 | Approve the draft action menu (6 actions) for the recommendation step. | Proposed 2026-10-20, awaiting approval. |
+| P19 | ~~Approve the draft action menu (6 actions)~~ | **Resolved by D35:** approved on 2026-10-20; built and tested in R8. |
 | P17 | Use TimesFM-3 (your demo in `OpsRabbit\TimesFM-Demo`) to forecast a MIMIC demo patient's weight or fluid trend for steps 5/9, labelled exploratory? | Possible (about 2-3 h); weights are non-commercial licence. Not decided. |
 | P16 | Re-apply the main-branch edits kept in the stash (rename of "majorproject" to "CardiacDigitalTwin", dataset-path fixes) onto `wip`? | Three of those files also differ on `wip`, so merging them needs care. |
 
@@ -447,6 +450,43 @@ Does the patch track the change? Correlation between the model's change and the 
 (7.1 to 4.2 mmHg, 14 of 16 calls right), but the gain comes from the anchor plus the typical medicine effect, not from
 the patch: the patch does not follow the within-patient change (it moves the wrong way). Small sample (16), acute
 change in a catheter lab. Details: `artifacts/anchor_test.json`, `artifacts/anchor_test.csv`.
+
+### R8. Recommendation step (built and tested 2026-10-20, about 15:00)
+Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `recommend.py` pipeline,
+`evaluate_recommendations.py`, `export_recommendations.py`; tests in `test_cases.json`; results in
+`artifacts/recommendation_eval.json`). Jev model reported: jev-1.13.0.
+- **How it works:** (1) code derives congestion (model chance at least 75% = congested, at most 25% = not congested,
+  or the 80% range fully above 18 mmHg), perfusion (measured cardiac index below 2.2 = low) and low blood pressure
+  (SBP below 90) and lists the allowed actions; if only "abstain" is allowed, no AI call is made. (2) Jev "choice" picks one
+  allowed action from the patient's facts and verbatim guideline excerpts (dose tables excluded). (3) Jev "score" rates
+  how well those excerpts support that action (0 to 3). (4) Gate: choice confidence at least 0.6 and support at least 2.0,
+  else abstain. A Jev failure also gives abstain ("review").
+- **Parameters:** the 75% / 25% bands are the outer bands of the R7 reliability table (engineering choices, not clinical
+  values); SBP 90 follows the CSI 2018 Table 11 caution; 0.6 and 2.0 were fixed before the first scored run and were not changed.
+- **31 test cases** (written from the guideline excerpts before the first scored run; synthetic inputs; authored by the
+  engineering team, not yet reviewed by a clinician, open item P11). Groups: congested outpatient / inpatient, not
+  congested, low perfusion, low blood pressure, high-dose loop diuretic, uncertain, missing data, and boundary values.
+
+| Run | Correct | Unsafe | Wrong | Abstain (safe) |
+|---|---|---|---|---|
+| Production, run 1 | 23 | 0 | 0 | 8 |
+| Production, run 2 | 23 | 0 | 0 | 8 |
+| Unfiltered (no code rules; diagnostic only) | 25 | 0 | 0 | 6 |
+
+  Repeat runs gave the same decision in 31 of 31 cases. The 8 production abstentions are 6 low-perfusion or low-blood-pressure
+  cases (support score below 2.0 or low confidence: the guideline excerpts for "urgent review" are thin, so the gate holds
+  back) and 2 high-dose-loop cases (confidence below 0.6). **Honest reading:** the AI plus the gate also behaved safely
+  without the code rules on these 31 cases, so this test does not show that the rules were needed; they stay as a guarantee
+  by construction. The safety flag (for example "low perfusion") is shown by the dashboard even when the AI abstains.
+- **On the 63 real recordings** (`public/data/recommendations.json`; diuretic therapy is not in the dataset, so it is
+  "unknown"): 32 get a suggestion, 31 abstain. Suggestions: 18 urgent review, 13 continue therapy, 1 diuretic review.
+  Against the catheter: all 18 urgent-review patients have a measured low cardiac index; the diuretic-review patient was
+  congested (32 mmHg); of the 13 "continue therapy" patients, 12 were not congested by catheter and **1 was congested
+  (wedge 22 mmHg)**, a missed case (about 1 in 13, in line with the 19% seen in the lowest band of R7). Abstain group: 13 of
+  31 congested. Only 2 recordings are model-congested with normal perfusion, so the diuretic path is rarely reached in this
+  cohort; for those 2 a labelled simulated input (high-dose loop diuretic) is also precomputed under `scenarios`.
+- **Limits:** 31 hand-made test cases; the knowledge base is two guidelines (ESC 2026 pending); no clinician review yet;
+  the middle congestion zone is unreliable, so most recordings abstain or show a safety flag.
 
 ## 11. Sources
 
