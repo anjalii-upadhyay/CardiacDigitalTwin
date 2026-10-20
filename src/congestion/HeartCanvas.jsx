@@ -1,35 +1,58 @@
-// HeartCanvas: THE SLOT for the 3D heart. The teammate who owns model loading replaces the body of this file
-// (three.js / react-three-fiber like the legacy dashboard, or the Unity twin later). Nothing else in the
-// dashboard needs to change: HeartView.jsx renders <HeartCanvas {...heart} /> and the props below are the contract.
+// HeartCanvas: the slot for the Unity heart twin. The one Unity instance (unityHeart.js) is moved into whichever
+// slot is mounted, and the slot tells the stream server (twinControl.js) which patient to stream to it:
+// real values on the Patient tab, simulated values on the Simulator tab.
 //
-// Props (all real or derived, built in HeartView.jsx):
-//   patientId     string     recording id, e.g. "TRM245-RHC1". Changes when the doctor selects another patient.
-//   beatsS        number[]   real R-peak times (s) inside the patch slice. The heart should contract at each one.
-//   sliceS        number     slice length (s). Loop the replay: when time passes sliceS, start again at beatsS[0].
-//   hrBpm         number|null  mean heart rate from the patch (fallback pacing if beatsS is empty)
-//   state         'congested' | 'uncertain' | 'not_congested'   congestion state (tint / alert cue)
-//   wedgeMmHg     number     wedge pressure being shown: the estimate, or the simulated value in the simulator tab
-//   raMmHg        number|null  measured right-atrial pressure (catheter only, never estimated)
-//   simulated     boolean    true in the simulator tab (label the view as a simulation)
-//
-// Layout contract: the component fills its parent (.hv-3d, height 300 px desktop / 240 px phone) and must not
-// scroll the page. The parent shows the "Beats on real patch R-peaks" caption and the lung map; do not repeat them.
-import React from 'react'
+// Props (built in HeartView.jsx):
+//   patientId   string    recording id, e.g. "TRM245-RHC1"
+//   simulated   boolean   true in the simulator tab
+//   wedgeMmHg   number    shown wedge: the estimate, or the simulated value
+//   state       'congested' | 'uncertain' | 'not_congested'
+//   chance      number    simulated chance of congestion (simulator only; the server uses the real one otherwise)
+//   lean        'congested' | 'not_congested'   simulated lean (simulator only)
+// The heart's beat timing (real R-peaks) and squeeze (catheter-measured stroke volume) come from the server.
+import React, { useEffect, useRef } from 'react'
+import { selectForTwin, useTwinStatus } from './twinControl'
+import { unityCanvas, useUnityStatus } from './unityHeart'
 
-export default function HeartCanvas(props) {
-  const { patientId, beatsS, sliceS, hrBpm, state, wedgeMmHg, simulated } = props
+const SEND_EVERY_MS = 100
+
+function message(unity, twin, patientId) {
+  if (unity.phase === 'missing') return ['3D heart not built yet.', 'In Unity: Tools > Cardiac Twin > Build WebGL for dashboard']
+  if (unity.phase === 'error') return ['3D heart failed to load.', unity.message]
+  if (unity.phase !== 'ready') return [`Loading 3D heart… ${Math.round(unity.progress * 100)}%`]
+  if (!twin.connected) return ['Twin not connected.', 'Start the stream: python_backend/server.py']
+  if (twin.selected !== patientId) return ['Waiting for patient data…']
+  return null
+}
+
+export default function HeartCanvas({ patientId, simulated, wedgeMmHg, state, chance, lean }) {
+  const host = useRef(null)
+  const lastSent = useRef(0)
+  const unity = useUnityStatus()
+  const twin = useTwinStatus()
+
+  useEffect(() => {
+    host.current.appendChild(unityCanvas())
+  }, [])
+
+  useEffect(() => {
+    const msg = simulated
+      ? { select: patientId, simulated: true, wedge: wedgeMmHg, chance, lean, state }
+      : { select: patientId }
+    const wait = Math.max(0, lastSent.current + SEND_EVERY_MS - Date.now())
+    const timer = setTimeout(() => { lastSent.current = Date.now(); selectForTwin(msg) }, wait)
+    return () => clearTimeout(timer)
+  }, [patientId, simulated, wedgeMmHg, state, chance, lean])
+
+  const msg = message(unity, twin, patientId)
   return (
-    <div className="hv-placeholder" data-heart-slot data-patient={patientId} data-state={state}>
-      <div className="hv-ph-title">3D heart goes here</div>
-      <div className="hv-ph-sub">Slot for the teammate's model loading (src/congestion/HeartCanvas.jsx)</div>
-      <dl className="hv-ph-props">
-        <div><dt>patientId</dt><dd>{patientId}</dd></div>
-        <div><dt>beatsS</dt><dd>{beatsS.length} real beats</dd></div>
-        <div><dt>sliceS</dt><dd>{sliceS} s</dd></div>
-        <div><dt>hrBpm</dt><dd>{hrBpm == null ? '–' : Math.round(hrBpm)}</dd></div>
-        <div><dt>state</dt><dd>{state}</dd></div>
-        <div><dt>wedgeMmHg</dt><dd>{wedgeMmHg.toFixed(1)}{simulated ? ' (simulated)' : ''}</dd></div>
-      </dl>
+    <div className="hv-slot" ref={host} data-patient={patientId} data-state={state}>
+      {msg && (
+        <div className="hv-msg" role="status">
+          <div className="hv-ph-title">{msg[0]}</div>
+          {msg[1] && <div className="hv-ph-sub">{msg[1]}</div>}
+        </div>
+      )}
     </div>
   )
 }

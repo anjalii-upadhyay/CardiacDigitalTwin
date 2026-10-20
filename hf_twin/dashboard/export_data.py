@@ -22,7 +22,7 @@ import numpy as np
 from scipy.signal import butter, filtfilt
 from sklearn.metrics import roc_auc_score
 
-from hf_twin.ml_training import config, data_io, dataset, quality
+from hf_twin.ml_training import calibration, config, data_io, dataset, quality
 
 REPO = Path(__file__).resolve().parents[2]
 OUT = REPO / "public" / "data" / "patients.json"
@@ -102,6 +102,7 @@ def build() -> dict:
     recs = {r.rec_id: r for r in data_io.load_recordings()}
     after = after_vasodilator()
     cut = final["meta"]["cutoffs"]
+    curves = calibration.chance_curves(final["patients"], A / "experiments_oof_wedge_mmHg.csv", MODEL_COLUMN)
 
     patients = []
     for rid, e in est.items():
@@ -119,7 +120,8 @@ def build() -> dict:
             "estimate": {"wedge": s["wedge_mmHg"], "error_vs_catheter": round(s["wedge_mmHg"] - m["wedge_mmHg"], 1)},
             "congestion": {"state": s["category_strict"], "lean": s["lean"], "chance": s["chance_congested"],
                            "estimate_mmHg": s["wedge_mmHg"], "range_mmHg": s["range80_mmHg"], "range_coverage": 0.8,
-                           "range90_mmHg": s["range90_mmHg"], "cutoff_mmHg": cut["congestion_wedge_mmHg"]},
+                           "range90_mmHg": s["range90_mmHg"], "cutoff_mmHg": cut["congestion_wedge_mmHg"],
+                           "curve": curves[rid]},
             "perfusion": e["perfusion"],
             "measured": {"wedge": m["wedge_mmHg"], "ra": m["right_atrial_mmHg"], "pa": m["pa_mean_mmHg"],
                          "sv": num(m["stroke_volume_mL"], 1), "co": m["cardiac_output_l_min"]},
@@ -165,7 +167,7 @@ def build() -> dict:
                             "lean_counts": {s: leans.count(s) for s in ("congested", "not_congested")}},
         "chance": {"auroc": round(ch["auroc"], 2), "brier": round(ch["brier"], 3),
                    "brier_base": round(ch["brier_if_always_base_rate"], 3), "base_rate": round(ch["base_rate_congested"], 2),
-                   "how": ch["how"], "reliability": [
+                   "how": ch["how"], "lean_threshold": calibration.LEAN_THRESHOLD, "reliability": [
                        {"band": r["band"], "n": r["n"], "predicted": round(r["mean_predicted"], 2),
                         "observed": round(r["share_really_congested"], 2)} for r in ch["reliability"]]},
         "ui_text": final["meta"]["ui_text"],

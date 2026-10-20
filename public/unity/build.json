@@ -1,0 +1,7 @@
+{
+  "loaderUrl": "Build/unity.loader.js",
+  "dataUrl": "Build/unity.data.unityweb",
+  "frameworkUrl": "Build/unity.framework.js.unityweb",
+  "codeUrl": "Build/unity.wasm.unityweb",
+  "version": "2026-10-20T09:04:25Z"
+}

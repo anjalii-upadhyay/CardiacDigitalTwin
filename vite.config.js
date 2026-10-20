@@ -9,7 +9,8 @@ export default defineConfig({
     // are not part of the web app. Watching them exhausts the OS inotify limit (ENOSPC)
     // and crashes the dev server on startup.
     watch: {
-      ignored: ['**/unity/**', '**/python_backend/**', '**/dataset/**', '**/models/**', '**/dist/**'],
+      // unity/CardiacDigitalTwin only: public/unity/ (the WebGL build) must stay watched so Vite serves it
+      ignored: ['**/unity/CardiacDigitalTwin/**', '**/python_backend/**', '**/models/**', '**/dist/**'],
     },
   },
 })

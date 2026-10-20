@@ -2,10 +2,11 @@ using UnityEngine;
 
 // One coordinated cardiac cycle driving BOTH the muscle animation and the blood flow from a single clock.
 //
-// Live mode (HeartDataClient has fresh packets): the cycle is slaved beat-for-beat to the patient's ECG.
-// The backend's cardiac_phase is 0 at each R-peak and 1 at the next, so every real beat — early, late or
-// skipped — is reproduced exactly. Stroke volume scales contraction depth and ejection strength; cardiac
-// output scales flow speed. On signal loss the heart falls back to an internal rhythm and says so.
+// Live mode (HeartDataClient has fresh packets): the cycle is slaved beat-for-beat to the selected patient's real
+// chest-patch R-peaks. The server's cardiac_phase is 0 at each R-peak and 1 at the next, so every real beat — early,
+// late or irregular — is reproduced. The catheter-measured stroke volume scales contraction depth and ejection
+// strength. With no fresh data the heart FREEZES in the relaxed pose with the blood still: nothing on screen may
+// be mistaken for the patient (the dashboard says "not connected" over it).
 //
 // Phase timings are rate-dependent, not fixed fractions: ejection time and pre-ejection period follow the
 // Weissler systolic-time-interval regressions (Weissler et al., Circulation 1968: LVET = 413 - 1.7*HR ms,
@@ -16,15 +17,12 @@ public class CardiacCycle : MonoBehaviour
 {
     public static CardiacCycle Main { get; private set; }
 
-    [Header("Fallback rhythm (used only when no live data)")]
-    [Range(40f, 180f)] public float beatsPerMinute = 72f;
     public string animationState = "test";
 
     [Header("Live data scaling (textbook resting references)")]
     public HeartDataClient data;                 // auto-found if left empty
     public float normalStrokeVolume = 70f;       // mL   (normal resting SV ~55-100)
 
-    const float RestingBpm = 72f;
     const float MaxPursuit = 3.5f;               // cycles/s cap when catching up to an early beat (~210 bpm sweep)
 
     // Muscle clip poses sampled from the baked "test" clip: widest (relaxed) vs narrowest (contracted).
@@ -38,8 +36,8 @@ public class CardiacCycle : MonoBehaviour
     public bool LiveDriven { get; private set; }
 
     // Live mode: 1 — heart rate already enters through the cycle rate and stroke volume through Strength, so an
-    // extra cardiac-output factor would double-count both (flow would scale ~SV²·HR²). Fallback keeps bpm scaling.
-    public float SpeedScale => LiveDriven ? 1f : beatsPerMinute / RestingBpm;
+    // extra cardiac-output factor would double-count both (flow would scale ~SV²·HR²). No data: 0, blood stands still.
+    public float SpeedScale => LiveDriven ? 1f : 0f;
 
     // Dynamic phase boundaries (fractions of the current cycle), rebuilt each frame from RR.
     float rPhase = 0.12f;      // end of atrial systole = R-peak
@@ -79,40 +77,36 @@ public class CardiacCycle : MonoBehaviour
         float dt = Time.deltaTime;
         LiveDriven = data != null && data.HasData;
 
-        float rr = LiveDriven ? data.Latest.rr_interval : 60f / beatsPerMinute;
-        UpdateTimings(rr);
-
-        if (LiveDriven)
+        if (!LiveDriven)
         {
-            var p = data.Latest;
-            // Map ECG phase (0 at R) onto this cycle (R at rPhase). The ECG phase runs straight through, so
-            // atrial systole (the last rPhase of the cycle here) plays in the lead-up to the expected next R —
-            // the kick correctly PRECEDES the QRS. A late beat holds just before R; an early beat is chased at a
-            // bounded rate so it plays as a visibly quick beat instead of a teleport.
-            float target = Mathf.Repeat(rPhase + Mathf.Min(p.cardiac_phase, 0.995f), 1f);
-            if (data.ConsumeSegmentBreak())
-            {
-                Phase = target; // dataset splice: resync instantly, never act it out as a pathological pause
-            }
-            else if (data.DataAge > 0.25f)
-            {
-                // Packet gap but not yet signal-loss: dead-reckon at the last known RR instead of freezing.
-                Phase = Mathf.Repeat(Phase + dt / Mathf.Max(p.rr_interval, 0.2f), 1f);
-            }
-            else
-            {
-                float delta = Mathf.Repeat(target - Phase, 1f);
-                if (delta < 0.9f) Phase = Mathf.Repeat(Phase + Mathf.Min(delta, dt * MaxPursuit), 1f);
-            }
+            // Freeze: relaxed pose (just before contraction), all valves' flow drives off.
+            Phase = rPhase;
+            Strength = 1f;
+            EjectDrive = FillDrive = VenousDrive = 0f;
+            PoseMuscle(Phase);
+            return;
+        }
 
-            float sv = Mathf.Clamp(p.stroke_volume / normalStrokeVolume, 0.25f, 1.25f);
-            Strength = Mathf.Lerp(Strength, sv, 1f - Mathf.Exp(-dt * 3f));
+        var p = data.Latest;
+        UpdateTimings(p.rr_interval);
+        // Map ECG phase (0 at R) onto this cycle (R at rPhase). The ECG phase runs straight through, so
+        // atrial systole (the last rPhase of the cycle here) plays in the lead-up to the expected next R —
+        // the kick correctly PRECEDES the QRS. A late beat holds just before R; an early beat is chased at a
+        // bounded rate so it plays as a visibly quick beat instead of a teleport.
+        float target = Mathf.Repeat(rPhase + Mathf.Min(p.cardiac_phase, 0.995f), 1f);
+        if (data.DataAge > 0.25f)
+        {
+            // Packet gap but not yet signal-loss: dead-reckon at the last known RR instead of freezing.
+            Phase = Mathf.Repeat(Phase + dt / Mathf.Max(p.rr_interval, 0.2f), 1f);
         }
         else
         {
-            Phase = Mathf.Repeat(Phase + dt * beatsPerMinute / 60f, 1f);
-            Strength = Mathf.Lerp(Strength, 1f, 1f - Mathf.Exp(-dt * 3f));
+            float delta = Mathf.Repeat(target - Phase, 1f);
+            if (delta < 0.9f) Phase = Mathf.Repeat(Phase + Mathf.Min(delta, dt * MaxPursuit), 1f);
         }
+
+        float sv = Mathf.Clamp(p.stroke_volume / normalStrokeVolume, 0.25f, 1.25f);
+        Strength = Mathf.Lerp(Strength, sv, 1f - Mathf.Exp(-dt * 3f));
 
         ComputeDrives(Phase);
         // Ejection velocity ~ SV / LVET: weak pumping -> weak bolus; a hyperdynamic SV (>1) or a rate-shortened
@@ -179,8 +173,8 @@ public class CardiacCycle : MonoBehaviour
     {
         if (state == null) return;
         // Contract over PEP+ejection, relax over the long diastole. Contraction DEPTH scales with Strength so a
-        // low stroke volume visibly reduces the squeeze (hypokinesis). Note: SV here is the backend's
-        // pulse-pressure surrogate (PP x compliance), not a contractility measurement.
+        // low stroke volume visibly reduces the squeeze (hypokinesis). Note: SV here is the patient's catheter-measured
+        // stroke volume (one value per recording), not a beat-by-beat contractility measurement.
         float contracted = Mathf.Lerp(ClipRelaxed + 0.35f * (ClipContracted - ClipRelaxed), ClipContracted, Mathf.Min(Strength, 1f));
         float x = Mathf.Repeat(p - rPhase, 1f);
         float contractSpan = ejEnd - rPhase;

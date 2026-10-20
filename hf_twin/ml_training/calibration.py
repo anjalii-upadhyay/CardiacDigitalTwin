@@ -9,6 +9,8 @@ Congestion = catheter wedge pressure above 18 mmHg (CSI 2018 position statement,
 Chance of congestion = Platt scaling: a one-variable logistic regression of (wedge > 18) on the model's estimate.
 """
 
+import csv
+
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
@@ -50,6 +52,28 @@ def leave_one_patient_out(estimates, measured, patients, coverages=(0.8, 0.9)):
             lo, hi = error_band(est[keep], meas[keep], c)
             row[f"range{int(round(c * 100))}"] = (float(est[i] + lo), float(est[i] + hi))
         out.append(row)
+    return out
+
+
+LEAN_THRESHOLD = 0.5   # "lean congested" when chance >= 0.5 (same rule as freeze_model.py and predict.py)
+
+
+def chance_curves(final_patients, oof_csv, column="V0_current"):
+    """
+    Per recording in artifacts/final/patient_estimates.json: the leave-one-patient-out chance curve behind its shown
+    chance, as {id: {"slope", "intercept", "estimate_unrounded"}}. Lets the dashboard's simulator score a simulated
+    wedge with the same curve. Fitted on the unrounded blind estimates (oof_csv `column`), exactly as freeze_model.py
+    did; the JSON's estimates are rounded to 0.1 mmHg, so the unrounded one is kept for an exact match at no change.
+    """
+    with open(oof_csv, newline="", encoding="utf-8") as f:
+        unrounded = {r["rec_id"]: float(r[column]) for r in csv.DictReader(f)}
+    est = np.array([unrounded[p["id"]] for p in final_patients], float)
+    meas = np.array([p["measured"]["wedge_mmHg"] for p in final_patients], float)
+    pats = np.array([p["patient"] for p in final_patients])
+    out = {}
+    for p, pat, x in zip(final_patients, pats, est):
+        slope, intercept = fit_platt(est[pats != pat], meas[pats != pat])
+        out[p["id"]] = {"slope": round(slope, 6), "intercept": round(intercept, 6), "estimate_unrounded": round(float(x), 4)}
     return out
 
 

@@ -27,6 +27,9 @@ export function classify(estimate, offsets, cutoff) {
   const state = lo > cutoff ? 'congested' : hi <= cutoff ? 'not_congested' : 'uncertain'
   return { state, range: [lo, hi] }
 }
+// Chance of congestion at a wedge value, from the patient's own leave-one-patient-out curve (patients.json).
+export const chanceAt = (curve, wedge) => 1 / (1 + Math.exp(-(curve.slope * wedge + curve.intercept)))
+
 export const offsetsOf = (c) => ({ lower: c.range_mmHg[0] - c.estimate_mmHg, upper: c.range_mmHg[1] - c.estimate_mmHg })
 
 export const EVIDENCE = {

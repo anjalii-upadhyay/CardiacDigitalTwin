@@ -1,7 +1,7 @@
 import React from 'react'
 import { Ev, StatePill, PressureScale } from './ui'
 import HeartView from './HeartView'
-import { classify, offsetsOf, fmt, signed, label, rangeText } from './format'
+import { classify, offsetsOf, chanceAt, fmt, signed, label, rangeText } from './format'
 
 function RecommendationCard({ p, rec }) {
   if (rec) {
@@ -37,6 +37,9 @@ export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
   const est = p.estimate.wedge
   const after = Math.max(0, est + resp)
   const sim = classify(after, offsetsOf(p.congestion), cutoff)
+  const curve = p.congestion.curve
+  const simChance = chanceAt(curve, Math.max(0, curve.estimate_unrounded + resp))
+  const simLean = simChance >= meta.chance.lean_threshold ? 'congested' : 'not_congested'
   const real = p.after_vasodilator
   const presets = [['smallest drop', v.smallest], ['average', v.mean], ['largest drop', v.largest]]
   const markers = [
@@ -78,7 +81,8 @@ export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
           <div className="ba">
             <div><div className="lbl">Now <Ev k="R" /></div><div className="bignum">{fmt(est)}</div><StatePill state={p.congestion.state} /></div>
             <div className="arrow" aria-hidden="true">→</div>
-            <div><div className="lbl">After change <Ev k="S" /></div><div className="bignum">{fmt(after)}</div><StatePill state={sim.state} /></div>
+            <div><div className="lbl">After change <Ev k="S" /></div><div className="bignum">{fmt(after)}</div><StatePill state={sim.state} />
+              <div className="sub">Chance after change: <b>{Math.round(simChance * 100)}%</b> <Ev k="S" /></div></div>
           </div>
           <PressureScale cutoff={cutoff} markers={markers}
             bands={[{ cls: 'range', lo: Math.max(0, est + v.largest), hi: est + v.smallest, tip: `Range of real responses: ${fmt(Math.max(0, est + v.largest))} to ${fmt(est + v.smallest)} mmHg` }]} />
@@ -100,7 +104,7 @@ export default function SimulatorTab({ p, meta, resp, onResp, rec }) {
       <div className="grid2">
         <section className="panel">
           <div className="ph"><h3>Heart and lungs after the change</h3><span className="sub">simulated</span></div>
-          <HeartView patient={p} wedge={after} state={sim.state} simulated />
+          <HeartView patient={p} wedge={after} state={sim.state} simulated chance={simChance} lean={simLean} />
         </section>
         <RecommendationCard p={p} rec={rec} />
       </div>

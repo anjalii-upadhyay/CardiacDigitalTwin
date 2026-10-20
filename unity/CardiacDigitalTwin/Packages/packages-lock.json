@@ -17,6 +17,13 @@
       },
       "hash": "142ea0af4890337f0ff6658df61db23982313717"
     },
+    "com.endel.nativewebsocket": {
+      "version": "https://github.com/endel/NativeWebSocket.git#ea014c9ae534d56111962d96f89f8a046e302dc9",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ea014c9ae534d56111962d96f89f8a046e302dc9"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 1,
