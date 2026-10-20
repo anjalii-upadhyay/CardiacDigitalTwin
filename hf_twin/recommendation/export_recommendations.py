@@ -37,13 +37,14 @@ WHY = {
     "DIURETIC_REVIEW": "In patients with fluid retention, diuretics are recommended to relieve congestion (class 1, level B-NR).",
     "DIURETIC_RESISTANCE_REVIEW": "Congestion despite a high-dose loop diuretic: the guideline lists options to intensify the diuretic regimen.",
     "VASODILATOR_ADJUVANT": "In hospital, without low blood pressure, an intravenous vasodilator may be considered as an add-on (class 2b).",
-    "URGENT_CLINICAL_REVIEW": "Low perfusion or low blood pressure calls for urgent assessment by a clinician.",
 }
 LIMITS = [
     "The congestion input is an ESTIMATE from the chest patch, not a measurement; only the middle of its range is reliable (journey R7).",
     "Cardiac index and blood pressure are measured values from the record, never estimated.",
     "The dataset has no medication list: the current diuretic is 'unknown' unless a simulated input is shown and labelled.",
     "The tool never suggests a dose. Dose tables are kept out of the AI input.",
+    "The low-blood-flow / low-blood-pressure review is decided by code alone from measured values and cited cut-offs; "
+    "that it always leads to a clinician review is a safety choice of the team, not a guideline sentence.",
     "The 31 test cases were written from the guidelines by the engineering team and have not been reviewed by a clinician.",
     "A decision-support gate that abstains is working as designed; most of this cohort has low measured perfusion or a middle-zone congestion estimate.",
 ]
@@ -85,7 +86,7 @@ def shape(f: A.PatientFacts, res: dict) -> dict:
     ai_failed = bool(res["reason"]) and "service unavailable" in res["reason"]
     status = "review" if ai_failed else ("recommend" if d != "ABSTAIN" else "abstain")
     if status == "recommend":
-        why = WHY[d]
+        why = res.get("why") or WHY[d]          # the low-flow / low-pressure review carries its own wording (D37)
     elif status == "review":
         why = "The recommendation service could not be reached, so no suggestion is made."
     elif not res.get("ai_used"):
@@ -101,6 +102,7 @@ def shape(f: A.PatientFacts, res: dict) -> dict:
             "checks": {"ai_used": res.get("ai_used"), "choice_confidence": res.get("choice_confidence"),
                        "support_score": res.get("support_score"), "model": res.get("jev_model"),
                        "abstain_reason": res["reason"]},
+            "rule_decided": bool(res.get("rule_decided")),
             "disclaimer": res["disclaimer"]}
 
 
@@ -141,7 +143,7 @@ def main():
     out["_meta"] = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "jev_models": jev_models,
                     "gate": {"min_choice_confidence": R.MIN_CHOICE_CONFIDENCE, "min_support_score": R.MIN_SUPPORT_SCORE},
                     "rules": {"congested_chance": A.CONGESTED_CHANCE, "not_congested_chance": A.NOT_CONGESTED_CHANCE,
-                              "sbp_low_mmHg": A.SBP_LOW_MMHG},
+                              "sbp_low_mmHg": A.SBP_LOW_MMHG, "cardiac_index_low": 2.2, "wedge_congestion_mmHg": 18},
                     "actions": {k: v["label"] for k, v in A.ACTIONS.items()}, "tests": eval_block(),
                     "excerpts": cited, "limitations": LIMITS, "disclaimer": A.DISCLAIMER}
     OUT.write_text(json.dumps(out, indent=1), encoding="utf-8")

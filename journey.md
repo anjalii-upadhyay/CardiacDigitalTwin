@@ -68,8 +68,10 @@ waiting for approval (section 8).
 | D33 | 2026-10-20 | **Dashboard build plan approved:** existing stack (Vite + React 19 + three.js / react-three-fiber); data from a static `public/data/patients.json` made by `hf_twin/dashboard/export_data.py`, which reads the frozen model's `artifacts/final/` files (R7) so estimates, chance, categories and cut-offs live in one place; new code in `src/congestion/`; the old blood-pressure dashboard stays at `#legacy` (D15); the heart view is one swappable slot (see D34). The recommendation card shows a placeholder until step 7's output format is agreed. | A static file keeps the demo working with no backend running. One slot for the heart keeps the Unity integration a drop-in. | ✅ |
 | D34 | 2026-10-20 | **The teammate owns 3D heart model loading; the dashboard only leaves a slot.** `src/congestion/HeartCanvas.jsx` is a placeholder whose props are the contract (patient id, real beat times, slice length, heart rate, congestion state, wedge shown, measured right-atrial pressure, simulated flag). The earlier three.js loader written for it was removed. The 2D lung map and captions stay in the dashboard. | Your decision: the teammate works on model loading; the dashboard should use the right tech stack and leave space. | ✅ |
 
-| D35 | 2026-10-20 | **Six-action menu approved**: continue current therapy, clinician reviews the diuretic, clinician reviews diuretic resistance, vasodilator add-on may be considered (hospital only), urgent clinical review, abstain. **No dose is ever produced.** Safety rules run in code first, so an unsafe action is never offered to the AI; the AI result is shown only if its choice confidence is at least 0.6 and its guideline-support score is at least 2.0 of 3 (both fixed before the first test run); any failure means abstain. | Judges are medical experts, so a wrong answer costs more than no answer. | ✅ Built and tested in R8 |
+| D35 | 2026-10-20 | **Six-action menu approved**: continue current therapy, clinician reviews the diuretic, clinician reviews diuretic resistance, vasodilator add-on may be considered (hospital only), urgent clinical review (renamed and reworded by D37 to: low blood flow or low blood pressure, clinician reviews), abstain. **No dose is ever produced.** Safety rules run in code first, so an unsafe action is never offered to the AI; the AI result is shown only if its choice confidence is at least 0.6 and its guideline-support score is at least 2.0 of 3 (both fixed before the first test run); any failure means abstain. | Judges are medical experts, so a wrong answer costs more than no answer. | ✅ Built and tested in R8 |
 | D36 | 2026-10-20 | **Licence stays Apache-2.0** (`LICENSE` already in the repo; no MIT added). The Jev key lives only in the git-ignored `.env`; the dashboard shows a file precomputed offline (`public/data/recommendations.json`), never a live call. | You approved. A static app cannot hold a key. | ✅ |
+
+| D37 | 2026-10-20 | **Low measured blood flow or low blood pressure always leads to the clinician-review action, decided by code alone (no AI call).** Cut-offs are clinical and cited: cardiac index below 2.2 L/min/m² (CSI 2018 Fig. 7, p. S20; also AHA/ACC/HFSA 2022 Table 23) and systolic blood pressure below 90 mmHg (AHA/ACC/HFSA 2022, p. e966, Tables 22-23, where it is an example value). **The rule "low flow or low pressure means clinician review" is a safety choice of the team; no guideline sentence says it.** Wording: "Urgent clinical review: low blood flow and low blood pressure together" only when both are low (the two measured shock criteria of Table 23; shock also needs signs of poor organ blood supply, which the tool cannot assess); otherwise "Low blood flow: clinician reviews the treatment plan" or "Low blood pressure: clinician reviews". Action id renamed `LOW_FLOW_OR_PRESSURE_REVIEW`. Jev is no longer called for this action. | Repeat runs on the 63 real recordings showed this action flipping between "review" and "abstain" (R8 checks). Stricter than CSI Fig. 7 in one place: Fig. 7 still lists diuretics for congestion with low flow, while our rules withhold the diuretic suggestion and ask for review (kept conservative, stated openly). | ✅ Approved by you 2026-10-20 ("do step 1"); a design change made after seeing results; resolves P20 |
 
 ### 2c. Suggestions and open questions from 2026-10-18
 
@@ -229,7 +231,7 @@ within-patient change, so expect modest results.
 | P15 | Approve installing scikit-learn and scipy into the project's venv, the `hf_twin` code folder, and starting the signal check and feature extraction | Awaiting approval. Packages were dry-run checked and install on Python 3.14. |
 | P18 | **Congestion uncertainty band (OPEN until model training finishes).** "Congested" only if the estimate's error range lies fully above 18 mmHg, "not congested" only if fully at or below 18, otherwise "uncertain / abstain". The range comes from the chosen model's real out-of-fold errors. Open: which final model, and the coverage level of the range (80% vs 90%). | Mechanism built (`hf_twin/recommendation/congestion_state.py`); verdict waits for V4/R5. |
 | P19 | ~~Approve the draft action menu (6 actions)~~ | **Resolved by D35:** approved on 2026-10-20; built and tested in R8. |
-| P20 | **Should "urgent clinical review" come straight from the code rule (low measured perfusion or SBP below 90) instead of passing the AI gate?** | Found in R8 checks: 6 of 63 real recordings flip between urgent review and abstain between runs. My view: yes, because the rule is deterministic, conservative and already measured-data-only; the AI then adds the guideline wording. Needs your approval (it is a design change made after seeing results; it would be logged as such). |
+| P20 | ~~Should "urgent clinical review" come straight from the code rule instead of passing the AI gate?~~ | **Resolved by D37** (approved 2026-10-20, with softer wording); results in R8b. |
 | P17 | Use TimesFM-3 (your demo in `OpsRabbit\TimesFM-Demo`) to forecast a MIMIC demo patient's weight or fluid trend for steps 5/9, labelled exploratory? | Possible (about 2-3 h); weights are non-commercial licence. Not decided. |
 | P16 | Re-apply the main-branch edits kept in the stash (rename of "majorproject" to "CardiacDigitalTwin", dataset-path fixes) onto `wip`? | Three of those files also differ on `wip`, so merging them needs care. |
 
@@ -452,7 +454,7 @@ Does the patch track the change? Correlation between the model's change and the 
 the patch: the patch does not follow the within-patient change (it moves the wrong way). Small sample (16), acute
 change in a catheter lab. Details: `artifacts/anchor_test.json`, `artifacts/anchor_test.csv`.
 
-### R8. Recommendation step (built and tested 2026-10-20, about 15:00)
+### R8. Recommendation step (built and tested 2026-10-20, about 14:30)
 Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `recommend.py` pipeline,
 `evaluate_recommendations.py`, `export_recommendations.py`; tests in `test_cases.json`; results in
 `artifacts/recommendation_eval.json`). Jev model reported: jev-1.13.0.
@@ -463,7 +465,9 @@ Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `
   how well those excerpts support that action (0 to 3). (4) Gate: choice confidence at least 0.6 and support at least 2.0,
   else abstain. A Jev failure also gives abstain ("review").
 - **Parameters:** the 75% / 25% bands are the outer bands of the R7 reliability table (engineering choices, not clinical
-  values); SBP 90 follows the CSI 2018 Table 11 caution; 0.6 and 2.0 were fixed before the first scored run and were not changed.
+  values); SBP 90 was first taken from the CSI 2018 Table 11 dose caution, and is now sourced to AHA/ACC/HFSA 2022 p. e966
+  (D37; a weaker source was used first); 0.6 and 2.0 were fixed before the first scored run and were not changed.
+  *(R8 describes the first design, where "urgent review" passed through the AI gate; R8b below supersedes it for that action.)*
 - **31 test cases** (written from the guideline excerpts before the first scored run; synthetic inputs; authored by the
   engineering team, not yet reviewed by a clinician, open item P11). Groups: congested outpatient / inpatient, not
   congested, low perfusion, low blood pressure, high-dose loop diuretic, uncertain, missing data, and boundary values.
@@ -496,11 +500,31 @@ Code: `hf_twin/recommendation/` (`actions.py` rules and menu, `jev_client.py`, `
   (e) **Repeatability on real patients is weaker than on the test cases:** two full runs over the 63 recordings gave the
   same decision for 57 and different decisions for 6, all flips between "urgent review" and "abstain" (support scores sit
   near the 2.0 gate, because the excerpts for urgent review are thin). No flip involved "continue therapy" or "diuretic
-  review", and the safety flags (made in code) never change. The committed file is the first run. Open: P20.
+  review", and the safety flags (made in code) never change. The committed file is the first run. Resolved by D37 (R8b).
   (f) **Inconsistency found:** the dashboard's congestion pill uses the strict rule (80% range fully on one side of 18 mmHg:
   62 "uncertain"), while the recommendation uses the outer reliability bands (chance at most 25% or at least 75%), so a
   recording can show "Uncertain" and "No congestion: continue" together (for example TRM219: estimate 9.7, 5% chance).
   This is the open P18 question; it needs one agreed rule or an explanation on screen.
+
+### R8b. Low-flow / low-pressure review decided by the rule (D37, 2026-10-20, about 15:10)
+Code: `actions.py` (`review_kind`, `REVIEW`), `recommend.py`; two verbatim excerpts added to the knowledge base from page
+e966 (checked on the page image: Table 22/23 and the "Hypotension (eg, SBP <90 mm Hg)" sentence; an earlier message of mine
+said e965, which was wrong). New repeatable check with no AI: `python -m hf_twin.recommendation.check_recommendation_rules`
+(25 checks pass: no forbidden action allowed, cut-offs exactly at 2.2 / 90 / 75% / 25%, review made without any AI call,
+label says "urgent" only when both are low, citations exist, no dose or drug name in the fixed text).
+- **33 test cases** (the original 31 unchanged except the id rename, plus J1 and J2 for both values low). Production:
+  **31 correct, 0 unsafe, 0 wrong, 2 abstain** (F1 and F2, the high-dose-diuretic cases: AI confidence 0.45-0.49, below 0.6);
+  second run identical (33 of 33); unfiltered diagnostic also 31 / 0 / 0 / 2. The review cases now test the code rule, not the AI.
+  The unfiltered result improved over R8 (25 to 31 correct) because the new shock-criteria excerpts raise the AI's support score.
+- **63 real recordings** (file `public/data/recommendations.json`, first of two runs): 48 suggestions, 15 abstain.
+  Review 34 (29 low flow only, 4 both low, 1 low pressure only; 0 AI calls), continue therapy 13, diuretic review 1;
+  the 15 abstentions are all rule-decided (middle-zone congestion), none from the AI gate. **The two full runs agree on all
+  63 recordings** (before D37: 57 of 63). Against the catheter: continue therapy 12 of 13 not congested (**1 congested, wedge 22**,
+  unchanged); diuretic review 1 of 1 congested; review group 17 of 34 congested (they get review rather than a diuretic
+  suggestion by design); abstain group 7 of 15 congested.
+- **Still unstable:** the SIMULATED high-dose-diuretic scenario for TRM245 flipped between "resistance review" (run 1, kept in
+  the file) and "abstain" (run 2): that AI choice sits near the 0.6 confidence gate. It is labelled simulated.
+- **Limits:** unchanged from R8; additionally, the review wording is a team safety choice (D37), not a guideline sentence.
 
 ## 11. Sources
 

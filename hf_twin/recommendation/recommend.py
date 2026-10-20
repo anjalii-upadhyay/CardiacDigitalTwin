@@ -3,6 +3,9 @@ recommend(): guideline-grounded action for one patient, in the approved two-step
 
   0. rules (code)   which actions are allowed at all for this patient (actions.eligible_actions). Unsafe actions are never
                     shown to the AI. If only ABSTAIN is allowed, no AI call is made.
+  0b. review rule   measured low blood flow and/or low blood pressure always gives the clinician-review action, decided by
+                    code alone with fixed citations and no AI call (journey D37, made after the R8 repeat runs showed the
+                    AI gate flipping this action on real patients).
   1. Jev "choice"   picks ONE allowed action, using only the patient facts and the verbatim guideline excerpts.
   2. Jev "score"    rates how well those excerpts support the chosen action for this patient (rubric 0-3).
   3. gate           the action is shown only if it was chosen with enough confidence AND supported well enough;
@@ -82,14 +85,22 @@ def build_state(f: A.PatientFacts, status: dict, allowed: list[str]) -> tuple[st
 
 def recommend(f: A.PatientFacts, mode: str = "filtered") -> dict:
     """
-    mode 'filtered' = production (rules first). mode 'unfiltered' = diagnostic only: all six actions are offered to the AI
-    with no rule filtering, used in tests to show what the code rules add.
+    mode 'filtered' = production (rules first, review action decided by the rule). mode 'unfiltered' = diagnostic only:
+    all six actions are offered to the AI with no rule filtering and no rule-decided review, used in tests to show what
+    the code rules add.
     """
     allowed, flags, status = A.eligible_actions(f)
     out = {"case_id": f.case_id, "mode": mode, "status": status, "safety_flags": flags, "allowed": allowed,
            "disclaimer": A.DISCLAIMER, "decision": "ABSTAIN", "label": A.ACTIONS["ABSTAIN"]["label"], "reason": None}
     if mode == "unfiltered":
         allowed = list(A.ACTIONS)
+    kind = A.review_kind(f)
+    if mode == "filtered" and kind:
+        r = A.REVIEW[kind]
+        by_id = {e["id"]: e for e in excerpts()}
+        out.update(decision=A.REVIEW_ACTION, label=r["label"], why=r["why"], review_kind=kind, ai_used=False,
+                   rule_decided=True, citations=[_citation(by_id[i]) for i in r["citations"]])
+        return out
     if allowed == ["ABSTAIN"]:
         out["reason"] = "safety rules allow no action for these facts: " + "; ".join(flags or ["no rule matches"])
         out["ai_used"] = False

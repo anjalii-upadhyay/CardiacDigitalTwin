@@ -17,120 +17,288 @@
     "ESC2026": {
       "citation": "2026 ESC Guidelines for the management of heart failure. Eur Heart J. 2026;47(38):5346-.",
       "doi": "10.1093/eurheartj/ehag100",
-      "status": "PENDING: PDF not yet obtained, no excerpts extracted. Replaces ESC 2021 and the 2023 focused update."
+      "status": "PENDING: PDF present in the guidelines folder (ehag100.pdf) but not yet read; no excerpts extracted. Replaces ESC 2021 and the 2023 focused update."
     }
   },
   "excerpts": [
     {
-      "id": "AHA-7.2-R1", "source": "AHA2022", "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
-      "page": "e927", "type": "recommendation", "cor": "1", "loe": "B-NR",
+      "id": "AHA-7.2-R1",
+      "source": "AHA2022",
+      "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+      "page": "e927",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "B-NR",
       "text": "In patients with HF who have fluid retention, diuretics are recommended to relieve congestion, improve symptoms, and prevent worsening HF.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW"
+      ]
     },
     {
-      "id": "AHA-7.2-R2", "source": "AHA2022", "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
-      "page": "e927", "type": "recommendation", "cor": "1", "loe": "B-NR",
+      "id": "AHA-7.2-R2",
+      "source": "AHA2022",
+      "section": "7.2 Diuretics and Decongestion Strategies in Patients With HF",
+      "page": "e927",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "B-NR",
       "text": "For patients with HF and congestive symptoms, addition of a thiazide (eg, metolazone) to treatment with a loop diuretic should be reserved for patients who do not respond to moderate- or high-dose loop diuretics to minimize electrolyte abnormalities.",
-      "supports": ["DIURETIC_RESISTANCE_REVIEW"]
+      "supports": [
+        "DIURETIC_RESISTANCE_REVIEW"
+      ]
     },
     {
-      "id": "AHA-7.2-SYN", "source": "AHA2022", "section": "7.2 Synopsis",
-      "page": "e927", "type": "synopsis", "cor": null, "loe": null,
+      "id": "AHA-7.2-SYN",
+      "source": "AHA2022",
+      "section": "7.2 Synopsis",
+      "page": "e927",
+      "type": "synopsis",
+      "cor": null,
+      "loe": null,
       "text": "Loop diuretics are the preferred diuretic agents for use in most patients with HF. [...] The treatment goal of diuretic use is to eliminate clinical evidence of fluid retention, using the lowest dose possible to maintain euvolemia. [...] diuretics should not be used in isolation but always combined with other GDMT for HF that reduces hospitalizations and prolongs survival.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW", "NO_CONGESTION_CONTINUE_GDMT"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW",
+        "NO_CONGESTION_CONTINUE_GDMT"
+      ]
     },
     {
-      "id": "AHA-7.2-TEXT1", "source": "AHA2022", "section": "7.2 Recommendation-Specific Supportive Text 1",
-      "page": "e928", "type": "supportive_text", "cor": null, "loe": null,
+      "id": "AHA-7.2-TEXT1",
+      "source": "AHA2022",
+      "section": "7.2 Recommendation-Specific Supportive Text 1",
+      "page": "e928",
+      "type": "supportive_text",
+      "cor": null,
+      "loe": null,
       "text": "In outpatients with HF, diuretic therapy is commonly initiated with low doses, and the dose is increased until urine output increases and weight decreases, generally by 0.5 to 1.0 kg daily.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW"
+      ]
     },
     {
-      "id": "AHA-T12", "source": "AHA2022", "section": "Table 12. Commonly Used Oral Diuretics in Treatment of Congestion for Chronic HF",
-      "page": "e928", "type": "table", "cor": null, "loe": null,
+      "id": "AHA-T12",
+      "source": "AHA2022",
+      "section": "Table 12. Commonly Used Oral Diuretics in Treatment of Congestion for Chronic HF",
+      "page": "e928",
+      "type": "table",
+      "cor": null,
+      "loe": null,
       "text": "Loop diuretics - Bumetanide: initial daily dose 0.5-1.0 mg once or twice; maximum total daily dose 10 mg; duration of action 4-6 h. Furosemide: 20-40 mg once or twice; 600 mg; 6-8 h. Torsemide: 10-20 mg once; 200 mg; 12-16 h. Thiazide diuretics - Metolazone: 2.5 mg once; 20 mg; 12-24 h.",
-      "supports": ["DOSE_REFERENCE_ONLY"],
+      "supports": [
+        "DOSE_REFERENCE_ONLY"
+      ],
       "note": "Clinician reference only. The app never derives a patient-specific dose from this table."
     },
     {
-      "id": "AHA-9.1-R1", "source": "AHA2022", "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
-      "page": "e960", "type": "recommendation", "cor": "1", "loe": "C-LD",
+      "id": "AHA-9.1-R1",
+      "source": "AHA2022",
+      "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+      "page": "e960",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "C-LD",
       "text": "In patients hospitalized with HF, severity of congestion and adequacy of perfusion should be assessed to guide triage and initial therapy.",
-      "supports": ["URGENT_CLINICAL_REVIEW", "LOW_PERFUSION_URGENT_REVIEW"]
+      "supports": [
+        "URGENT_CLINICAL_REVIEW",
+        "LOW_PERFUSION_URGENT_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.1-R2", "source": "AHA2022", "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
-      "page": "e960", "type": "recommendation", "cor": "1", "loe": "C-LD",
+      "id": "AHA-9.1-R2",
+      "source": "AHA2022",
+      "section": "9.1 Assessment of Patients Hospitalized With Decompensated HF",
+      "page": "e960",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "C-LD",
       "text": "In patients hospitalized with HF, the common precipitating factors and the overall patient trajectory should be assessed to guide appropriate therapy.",
-      "supports": ["URGENT_CLINICAL_REVIEW"]
+      "supports": [
+        "URGENT_CLINICAL_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.3-R1", "source": "AHA2022", "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
-      "page": "e963", "type": "recommendation", "cor": "1", "loe": "B-NR",
+      "id": "AHA-9.3-R1",
+      "source": "AHA2022",
+      "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+      "page": "e963",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "B-NR",
       "text": "Patients with HF admitted with evidence of significant fluid overload should be promptly treated with intravenous loop diuretics to improve symptoms and reduce morbidity.",
-      "supports": ["URGENT_CLINICAL_REVIEW"]
+      "supports": [
+        "URGENT_CLINICAL_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.3-R2", "source": "AHA2022", "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
-      "page": "e963", "type": "recommendation", "cor": "1", "loe": "B-NR",
+      "id": "AHA-9.3-R2",
+      "source": "AHA2022",
+      "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+      "page": "e963",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "B-NR",
       "text": "For patients hospitalized with HF, therapy with diuretics and other guideline-directed medications should be titrated with a goal to resolve clinical evidence of congestion to reduce symptoms and rehospitalizations.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.3-R3", "source": "AHA2022", "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
-      "page": "e963", "type": "recommendation", "cor": "1", "loe": "B-NR",
+      "id": "AHA-9.3-R3",
+      "source": "AHA2022",
+      "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+      "page": "e963",
+      "type": "recommendation",
+      "cor": "1",
+      "loe": "B-NR",
       "text": "For patients requiring diuretic treatment during hospitalization for HF, the discharge regimen should include a plan for adjustment of diuretics to decrease rehospitalizations.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.3-R4", "source": "AHA2022", "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
-      "page": "e963", "type": "recommendation", "cor": "2a", "loe": "B-NR",
+      "id": "AHA-9.3-R4",
+      "source": "AHA2022",
+      "section": "9.3 Diuretics in Hospitalized Patients: Decongestion Strategy",
+      "page": "e963",
+      "type": "recommendation",
+      "cor": "2a",
+      "loe": "B-NR",
       "text": "In patients hospitalized with HF when diuresis is inadequate to relieve symptoms and signs of congestion, it is reasonable to intensify the diuretic regimen using either: a. higher doses of intravenous loop diuretics; or b. addition of a second diuretic.",
-      "supports": ["DIURETIC_RESISTANCE_REVIEW"]
+      "supports": [
+        "DIURETIC_RESISTANCE_REVIEW"
+      ]
     },
     {
-      "id": "AHA-9.3-TEXT2", "source": "AHA2022", "section": "9.3 Recommendation-Specific Supportive Text 2",
-      "page": "e964", "type": "supportive_text", "cor": null, "loe": null,
+      "id": "AHA-9.3-TEXT2",
+      "source": "AHA2022",
+      "section": "9.3 Recommendation-Specific Supportive Text 2",
+      "page": "e964",
+      "type": "supportive_text",
+      "cor": null,
+      "loe": null,
       "text": "Monitoring HF treatment includes careful measurement of fluid intake and output, vital signs, standing body weight at the same time each day, and clinical signs and symptoms of congestion and hypoperfusion. Daily laboratory tests during active medication adjustment include serum electrolytes, urea nitrogen, and creatinine concentrations.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW", "SAFETY_MONITORING"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW",
+        "SAFETY_MONITORING"
+      ]
     },
     {
-      "id": "AHA-9.4a-R1", "source": "AHA2022", "section": "9.4a Parenteral Vasodilation Therapy in Patients Hospitalized With HF",
-      "page": "e964", "type": "recommendation", "cor": "2b", "loe": "B-NR",
+      "id": "AHA-9.4a-R1",
+      "source": "AHA2022",
+      "section": "9.4a Parenteral Vasodilation Therapy in Patients Hospitalized With HF",
+      "page": "e964",
+      "type": "recommendation",
+      "cor": "2b",
+      "loe": "B-NR",
       "text": "In patients who are admitted with decompensated HF, in the absence of systemic hypotension, intravenous nitroglycerin or nitroprusside may be considered as an adjuvant to diuretic therapy for relief of dyspnea.",
-      "supports": ["VASODILATOR_ADJUVANT_CONSIDER"]
+      "supports": [
+        "VASODILATOR_ADJUVANT_CONSIDER"
+      ]
     },
     {
-      "id": "CSI-FIG7", "source": "CSI2018", "section": "Fig. 7. Treatment outline for heart failure profiles",
-      "page": "S20", "type": "figure", "cor": null, "loe": null,
+      "id": "CSI-FIG7",
+      "source": "CSI2018",
+      "section": "Fig. 7. Treatment outline for heart failure profiles",
+      "page": "S20",
+      "type": "figure",
+      "cor": null,
+      "loe": null,
       "text": "CONGESTION AT REST? NO (PCWP<18 mmHg) / YES (PCWP>18 mmHg). LOW PERFUSION AT REST? NO (CI > 2.2 L/min/m2) / YES (CI < 2.2 L/min/m2). No congestion + no low perfusion: GDMT. No congestion + low perfusion: INOTROPES +/- IV FLUIDS. Congestion + no low perfusion: DIURETICS, VASODILATORS. Congestion + low perfusion: DIURETICS, INOTROPES.",
-      "supports": ["NO_CONGESTION_CONTINUE_GDMT", "CONGESTION_DIURETIC_REVIEW", "LOW_PERFUSION_URGENT_REVIEW", "THRESHOLDS"],
+      "supports": [
+        "NO_CONGESTION_CONTINUE_GDMT",
+        "CONGESTION_DIURETIC_REVIEW",
+        "LOW_PERFUSION_URGENT_REVIEW",
+        "THRESHOLDS"
+      ],
       "note": "Source of the clinically accepted cut-offs used by the twin: congestion = wedge pressure (PCWP) above 18 mmHg; low perfusion = cardiac index below 2.2 L/min/m2. The figure cites its reference 99."
     },
     {
-      "id": "CSI-2.2-DIUR", "source": "CSI2018", "section": "2.2 (acute HF management, diuretics)",
-      "page": "S20", "type": "text", "cor": null, "loe": null,
+      "id": "CSI-2.2-DIUR",
+      "source": "CSI2018",
+      "section": "2.2 (acute HF management, diuretics)",
+      "page": "S20",
+      "type": "text",
+      "cor": null,
+      "loe": null,
       "text": "Current guidelines recommend intravenously administered diuretics as first line therapy for volume overload. Loop diuretics are initial diuretics of choice.",
-      "supports": ["CONGESTION_DIURETIC_REVIEW", "URGENT_CLINICAL_REVIEW"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW",
+        "URGENT_CLINICAL_REVIEW"
+      ]
     },
     {
-      "id": "CSI-T11", "source": "CSI2018", "section": "Table 11. Use of Diuretics for correction fluid overload",
-      "page": "S20", "type": "table", "cor": null, "loe": null,
+      "id": "CSI-T11",
+      "source": "CSI2018",
+      "section": "Table 11. Use of Diuretics for correction fluid overload",
+      "page": "S20",
+      "type": "table",
+      "cor": null,
+      "loe": null,
       "text": "Diuretic naive: Furosemide 20-40 mg iv bolus. Previously taking diuretic: Furosemide 2.5 x previous dose (max 180 mg) (1-2 x previous dose if declining renal function, low albumin or SBP <90 mm Hg). If inadequate diuresis consider: Increasing iv dose or Switching to continuous iv infusion or Add diuretic with different mechanism (e.g. metolazone, hydrochlorthiazide, chlorthalidone).",
-      "supports": ["DOSE_REFERENCE_ONLY", "DIURETIC_RESISTANCE_REVIEW"],
+      "supports": [
+        "DOSE_REFERENCE_ONLY",
+        "DIURETIC_RESISTANCE_REVIEW"
+      ],
       "note": "Clinician reference only."
     },
     {
-      "id": "CSI-2.2.3-VASO", "source": "CSI2018", "section": "2.2.3 Vasodilators",
-      "page": "S21", "type": "text", "cor": null, "loe": null,
+      "id": "CSI-2.2.3-VASO",
+      "source": "CSI2018",
+      "section": "2.2.3 Vasodilators",
+      "page": "S21",
+      "type": "text",
+      "cor": null,
+      "loe": null,
       "text": "Vasodilators should be avoided in patients with reduced filling pressures or symptomatic hypotension. [...] Nitroglycerin exhibits primarily venodilation at low doses and mild arterial vasodilation at higher doses; thus, it is the preferred agent for preload reduction. [...] The primary disadvantages of nitroprusside are hypotension, tachyphylaxis and risk of cyanide and thiocyanate accumulation. In patients with substantial hepatic or renal impairment, this agent should be avoided or dose and duration of therapy should be minimized.",
-      "supports": ["VASODILATOR_ADJUVANT_CONSIDER", "SAFETY_HYPOTENSION"]
+      "supports": [
+        "VASODILATOR_ADJUVANT_CONSIDER",
+        "SAFETY_HYPOTENSION"
+      ]
     },
     {
-      "id": "CSI-2.4.1-HFPEF", "source": "CSI2018", "section": "2.4.1 Treatment (HFpEF), item D",
-      "page": "S27", "type": "text", "cor": null, "loe": null,
+      "id": "CSI-2.4.1-HFPEF",
+      "source": "CSI2018",
+      "section": "2.4.1 Treatment (HFpEF), item D",
+      "page": "S27",
+      "type": "text",
+      "cor": null,
+      "loe": null,
       "text": "Relieve congestion with diuretics Judicious use of loop diuretic with careful monitoring of renal function",
-      "supports": ["CONGESTION_DIURETIC_REVIEW", "SAFETY_MONITORING"]
+      "supports": [
+        "CONGESTION_DIURETIC_REVIEW",
+        "SAFETY_MONITORING"
+      ]
+    },
+    {
+      "id": "AHA-9.5-SHOCKTEXT",
+      "source": "AHA2022",
+      "section": "9.5 Evaluation and Management of Cardiogenic Shock, Synopsis",
+      "page": "e966",
+      "type": "synopsis",
+      "cor": null,
+      "loe": null,
+      "text": "Hypotension (eg, SBP <90 mm Hg) is the primary clinical manifestation of shock but is not sufficient for the diagnosis. Additionally, end-organ hypoperfusion should be present as a consequence of cardiac dysfunction (Tables 22, 23, 24).",
+      "supports": [
+        "LOW_PRESSURE_REVIEW",
+        "SHOCK_CRITERIA"
+      ],
+      "note": "Source of the low-blood-pressure cut-off used by the twin (systolic below 90 mmHg). It is given as an example (eg) and is not enough on its own to diagnose shock."
+    },
+    {
+      "id": "AHA-T23",
+      "source": "AHA2022",
+      "section": "Table 23. Suggested Shock Hemodynamic Criteria",
+      "page": "e966",
+      "type": "table",
+      "cor": null,
+      "loe": null,
+      "text": "1. SBP <90 mm Hg or mean BP <60 mm Hg. 2. Cardiac index <2.2 L/min/m2. 3. Pulmonary capillary wedge pressure >15 mm Hg. [...] *Diagnosis of shock requires ≥1 criteria to be present along with cardiac index <2.0 L/min/m2 and SBP <90 mm Hg.",
+      "supports": [
+        "LOW_PRESSURE_REVIEW",
+        "LOW_PERFUSION_URGENT_REVIEW",
+        "SHOCK_CRITERIA",
+        "THRESHOLDS"
+      ],
+      "note": "Low blood pressure and low cardiac index are two of the listed measured criteria; shock also needs signs of poor organ blood supply (Table 22), which this tool cannot assess. The table's footnote uses cardiac index <2.0 for the diagnosis; the 2.2 low-flow cut-off used by the twin is from CSI 2018 Fig. 7."
     }
   ]
 }
