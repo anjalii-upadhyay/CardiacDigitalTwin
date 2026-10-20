@@ -1,0 +1,94 @@
+{
+  "n_pairs": 16,
+  "measured_change_mean": -7.375,
+  "naive": {
+    "mae": 4.183333333333334,
+    "rmse": 5.099891066374741,
+    "pearson_r": -0.9999999999999998,
+    "r2": -0.13777777777777778
+  },
+  "input_sets": {
+    "signals_v1": {
+      "ridge": {
+        "mae": 4.921742967417743,
+        "rmse": 6.355454008412517,
+        "pearson_r": -0.2421282970899982,
+        "r2": -0.7669685043027961,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": -0.7384096340844097,
+          "ci95_low": -2.2895978720958436,
+          "ci95_high": 0.6179861143849791,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.5
+      },
+      "svr": {
+        "mae": 4.025027889796512,
+        "rmse": 5.0058892139647435,
+        "pearson_r": -0.08754809598194858,
+        "r2": -0.09622099565226772,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 0.15830544353682185,
+          "ci95_low": -0.4618852575811837,
+          "ci95_high": 0.7069120576639305,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.5
+      },
+      "gaussian_process": {
+        "mae": 4.410508026339978,
+        "rmse": 5.237593433415278,
+        "pearson_r": -0.09748172809392229,
+        "r2": -0.20004965025311683,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": -0.22717469300664472,
+          "ci95_low": -0.6657788231505598,
+          "ci95_high": 0.2803330866171763,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.25
+      }
+    },
+    "signals_v1+v2": {
+      "ridge": {
+        "mae": 5.165124365006836,
+        "rmse": 6.394894823014818,
+        "pearson_r": -0.07171996832850665,
+        "r2": -0.788967537276138,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": -0.9817910316735023,
+          "ci95_low": -2.8399918826426633,
+          "ci95_high": 0.6746657189482177,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.5
+      },
+      "svr": {
+        "mae": 3.9065106265581955,
+        "rmse": 4.607088647166635,
+        "pearson_r": 0.27836669304779915,
+        "r2": 0.07148529638926282,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 0.2768227067751381,
+          "ci95_low": -0.26251140828824066,
+          "ci95_high": 0.7627076054129573,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.625
+      },
+      "gaussian_process": {
+        "mae": 3.883725121839161,
+        "rmse": 4.89467166669683,
+        "pearson_r": 0.189511948320227,
+        "r2": -0.048051870392988416,
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 0.2996082114941725,
+          "ci95_low": -0.5183373674139534,
+          "ci95_high": 1.1210561146512645,
+          "meets_success_rule": false
+        },
+        "direction_agreement": 0.5
+      }
+    }
+  }
+}

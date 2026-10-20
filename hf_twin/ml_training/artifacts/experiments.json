@@ -1,0 +1,96 @@
+{
+  "wedge_mmHg": {
+    "n_baseline": 63,
+    "n_patients": 59,
+    "n_after_medicine_rows": 16,
+    "naive": {
+      "mae": 6.610286949356604,
+      "rmse": 7.802238797307721,
+      "pearson_r": -0.6057907478844753,
+      "r2": -0.030884817271108256
+    },
+    "variants": {
+      "V0_current": {
+        "mae": 5.300784965174023,
+        "rmse": 6.587504129677168,
+        "pearson_r": 0.5167226953210551,
+        "r2": 0.2651250091578372,
+        "mae_per_split": [
+          5.500731894610143,
+          5.3074859587968195,
+          5.145807137313391
+        ],
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 1.3095019841825817,
+          "ci95_low": 0.5624361979157503,
+          "ci95_high": 2.083214996995417,
+          "meets_success_rule": true
+        },
+        "auroc_decompensated": 0.7933467741935484,
+        "n_inputs": 20,
+        "seconds": 54
+      },
+      "V1_rich_vibration": {
+        "mae": 5.415508270625493,
+        "rmse": 6.642460487037781,
+        "pearson_r": 0.5179151471097067,
+        "r2": 0.2528124511829163,
+        "mae_per_split": [
+          5.6094224321152,
+          5.449314727889152,
+          5.318288753358402
+        ],
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 1.1947786787311117,
+          "ci95_low": 0.537761431855612,
+          "ci95_high": 1.8505468339526365,
+          "meets_success_rule": true
+        },
+        "auroc_decompensated": 0.7701612903225806,
+        "n_inputs": 36,
+        "seconds": 40
+      },
+      "V2_rich_plus_selection": {
+        "mae": 5.8696098005069,
+        "rmse": 6.9802424540218695,
+        "pearson_r": 0.42056431090995067,
+        "r2": 0.17488841961355694,
+        "mae_per_split": [
+          5.966537129116986,
+          5.8403449456384235,
+          6.057458442512677
+        ],
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 0.7406771488497039,
+          "ci95_low": -0.01360430664890085,
+          "ci95_high": 1.523720342133701,
+          "meets_success_rule": false
+        },
+        "auroc_decompensated": 0.7409274193548387,
+        "n_inputs": 36,
+        "seconds": 67
+      },
+      "V3_plus_after_medicine": {
+        "mae": 5.96619456443155,
+        "rmse": 7.2672217077095995,
+        "pearson_r": 0.35994369045678754,
+        "r2": 0.1056479919094977,
+        "mae_per_split": [
+          6.03919974943829,
+          6.1298883808698585,
+          6.069300832725033
+        ],
+        "vs_naive": {
+          "mae_gain_mmHg_or_mL": 0.6440923849250542,
+          "ci95_low": -0.0015979775809950238,
+          "ci95_high": 1.2780697397909568,
+          "meets_success_rule": false
+        },
+        "auroc_decompensated": 0.7207661290322581,
+        "n_inputs": 36,
+        "seconds": 49
+      }
+    },
+    "measured_wedge_auroc_decompensated": 0.9798387096774194
+  }
+}
